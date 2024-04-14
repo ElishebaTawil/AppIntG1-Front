@@ -19,7 +19,7 @@ import masquerade from './masquerade.jpg';
 import salsa from './salsa.jpg';
 import techno from './techno.jpg';
 import duki from './duki.jpg';
-import badBunny from './badBunny.webp';
+import badBunny from './badbunny.jpg';
 import tini from './tini.webp';
 import karolG from './karolg1.jpg';
 import daddyYankee from './daddyyankee.avif';
