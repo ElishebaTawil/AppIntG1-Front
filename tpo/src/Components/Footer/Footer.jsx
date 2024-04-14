@@ -34,11 +34,7 @@ const Footer = () => {
                 <hr />
                 <p>Copyright @2024 - Todos Los Derechos Reservados</p>
                 <p>TP APIS Integrantes</p>
-                <p>Maximo Rosso</p>
-                <p>Elisheba Tawil</p>
-                <p>Tadeo Pinque</p>
-                <p>Sebastian Sosa</p>
-                <p>Maurico Huentelaf</p>
+                <p>Maximo Rosso - Elisheba Tawil - Tadeo Pinque - Sebastian Sosa - Maurico Huentelaf  </p>
                 
             </div>
         </div>
