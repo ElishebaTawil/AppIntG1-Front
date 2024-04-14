@@ -1,0 +1,59 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(180deg, #fde1ff, #e1ffea22 60%);
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.card-container {
+    display: flex; /* Use flexbox for the card container */
+    justify-content: center; /* Center the cards horizontally */
+    gap: 20px; /* Add gap between cards */
+}
+
+.card {
+    width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Box shadow for the card */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Ensure the image covers the entire space */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem; /* Increase font size for the title */
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #555;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
