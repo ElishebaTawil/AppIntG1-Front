@@ -12,13 +12,7 @@ const Footer = () => {
                 <img src={footer_logo} alt="Footer Logo" />
                 <p>SHOPPER</p>
             </div>
-            <ul className='footer-links'>
-                <li>Compania</li>
-                <li>Fiestas</li>
-                <li>Oficinas</li>
-                <li>Nosotros</li>
-                <li>Contacto</li>
-            </ul>
+            
             <div className='footer-social-icon'>
                 <div className='footer-icons-container'>
                     <img src={instagram_icon} alt="Instagram Icon" />
