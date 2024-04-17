@@ -8,6 +8,8 @@ import Cart from "./Pages/Cart";
 import LoginSignup from "./Pages/LoginSignup";
 import Footer from "./Components/Footer/Footer";
 import Payments from "./Pages/Payments";
+import Home_screen from "./Pages/Home_screen";
+
 
 function App() {
   return (
@@ -15,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Nabvar />
         <Routes>
-          <Route path="/" element={<Eventos />} />
+          <Route path="/" element={<Home_screen />} />
           <Route
             path="/eventos"
             element={<EventsCategory category="eventos" />}
