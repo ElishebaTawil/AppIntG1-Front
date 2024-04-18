@@ -1,15 +1,18 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
-import logo from "../Assets/partylogo.avif";
-import cart_icon from "../Assets/scart.png";
+import logo from "../Assets/logo2.png";
+import cart_icon from "../Assets/bolsa_compras.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 import { IconButton } from "@mui/material";
+import lupa from '../Assets/lupa.png'
+
 
 const Nabvar = () => {
   const { shoppingCart, setSearch } = useContext(ShopContext);
-  const [menu, setMenu] = useState("eventos");
+  const [menu, setMenu] = useState("recintos");
   const [localSearch, setLocalSearch] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
   const handleChangeSearch = (event) => {
@@ -35,20 +38,27 @@ const Nabvar = () => {
     <div className="navbar">
       <div className="nav-logo">
         <img src={logo} alt="logo" className="logoshopper" />
-        <p>PARTY SHOPPER</p>
       </div>
-      <ul className="nav-menu">
-        <li onClick={() => setMenu("eventos")}>
-          <Link to="/">Eventos</Link>
-          {menu === "eventos" ? <hr /> : <></>}
-        </li>
+
+      {/* Botón de hamburguesa */}
+      <button className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
+        <div className="menu-icon-lines"></div>
+        <div className="menu-icon-lines"></div>
+        <div className="menu-icon-lines"></div>
+      </button>
+
+      <ul className={`nav-menu ${showMenu ? "show" : ""}`}>
         <li onClick={() => setMenu("recintos")}>
-          <Link to="/recintos">Recintos</Link>
-          {menu === "recintos" ? <hr /> : <></>}
+          <Link to="/">HOME</Link>
+       
         </li>
-        <li onClick={() => setMenu("artistas")}>
-          <Link to="/artistas">Artistas</Link>
-          {menu === "artistas" ? <hr /> : <></>}
+        <li onClick={() => setMenu("addCard_screen")}>
+          <Link to="/addCard_screen">VENDER</Link>
+         
+        </li>
+        <li onClick={() => setMenu("login")}>
+          <Link to="/login">LOG IN/SING UP</Link>
+        
         </li>
       </ul>
       <div className="nav-search">
@@ -57,11 +67,11 @@ const Nabvar = () => {
           placeholder="Search..."
           onChange={handleChangeSearch}
         />
-        <IconButton onClick={handleClickSearch}>Search</IconButton>
+        <IconButton onClick={handleClickSearch}>
+          <img src={lupa} alt="search" />
+          </IconButton>
       </div>
-      <Link to="/login">
-        <button>Login</button>
-      </Link>
+      
       <Link className="nav-login-cart" to="/cart">
         <img src={cart_icon} alt="" className="logocart" />
         <div className="nav-cart-count">{shoppingCart.length ?? 0}</div>
