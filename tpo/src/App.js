@@ -34,8 +34,8 @@ function App() {
             element={<EventsCategory category="artistas" />}
           />
           <Route path="/payments" element={<Payments />} />
-          <Route path="/partys" element={<Partys />} />
           <Route path="/partys/:partyId" element={<Partys />} />
+          <Route path="/partys" element={<Partys />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/addCard_screen" element={<addCard_screen />} />

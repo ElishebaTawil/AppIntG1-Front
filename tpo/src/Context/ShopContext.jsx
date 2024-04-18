@@ -7,12 +7,16 @@ const ShopContextProvider = (props) => {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [search, setSearch] = useState("");
 
+  const [user, setUser] = useState({ name: "nombre", role: "admin" });
+
   const contextValue = {
     all_parties,
     shoppingCart,
     setShoppingCart,
     search,
     setSearch,
+    user,
+    setUser,
   };
 
   return (
