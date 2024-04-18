@@ -10,6 +10,9 @@ import Footer from "./Components/Footer/Footer";
 import Payments from "./Pages/Payments";
 import Home_screen from "./Pages/Home_screen";
 
+import addCard_screen from './Pages/addCard_screen';
+
+
 
 function App() {
   return (
@@ -17,7 +20,7 @@ function App() {
       <BrowserRouter>
         <Nabvar />
         <Routes>
-          <Route path="/" element={<Home_screen />} />
+          <Route path="/" element={<EventsCategory category="recintos" />} />
           <Route
             path="/eventos"
             element={<EventsCategory category="eventos" />}
@@ -35,6 +38,8 @@ function App() {
           <Route path="/partys/:partyId" element={<Partys />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<LoginSignup />} />
+          <Route path="/addCard_screen" element={<addCard_screen />} />
+          <Route path="/EventsCategory" element={<EventsCategory />} />
         </Routes>
       </BrowserRouter>
       <Footer />
