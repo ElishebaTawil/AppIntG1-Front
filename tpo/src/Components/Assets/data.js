@@ -9,6 +9,7 @@ let data_parties = [
         image: bali,
         new_price: 100,
         old_price: 200
+     
     },
     {
         id: 2,
