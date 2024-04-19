@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import all_parties from "../Components/Assets/all_parties";
 import { useState } from "react";
+//import { useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext(null);
 
@@ -14,11 +15,16 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState(getDefaultCart());
-  const [user, setUser] = useState({ name: "nombre", role: "admin" });
+  const [user, setUser] = useState({ name: "", role: "" });
+  //const navigate = useNavigate();
 
   const addToCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    console.log(cartItems);
+    if (user.name) {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+      console.log(cartItems);
+    } else {
+      //navigate("/LoginSignup");
+    }
   };
 
   const removeFromCart = (itemId) => {
