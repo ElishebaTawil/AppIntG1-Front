@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./CSS/LoginSignup.css";
 import { ShopContext } from "../Context/ShopContext";
 
