@@ -11,9 +11,15 @@
 
 .productdisplay-img-list img {
     width: 100%;
+    max-width: 300px; /* Limiting maximum width for better responsiveness */
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced box-shadow for better depth */
+    transition: transform 0.3s ease; /* Adding a smooth transition effect */
+}
+
+.productdisplay-img-list img:hover {
+    transform: scale(1.05); /* Scale up slightly on hover for a subtle zoom effect */
 }
 
 .productdisplay-right {
