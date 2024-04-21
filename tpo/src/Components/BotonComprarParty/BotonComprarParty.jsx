@@ -5,6 +5,7 @@ import { ShopContext } from "../../Context/ShopContext";
 const BotonComprarParty = (props) => {
     const { setShoppingCart, shoppingCart } = useContext(ShopContext);
     const { party } = props;
+    const { addToCart } = useContext(ShopContext);
 
     const handleClickAddProduct = () => {
         setShoppingCart([...shoppingCart, party]);
@@ -13,7 +14,8 @@ const BotonComprarParty = (props) => {
     return (
         <div className='ComprarPartyButton'>
             
-                <button onClick={handleClickAddProduct} className="botonComprar">Comprar</button>
+                <button onClick={() => addToCart(party.id)} className="botonComprar">AGREGAR AL CARRITO</button>
+                
             
         </div>
     );

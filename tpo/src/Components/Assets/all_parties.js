@@ -33,7 +33,12 @@ let all_parties = [
         image: bali,
         new_price: 100,
         old_price: 200,
-        category: "recintos"
+        category: "recintos",
+        fecha:'14/11/2024',
+        hora:'19:50',
+        lugar: 'Estadio River Plate',
+        ubicacion:'Av Figueroa Alcorta y Udaondo',
+        stock: 100
     },
     {
         id: 2,
@@ -41,7 +46,13 @@ let all_parties = [
         image: kika,
         new_price: 150,
         old_price: 250,
-        category: "recintos"
+        category: "recintos",
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Vorterix',
+        ubicacion:'Av. Federico Lacroze 3455',
+        stock: 100
     },
     {
         id: 3,
@@ -49,7 +60,12 @@ let all_parties = [
         image: terrazas,
         new_price: 120,
         old_price: 220,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Gran Rex',
+        ubicacion:'Av. Corrientes 857',
+        stock: 100
     },
     {
         id: 4,
@@ -57,7 +73,12 @@ let all_parties = [
         image: pacha,
         new_price: 90,
         old_price: 180,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Niceto Club',
+        ubicacion:'Av. Cnel. Niceto Vega 5510',
+        stock: 100
     },
     {
         id: 5,
@@ -65,7 +86,12 @@ let all_parties = [
         image: ibiza,
         new_price: 180,
         old_price: 280,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Estadio River Plate',
+        ubicacion:'Av Figueroa Alcorta y Udaondo',
+        stock: 100
     },
     {
         id: 6,
@@ -73,7 +99,12 @@ let all_parties = [
         image: samba,
         new_price: 200,
         old_price: 300,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'La Trastienda Club',
+        ubicacion:'Balcarce 460',
+        stock: 100
     },
     {
         id: 7,
@@ -81,7 +112,12 @@ let all_parties = [
         image: disco,
         new_price: 140,
         old_price: 240,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Gran Rex',
+        ubicacion:'Av. Corrientes 857',
+        stock: 100
     },
     {
         id: 8,
@@ -89,7 +125,12 @@ let all_parties = [
         image: reggae,
         new_price: 120,
         old_price: 220,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Vorterix',
+        ubicacion:'Av. Federico Lacroze 3455',
+        stock: 100
     },
     {
         id: 9,
@@ -97,7 +138,12 @@ let all_parties = [
         image: electro,
         new_price: 160,
         old_price: 260,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Estadio River Plate',
+        ubicacion:'Av Figueroa Alcorta y Udaondo',
+        stock: 100
     },
     {
         id: 10,
@@ -105,7 +151,12 @@ let all_parties = [
         image: jazz,
         new_price: 130,
         old_price: 230,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Gran Rex',
+        ubicacion:'Av. Corrientes 857',
+        stock: 100
     },
     {
         id: 11,
@@ -113,7 +164,12 @@ let all_parties = [
         image: revival,
         new_price: 190,
         old_price: 290,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'La Trastienda Club',
+        ubicacion:'Balcarce 460',
+        stock: 100
     },
     {
         id: 12,
@@ -121,7 +177,12 @@ let all_parties = [
         image: hiphop,
         new_price: 110,
         old_price: 210,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Vorterix',
+        ubicacion:'Av. Federico Lacroze 3455',
+        stock: 100
     },
     {
         id: 13,
@@ -129,7 +190,12 @@ let all_parties = [
         image: rock,
         new_price: 170,
         old_price: 270,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Luna Park',
+        ubicacion:'Av. Eduardo Madero 420',
+        stock: 100
     },
     {
         id: 14,
@@ -137,7 +203,12 @@ let all_parties = [
         image: latin,
         new_price: 150,
         old_price: 250,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Gran Rex',
+        ubicacion:'Av. Corrientes 857',
+        stock: 100
     },
     {
         id: 15,
@@ -145,7 +216,12 @@ let all_parties = [
         image: karaoke,
         new_price: 100,
         old_price: 200,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Niceto Club',
+        ubicacion:'Av. Cnel. Niceto Vega 5510',
+        stock: 100
     },
     {
         id: 16,
@@ -153,7 +229,12 @@ let all_parties = [
         image: carnival,
         new_price: 220,
         old_price: 320,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Vorterix',
+        ubicacion:'Av. Federico Lacroze 3455',
+        stock: 100
     },
     {
         id: 17,
@@ -161,7 +242,12 @@ let all_parties = [
         image: funky_town,
         new_price: 170,
         old_price: 270,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'La Trastienda Club',
+        ubicacion:'Balcarce 460',
+        stock: 100
     },
     {
         id: 18,
@@ -169,7 +255,12 @@ let all_parties = [
         image: masquerade,
         new_price: 200,
         old_price: 300,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Luna Park',
+        ubicacion:'Av. Eduardo Madero 420',
+        stock: 100
     },
     {
         id: 19,
@@ -177,7 +268,12 @@ let all_parties = [
         image: salsa,
         new_price: 140,
         old_price: 240,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Vorterix',
+        ubicacion:'Av. Federico Lacroze 3455',
+        stock: 100
     },
     {
         id: 20,
@@ -185,45 +281,89 @@ let all_parties = [
         image: techno,
         new_price: 180,
         old_price: 280,
-        category: "recintos"
+        category: "recintos",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'La Trastienda Club',
+        ubicacion:'Balcarce 460',
+        stock: 100
     },
 
     {
         id: 21,
         name: "Duki",
         image: duki,
-        category: "artistas"
+        new_price: 220,
+        category: "artistas",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Niceto Club',
+        ubicacion:'Av. Cnel. Niceto Vega 5510',
+        stock: 100
 
     },
     {
         id: 22,
         name: "Bad Bunny",
         image: badBunny,
-        category: "artistas"
+        new_price: 220,
+        category: "artistas",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Luna Park',
+        ubicacion:'Av. Eduardo Madero 420',
+        stock: 100
     },
     {
         id: 23,
         name: "Tini",
         image: tini,
-        category: "artistas"
+        new_price: 220,
+        category: "artistas",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'La Trastienda Club',
+        ubicacion:'Balcarce 460',
+        stock: 100
     },
     {
         id: 24,
         name: "Karol G",
         image: karolG,
-        category: "artistas"
+        category: "artistas",
+        new_price: 220,
+        category: "artistas",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Vorterix',
+        ubicacion:'Av. Federico Lacroze 3455',
+        stock: 100
     },
     {
         id: 25,
         name: "Daddy Yankee",
         image: daddyYankee,
-        category: "artistas"
+        category: "artistas",
+        new_price: 220,
+        category: "artistas",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Luna Park',
+        ubicacion:'Av. Eduardo Madero 420',
+        stock: 100
     },
     {
         id: 26,
         name: "Lali",
         image: lali,
-        category: "artistas"
+        category: "artistas",
+        new_price: 220,
+        category: "artistas",
+        fecha:'12/10/2024',
+        hora:'18:30',
+        lugar: 'Teatro Gran Rex',
+        ubicacion:'Av. Corrientes 857',
+        stock: 100
     }
     
 ];
