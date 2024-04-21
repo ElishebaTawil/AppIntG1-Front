@@ -7,7 +7,7 @@
 }
 .relatedproducts h1{
     font-size: 50px;
-    color: #171717;
+    color: orangered;
     font-weight: 600;
 }
 .relatedproducts hr{
@@ -20,4 +20,14 @@
     margin-top: 50px;
     display: flex;
     gap:30px;
+    
+}
+@media (max-width: 768px) {
+    .relatedproducts-item{
+        display: block;
+        height: 700px;
+        overflow: hidden;
+        
+    }
+
 }

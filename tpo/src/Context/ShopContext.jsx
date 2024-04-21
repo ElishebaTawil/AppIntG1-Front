@@ -4,6 +4,8 @@ import {useState} from 'react';
 
 export const ShopContext = createContext(null);
 
+
+
 const getDefaultCart = () => {
     let cart ={};
     for (let index = 0 ; index < all_parties.length + 1; index++){
@@ -14,6 +16,8 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
     const [cartItems,setCartItems] = useState(getDefaultCart());
+    const [shoppingCart, setShoppingCart] = useState([]);
+    const [search, setSearch] = useState("");
     
 
     const addToCart = (itemId) => {
@@ -46,7 +50,8 @@ const ShopContextProvider = (props) => {
         }
 
     
-    const contextValue = {getTotalCartItems,getTotalCartAmount,all_parties,cartItems,addToCart,removeFromCart};
+    const contextValue = {getTotalCartItems,getTotalCartAmount,all_parties,cartItems,addToCart,removeFromCart,shoppingCart,setShoppingCart,search,setSearch};
+    
 
     return (
         <ShopContext.Provider value={contextValue}>

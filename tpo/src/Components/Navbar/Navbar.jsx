@@ -1,45 +1,88 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from "react"
 import './Navbar.css'
-import logo from '../Assets/partylogo.avif'
-import cart_icon from '../Assets/scart.png'
-import { Link } from 'react-router-dom'
-import { useContext } from 'react';
+import logo from "../Assets/logo2.png";
+import cart_icon from "../Assets/bolsa_compras.jpg";
+import { Link, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../Context/ShopContext';
+import lupa from '../Assets/lupa.png'
+import { IconButton } from "@mui/material";
 
 
 
 const Nabvar = () => {
-    const [menu,setMenu] = useState("eventos")
+    const [menu,setMenu] = useState("recintos")
     const {getTotalCartItems} = useContext(ShopContext);
+    const [localSearch, setLocalSearch] = useState("");
+    const [showMenu, setShowMenu] = useState(false);
+    const navigate = useNavigate();
+    const { shoppingCart, setSearch } = useContext(ShopContext);
+  
+    const handleChangeSearch = (event) => {
+      const value = event.target.value;
+      setLocalSearch(value);
+      if (!value.length) {
+        setSearch("");
+      }
+      if (value.length >= 3) {
+        setSearch(value);
+      }
+      navigate("/recintos");
+  };
+  const handleClickSearch = () => {
+    if (localSearch.length >= 3) {
+      setSearch(localSearch);
+      navigate("/recintos");
+      
+    }
+    
+  };
 
 
     return ( 
         <div className='navbar'>
             <div className='nav-logo'>
                 <img src={logo} alt='logo'className='logoshopper'/>
-                <p>PARTY SHOPPER</p>
-            </div>
-            <ul className='nav-menu'>
-                <li onClick={()=> setMenu("eventos")}><Link to= '/'>Eventos</Link>{menu==="eventos"? <hr/>:<></>}</li>
-                <li onClick={()=> setMenu("recintos")}><Link to= '/recintos'>Recintos</Link>{menu==="recintos"? <hr/>:<></>}</li>
-                <li onClick={()=> setMenu("artistas")}><Link to='/artistas'>Artistas</Link>{menu==="artistas"? <hr/>:<></>}</li>
-            </ul>
+                </div>  
+            {/* Botón de hamburguesa */}
+            <button className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
+              <div className="menu-icon-lines"></div>
+              <div className="menu-icon-lines"></div>
+              <div className="menu-icon-lines"></div>
+            </button>
+
+          <ul className={`nav-menu ${showMenu ? "show" : ""}`}>
+            <li onClick={() => setMenu("recintos")}>
+              <Link to="/">HOME</Link>
+
+            </li>
+            <li onClick={() => setMenu("addCard_screen")}>
+              <Link to="/addCard_screen">VENDER</Link>
+
+            </li>
+            
+            <li onClick={() => setMenu("login")}>
+              <Link to="/login">LOG IN/SING UP</Link>
+
+            </li>
+          </ul>
 
             
             <div className='nav-search'>
-                <input type='text' placeholder='Search...' />
-                <button>Search</button>
+                <input type='text' placeholder='Search...' onChange={handleChangeSearch} />
+                <IconButton onClick={handleClickSearch}>
+                <img src={lupa} alt="search" />
+                </IconButton>
             </div>
                 
-            <div className='nav-login-cart'>
-                <Link to ='/login'><button>Login</button></Link>
-                <Link to ='/cart'><img src={cart_icon} alt='' className='logocart'/></Link>
+            <Link className='nav-login-cart' to ='/cart'>
+                
+                <img src={cart_icon} alt='' className='logocart'/>
                 <div className='nav-cart-count'>{getTotalCartItems()}</div>
-            </div>
-
-            
+          </Link>
+          
         </div>
      );
-}
+     
+    }
  
 export default Nabvar; 

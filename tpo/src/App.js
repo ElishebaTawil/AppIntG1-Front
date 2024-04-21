@@ -7,6 +7,8 @@ import Partys from './Pages/Partys';
 import Cart from './Pages/Cart';
 import LoginSignup from './Pages/LoginSignup';
 import Footer from './Components/Footer/Footer';
+import addCard_screen from './Pages/addCard_screen';
+import Payments from "./Pages/Payments";
 
 function App() {
   return (
@@ -14,14 +16,16 @@ function App() {
       <BrowserRouter>
         <Nabvar />
         <Routes>
-          <Route path='/' element={<Eventos />} />
+          <Route path='/' element={<EventsCategory category="recintos" />} />
           <Route path='/eventos' element={<EventsCategory category="eventos" />} />
-          <Route path='/recintos' element={<EventsCategory category="recintos" />} />
           <Route path='/artistas' element={<EventsCategory category="artistas" />} />
           <Route path='/partys' element={<Partys />} />
+          <Route path="/payments" element={<Payments />} />
           <Route path='/partys/:partyId' element={<Partys />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/login' element={<LoginSignup />} />
+          <Route path="/addCard_screen" element={<addCard_screen />} />
+          <Route path="/EventsCategory" element={<EventsCategory />} />
         </Routes>
       </BrowserRouter>
       <Footer />
