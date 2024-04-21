@@ -78,3 +78,9 @@
     font-size: 18px;
     font-weight: 500;
 }
+input[type="checkbox"] {
+    width: 22px; /* Ancho del checkbox */
+    height: 22px; /* Altura del checkbox */
+    transform: scale(1.5); /* Ajustar la escala del checkbox */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el checkbox */
+  }

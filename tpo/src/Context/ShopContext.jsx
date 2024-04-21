@@ -18,12 +18,17 @@ const ShopContextProvider = (props) => {
     const [cartItems,setCartItems] = useState(getDefaultCart());
     const [shoppingCart, setShoppingCart] = useState([]);
     const [search, setSearch] = useState("");
+    const [user, setUser] = useState({ name: "", role: "" });
     
 
     const addToCart = (itemId) => {
-    setCartItems((prev)=> ({...prev,[itemId]: prev[itemId] + 1}));
-    console.log(cartItems);
-    }
+        if (user.name) {
+            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+            console.log(cartItems);
+          } else {
+            //navigate("/LoginSignup");
+          }
+    };
     const removeFromCart = (itemId) => {
         setCartItems((prev)=> ({...prev,[itemId]: prev[itemId] - 1}));
         }
@@ -50,7 +55,7 @@ const ShopContextProvider = (props) => {
         }
 
     
-    const contextValue = {getTotalCartItems,getTotalCartAmount,all_parties,cartItems,addToCart,removeFromCart,shoppingCart,setShoppingCart,search,setSearch};
+    const contextValue = {getTotalCartItems,getTotalCartAmount,all_parties,cartItems,addToCart,removeFromCart,shoppingCart,setShoppingCart,search,setSearch, user, setUser};
     
 
     return (
