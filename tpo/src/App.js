@@ -9,6 +9,7 @@ import LoginSignup from './Pages/LoginSignup';
 import Footer from './Components/Footer/Footer';
 import addCard_screen from './Pages/addCard_screen';
 import Payments from "./Pages/Payments";
+import LoginUser from './Pages/LoginUser';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path="/payments" element={<Payments />} />
           <Route path='/partys/:partyId' element={<Partys />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/login' element={<LoginSignup />} />
+          <Route path='/loginSignUp' element={<LoginSignup />} />
+          <Route path='/loginUser' element={<LoginUser />} />
           <Route path="/addCard_screen" element={<addCard_screen />} />
           <Route path="/EventsCategory" element={<EventsCategory />} />
         </Routes>
