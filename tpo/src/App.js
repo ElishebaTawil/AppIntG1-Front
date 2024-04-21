@@ -18,8 +18,8 @@ function App() {
           <Route path='/eventos' element={<EventsCategory category="eventos" />} />
           <Route path='/recintos' element={<EventsCategory category="recintos" />} />
           <Route path='/artistas' element={<EventsCategory category="artistas" />} />
-          <Route path='/partys/:partyId' element={<Partys />} />
           <Route path='/partys' element={<Partys />} />
+          <Route path='/partys/:partyId' element={<Partys />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/login' element={<LoginSignup />} />
         </Routes>
