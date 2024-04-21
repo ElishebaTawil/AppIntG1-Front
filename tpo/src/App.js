@@ -1,18 +1,12 @@
-import React from "react";
-import Nabvar from "./Components/Navbar/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Eventos from "./Pages/Eventos";
-import EventsCategory from "./Pages/EventsCategory";
-import Partys from "./Pages/Partys";
-import Cart from "./Pages/Cart";
-import LoginSignup from "./Pages/LoginSignup";
-import Footer from "./Components/Footer/Footer";
-import Payments from "./Pages/Payments";
-import Home_screen from "./Pages/Home_screen";
-
-import addCard_screen from './Pages/addCard_screen';
-
-
+import React from 'react';
+import Nabvar from './Components/Navbar/Navbar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Eventos from './Pages/Eventos';
+import EventsCategory from './Pages/EventsCategory';
+import Partys from './Pages/Partys';
+import Cart from './Pages/Cart';
+import LoginSignup from './Pages/LoginSignup';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   return (

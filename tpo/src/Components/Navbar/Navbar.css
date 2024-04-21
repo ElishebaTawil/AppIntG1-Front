@@ -3,35 +3,34 @@
    justify-content:space-between;
    padding: 16px;
    box-shadow: 0 1px 3px -2px black;
-   background-color: black;
-   color: white;
-   height: 100%;
 }
 
 .nav-logo{
     display: flex;
     align-items: center;
     gap: 10px;
-}    
-
+}
 .logoshopper{
-    width: 100px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
 }
 .logocart{
-    width: 4rem;
-    height: 4rem;
+    width: 30px;
+    height: 30px;
 }
 
-
+.nav-logo p{
+    font-size: 20px;
+    font-weight: bold;
+}
 .nav-menu{
    display: flex;
    align-items: center;
    list-style: none;
    gap: 40px;
-   color: white;
-   font-size: 18px;
-   font-weight: bold;
+   color: #626261;
+   font-size: 20px;
+   font-weight: 500;
    text-decoration: none;
 }
 .nav-menu li a{
@@ -42,75 +41,42 @@
     gap: 3px;
     cursor: pointer;
     text-decoration: none ;
-    color: white; /* Change link color to grey */
-    transition: color 0.3s; 
+    color: #626261; /* Change link color to grey */
+    transition: color 0.3s; /* Add smooth color transition */
     
 
 }
 .nav-menu li a:hover {
-    color: #626261; /* Change link color on hover */
+    color: #ff4545; /* Change link color on hover */
 }
-/* Estilo para el botón de hamburguesa */
-.menu-icon {
-    display: none; /* Ocultar por defecto en dispositivos grandes */
-    
-  }
-
-  
-  /* Estilo para las líneas del botón de hamburguesa */
-  .menu-icon-lines {
-    width: 30px;
+.nav-menu hr{
+    border: none;
+    width: 80%;
     height: 3px;
-    background-color: white;
-    margin: 9px 0;
-    
-  }
-
-  .menu-icon {
-    color: white; 
-    background-color: transparent; 
-    border: none; 
-    font-size: 50px; 
-    cursor: pointer; 
-  }
-  
-  /* Estilo para el menú en dispositivos pequeños */
-  @media (max-width: 768px) {
-    .nav-menu {
-      display: none; /* Ocultar el menú por defecto */
-      flex-direction: column;
-      position: fixed;
-      top: 85px;
-      left: 0;
-      background-color: transparent;
-      width: 50%;
-      padding: 10px;
-      border: 1px solid white;
-      background-color: transparent;
-
-    }
-  
-    /* Mostrar el menú cuando se hace clic en el botón de hamburguesa */
-    .nav-menu.show {
-      display: flex;
-    }
-  
-    .menu-icon {
-      display: block; /* Mostrar el botón de hamburguesa en dispositivos pequeños */
-    }
-    .nav-menu li a{
-        color:black;
-    }
-    
-  }
-  
+    border-radius: 10px;
+    background: red;
+}
 
 .nav-login-cart{
     display: flex;
     gap: 45px;
     align-items: center;
 }
-
+.nav-login-cart button{
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 50%;
+    color: #515151;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    background: white;
+}
+.nav-login-cart button:active{
+    background: #f5f5f5;
+}
 .nav-cart-count{
    width: 22px;
     height: 22px;
@@ -121,8 +87,8 @@
     margin-left: -55px;
     border-radius: 11px;
     font-size: 14px;
+    background: red;
     color: white;
-    background-color: #626261;
 }
 
 .container-fluid{
@@ -131,46 +97,3 @@
     padding: 0 20px;
     display: inline;
 }
-.nav-search {
-    display: flex;
-    align-items: center;
-    background-color: #f2f2f2;
-    border-radius: 20px; /* Redondear los bordes del contenedor */
-    padding: 5px 10px; /* Añadir espacio interno al contenedor */
-    width: 300px; /* Ajustar la longitud del contenedor */
-  }
-  
-  .nav-search input {
-    flex: 1; /* El input ocupa todo el espacio disponible */
-    border: none;
-    background: transparent;
-    margin-right: 10px; /* Añadir espacio entre el input y el botón */
-  }
-  
-  .nav-search input:focus {
-    outline: none; /* Eliminar el contorno al hacer foco en el input */
-  }
-  
-  .nav-search button {
-    border: none;
-    border-radius: 20px; /* Redondear los bordes del botón */
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .nav-search button img{
-    width: 20px;
-    height: 20px;
-  }
-  @media (max-width: 768px) {
-    .nav-search {
-        padding: 2px 2px; /* Añadir espacio interno al contenedor */
-        width: 100px; /* Ajustar la longitud del contenedor */
-      }
-      
-      .nav-search button img{
-        display: none;
-    
-  }
-}
-  
