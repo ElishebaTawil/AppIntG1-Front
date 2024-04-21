@@ -165,3 +165,7 @@
 
   }
 }
+.loginName p{
+  text-transform: uppercase;
+  margin-top: 12px;
+}

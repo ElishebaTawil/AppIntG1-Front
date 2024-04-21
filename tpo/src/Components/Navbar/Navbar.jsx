@@ -16,6 +16,7 @@ const Nabvar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
     const { shoppingCart, setSearch } = useContext(ShopContext);
+    const { user } = useContext(ShopContext);
   
     const handleChangeSearch = (event) => {
       const value = event.target.value;
@@ -59,11 +60,16 @@ const Nabvar = () => {
               <Link to="/addCard_screen">VENDER</Link>
 
             </li>
-            
-            <li onClick={() => setMenu("login")}>
-              <Link to="/login">LOG IN/SING UP</Link>
+            {user.name ? (
+              <div className="loginName">
+                <p>HOLA, {user.name}!</p>
+              </div>
+                ) : (   
+                  <li onClick={() => setMenu("login")}>
+                    <Link to="/login">LOG IN/SING UP</Link>
 
-            </li>
+                  </li>
+                )}
           </ul>
 
             
