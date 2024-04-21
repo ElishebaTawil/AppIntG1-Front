@@ -1,6 +1,6 @@
 import React,{createContext} from 'react'
 import all_parties from '../Components/Assets/all_parties';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 
 export const ShopContext = createContext(null);
 
@@ -19,11 +19,12 @@ const ShopContextProvider = (props) => {
     const [shoppingCart, setShoppingCart] = useState([]);
     const [search, setSearch] = useState("");
     const [user, setUser] = useState({ name: "", role: "" });
+    const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
     
 
-    const addToCart = (itemId) => {
+    const addToCart = (itemId, cantidad) => {
         if (user.name) {
-            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + cantidad }));
             console.log(cartItems);
           } else {
             //navigate("/LoginSignup");
@@ -55,7 +56,13 @@ const ShopContextProvider = (props) => {
         }
 
     
-    const contextValue = {getTotalCartItems,getTotalCartAmount,all_parties,cartItems,addToCart,removeFromCart,shoppingCart,setShoppingCart,search,setSearch, user, setUser};
+    const contextValue = {
+        getTotalCartItems,getTotalCartAmount,
+        all_parties,cartItems,addToCart,removeFromCart,
+        shoppingCart,setShoppingCart,search,setSearch, 
+        user, setUser,
+        cantidadSeleccionada, setCantidadSeleccionada
+    };
     
 
     return (

@@ -23,9 +23,7 @@ const Partys = () => {
         <div>
         <BotonesParty party = {party}/>
         </div>
-        <div className="botonParaComprar" style={{marginTop: '20px'}}>
-        <BotonComprarParty party={party}/>
-        </div>
+        
          <div>
          <RelatedPartys style={{marginTop: '20px'}}/>
         </div>    
