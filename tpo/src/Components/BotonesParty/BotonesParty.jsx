@@ -1,42 +1,63 @@
 import './BotonesParty.css'
+import React, { useState, useContext } from "react";
+import { ShopContext } from "../../Context/ShopContext";
+
 
 const BotonesParty = (props) => {
     const {party} = props;
+   
+    const { addToCart } = useContext(ShopContext);
+    const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
+
+    
+    const handleCantidadChange = (event) => {
+        const cantidad = parseInt(event.target.value);
+        setCantidadSeleccionada(cantidad);
+    };
 
   return (
-    <div className='barraBotones'>
-        <div className='boton'>
-            <select id='fecha' className='estiloBoton'>
-                <option selected>{party.fecha}</option>
-            </select>
+    <div>
+        <div className='barraBotones'>
+            <div className='boton'>
+                <select id='fecha' className='estiloBoton'>
+                    <option selected>{party.fecha}</option>
+                </select>
 
-        </div>
-        <div className='boton'>
-            <select id='hora' className='estiloBoton'>
-                <option selected>{party.hora}</option>
-            </select>
+            </div>
+            <div className='boton'>
+                <select id='hora' className='estiloBoton'>
+                    <option selected>{party.hora}</option>
+                </select>
 
-        </div>
-        <div className='boton'>
-            <select id='lugar' className='estiloBoton'>
-                <option selected>{party.lugar}</option>
-                <option>{party.ubicacion}</option>
-            </select>
+            </div>
+            <div className='boton'>
+                <select id='lugar' className='estiloBoton'>
+                    <option selected>{party.lugar}</option>
+                    <option>{party.ubicacion}</option>
+                </select>
 
-        </div>
-        <div className='boton'>
-            <select id='precio' className='estiloBoton'>
-                <option selected>{'$'+party.new_price}</option>
-            </select>
+            </div>
+            <div className='boton'>
+                <select id='precio' className='estiloBoton'>
+                    <option selected>{'$'+party.new_price}</option>
+                </select>
 
+            </div>
+            <div className='boton'>
+                <select id='cantidad' className='estiloBoton' value={cantidadSeleccionada} onChange={handleCantidadChange}>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                </select>
+
+            </div>
         </div>
-        <div className='boton'>
-            <select id='cantidad' className='estiloBoton'>
-                <option selected>1</option>
-                <option selected>2</option>
-                <option selected>3</option>
-                <option selected>4</option>
-            </select>
+
+        <div className='ComprarPartyButton'>
+                    
+        <button onClick={() => addToCart(party.id, cantidadSeleccionada)} className="botonComprar">AGREGAR AL CARRITO</button>
+
 
         </div>
     </div>

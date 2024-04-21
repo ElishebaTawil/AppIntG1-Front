@@ -1,11 +1,12 @@
 import './BotonComprarParty.css'
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { ShopContext } from "../../Context/ShopContext";
 
 const BotonComprarParty = (props) => {
     const { setShoppingCart, shoppingCart } = useContext(ShopContext);
     const { party } = props;
     const { addToCart } = useContext(ShopContext);
+    
 
     const handleClickAddProduct = () => {
         setShoppingCart([...shoppingCart, party]);
