@@ -14,6 +14,10 @@ const BotonesParty = (props) => {
         const cantidad = parseInt(event.target.value);
         setCantidadSeleccionada(cantidad);
     };
+    const VerificarStock = (cantidadSeleccionada) => {
+        return cantidadSeleccionada <=  party.stock
+
+    }
 
   return (
     <div>
@@ -53,13 +57,16 @@ const BotonesParty = (props) => {
 
             </div>
         </div>
+        {VerificarStock(cantidadSeleccionada) ? (
+            <div className='ComprarPartyButton'>           
+                <button onClick={() => addToCart(party.id, cantidadSeleccionada)} className="botonComprar aviable" >AGREGAR AL CARRITO</button>
+            </div>
+        ) : (
+            <div className='ComprarPartyButton'>
+                <button className='botonComprar disable'> AGREGAR AL CARRITO</button>
+            </div>
+        )}
 
-        <div className='ComprarPartyButton'>
-                    
-        <button onClick={() => addToCart(party.id, cantidadSeleccionada)} className="botonComprar">AGREGAR AL CARRITO</button>
-
-
-        </div>
     </div>
     
   )

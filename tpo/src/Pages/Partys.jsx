@@ -24,10 +24,10 @@ const Partys = () => {
         <BotonesParty party = {party}/>
         </div>
         
-         <div>
+          <div>
          <RelatedPartys style={{marginTop: '20px'}}/>
-        </div>    
-        
+        </div>     
+         
         </div>
      );
 }

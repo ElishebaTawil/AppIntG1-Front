@@ -6,7 +6,6 @@
     
 }
 .botonComprar {
-    background-color: orangered;
     color: white;
     padding: 12px 24px; /* Espacio interno */
     font-size: 25px;
@@ -17,10 +16,15 @@
     width: 400px; /* Ancho del botón */
     text-align: center;
 }
+.aviable{
+    background-color: orangered;
 
-.botonComprar:hover {
-    background-color: orangered; /* Cambio de color al pasar el mouse */
 }
+.disable{
+    background-color: grey;
+}
+
+
 @media (max-width: 768px) {
     .botonComprar{
         width: 310px;
