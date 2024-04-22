@@ -24,8 +24,9 @@ const Nabvar = () => {
     }
     if (value.length >= 3) {
       setSearch(value);
+      
     }
-    navigate("/recintos");
+    
   };
   const handleClickSearch = () => {
     if (localSearch.length >= 3) {
