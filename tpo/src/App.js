@@ -10,8 +10,10 @@ import Footer from './Components/Footer/Footer';
 import addCard_screen from './Pages/addCard_screen';
 import Payments from "./Pages/Payments";
 import LoginUser from './Pages/LoginUser';
+import BotonesParty from './Components/BotonesParty/BotonesParty';
 
 function App() {
+  
   return (
     <div>
       <BrowserRouter>
@@ -28,6 +30,7 @@ function App() {
           <Route path='/loginUser' element={<LoginUser />} />
           <Route path="/addCard_screen" element={<addCard_screen />} />
           <Route path="/EventsCategory" element={<EventsCategory />} />
+          <Route path="/comprar" element={<BotonesParty />} />
         </Routes>
       </BrowserRouter>
       <Footer />

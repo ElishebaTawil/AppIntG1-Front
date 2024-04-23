@@ -72,6 +72,7 @@
   color: #ff4141;
   font-weight: bold;
   text-decoration: underline;
+  cursor: default;
 }
 
 .loginsignup-agree {
