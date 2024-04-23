@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { ShopContext } from "../Context/ShopContext";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const LoginUser = () => {
 
   const onChangeValues = ({ target }) => {
     //me quedo con el target de todo el objeto value
-    setRegistro({ ...registro, [target.name]: target.value });
+    setRegistro({ ...registro, [target.name]: target.value, isLogged: true });
   };
   const handleContinuarClick = () => {
     // Verificar si alguno de los campos está vacío
@@ -26,9 +26,12 @@ const LoginUser = () => {
     // Si todos los campos están llenos, llamamos a setUser
     setUser(registro); //lo guardo en user
     navigate("/");
-
     setErrorMessage(""); // Limpiar el mensaje de error
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="loginsignup">
