@@ -66,13 +66,13 @@
 
 .loginsignup-login span {
   color: #ff4141;
+  font-weight: bold;
 }
 
 .loginsignup-login span:hover {
   color: #ff4141;
-  font-weight: bold;
   text-decoration: underline;
-  cursor: default;
+  cursor: pointer;
 }
 
 .loginsignup-agree {
@@ -83,10 +83,11 @@
   color: #5c5c5c;
   font-size: 18px;
   font-weight: 500;
+  padding-right: 20px;
 }
+
 input[type="checkbox"] {
-  width: 15px; /* Ancho del checkbox */
-  height: 15px; /* Altura del checkbox */
-  transform: scale(1.5); /* Ajustar la escala del checkbox */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el checkbox */
+  width: 20px; /* Ancho del checkbox */
+  height: 20px; /* Altura del checkbox */
+  margin-right: 2px; /* Espacio entre el checkbox y el texto */
 }

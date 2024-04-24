@@ -76,7 +76,7 @@ const LoginSignup = () => {
         <button onClick={handleContinuarClick}>Continuar</button>
         <p className="loginsignup-login">
           Ya tienes una cuenta?{" "}
-          <span onClick={() => navigate("/loginUser")}>Inicia Sesion</span>
+          <span onClick={() => navigate("/loginUser")}>Inicia Sesión</span>
         </p>
         <div className="loginsignup-agree"></div>
         <input
@@ -84,9 +84,9 @@ const LoginSignup = () => {
           checked={aceptarTerminos}
           onChange={handleCheckboxChange}
         />
-        <p>
-          Al registrarte aceptas nuestros <span>Terminos y Condiciones</span> y{" "}
-          <span>Politica de Privacidad</span>
+        <p className="loginsignup-login">
+          Al registrarte aceptas nuestros <span>Términos y Condiciones</span> y{" "}
+          <span>Política de Privacidad</span>
         </p>
       </div>
     </div>

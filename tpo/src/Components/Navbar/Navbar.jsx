@@ -24,15 +24,21 @@ const Nabvar = () => {
     }
     if (value.length >= 3) {
       setSearch(value);
-      
     }
-    
   };
   const handleClickSearch = () => {
     if (localSearch.length >= 3) {
       setSearch(localSearch);
       navigate("/recintos");
     }
+  };
+
+  //terminar!
+  const handleContinuarClick = () => {
+    user.name = "";
+    user.mail = "";
+    user.password = "";
+    user.isLogged = false;
   };
 
   return (
@@ -54,14 +60,19 @@ const Nabvar = () => {
 
         {user.name === "admin" && (
           <li onClick={() => setMenu("addCard_screen")}>
-            <Link to="/addCard_screen">VENDER</Link>
+            <Link to="/addCard_screen">AGREGAR FIESTA</Link>
           </li>
         )}
 
-        {user.name ? (
-          <div className="loginName">
-            <p>HOLA, {user.name}!</p>
-          </div>
+        {user.isLogged ? (
+          <>
+            <div className="loginName">
+              <p>HOLA, {user.name}!</p>
+            </div>
+            <div>
+              <button onClick={handleContinuarClick}>CERRAR SESIÓN</button>
+            </div>
+          </>
         ) : (
           <li onClick={() => setMenu("login")}>
             <Link to="/loginSignUp">LOG IN/SING UP</Link>
