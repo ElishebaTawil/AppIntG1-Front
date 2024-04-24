@@ -167,8 +167,8 @@
 .logout-button {
   width: 170px; /* Ancho del botón */
   height: 50px; /* Altura del botón */
-  background-color: #ff4141; /* Color de fondo */
-  color: white; /* Color del texto */
+  background-color: whitesmoke; /* Color de fondo */
+  color: black; /* Color del texto */
   border: none; /* Eliminar borde */
   border-radius: 8px; /* Añadir bordes redondeados */
   font-size: 18px; /* Tamaño de fuente */
