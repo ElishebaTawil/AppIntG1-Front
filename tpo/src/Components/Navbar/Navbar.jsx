@@ -39,6 +39,7 @@ const Nabvar = () => {
     user.mail = "";
     user.password = "";
     user.isLogged = false;
+    navigate("/");
   };
 
   return (
@@ -70,7 +71,9 @@ const Nabvar = () => {
               <p>HOLA, {user.name}!</p>
             </div>
             <div>
-              <button onClick={handleContinuarClick}>CERRAR SESIÓN</button>
+              <button className="logout-button" onClick={handleContinuarClick}>
+                CERRAR SESIÓN
+              </button>
             </div>
           </>
         ) : (
