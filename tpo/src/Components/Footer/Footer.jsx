@@ -1,38 +1,48 @@
 import React from 'react';
-import './Footer.css';
-import footer_logo from '../Assets/partylogo.avif';
-import instagram_icon from '../Assets/instagram_icon.jpg';
-import pinterest_icon from '../Assets/pinterest_icon.png';
-import whatsapp_icon from '../Assets/whatsapp_icon.png';
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBIcon,
+  MDBBtn
+} from 'mdb-react-ui-kit';
 
 const Footer = () => {
-    return (
-        <div className='footer'>
-            <div className='footer-logo'>
-                <img src={footer_logo} alt="Footer Logo" />
-                <p>SHOPPER</p>
-            </div>
-            
-            <div className='footer-social-icon'>
-                <div className='footer-icons-container'>
-                    <img src={instagram_icon} alt="Instagram Icon" />
-                </div>
-                <div className='footer-icons-container'>
-                    <img src={pinterest_icon} alt="Pinterest Icon" />
-                </div>
-                <div className='footer-icons-container'>
-                    <img src={whatsapp_icon} alt="WhatsApp Icon" />
-                </div>
-            </div>
-            <div className='footer-copyright'>
-                <hr />
-                <p>Copyright @2024 - Todos Los Derechos Reservados</p>
-                <p>TP APIS Integrantes</p>
-                <p>Maximo Rosso - Elisheba Tawil - Tadeo Pinque - Sebastian Sosa - Maurico Huentelaf  </p>
-                
-            </div>
-        </div>
-    );
-}
+  return (
+    <MDBFooter className='bg-dark text-center text-white'>
+      <MDBContainer className='p-4 pb-0'>
+        <section className='mb-4'>
+          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
+            <MDBIcon fab icon='facebook-f' />
+          </MDBBtn>
 
+          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
+            <MDBIcon fab icon='twitter' />
+          </MDBBtn>
+
+          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
+            <MDBIcon fab icon='google' />
+          </MDBBtn>
+          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
+            <MDBIcon fab icon='instagram' />
+          </MDBBtn>
+
+          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
+            <MDBIcon fab icon='linkedin-in' />
+          </MDBBtn>
+
+          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
+            <MDBIcon fab icon='github' />
+          </MDBBtn>
+        </section>
+      </MDBContainer>
+
+      <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+        © 2020 Copyright:
+        <a className='text-white' href='https://mdbootstrap.com/'>
+          MDBootstrap.com
+        </a>
+      </div>
+    </MDBFooter>
+  );
+}
 export default Footer;

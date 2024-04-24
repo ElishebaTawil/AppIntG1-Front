@@ -11,6 +11,7 @@ import addCard_screen from './Pages/addCard_screen';
 import Payments from "./Pages/Payments";
 import LoginUser from './Pages/LoginUser';
 import BotonesParty from './Components/BotonesParty/BotonesParty';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   
