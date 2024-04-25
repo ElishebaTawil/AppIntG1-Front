@@ -34,6 +34,13 @@ const CartItems = () => {
                         }
                         return null;
                 })}
+                <div className='cartitems-promocode'>
+                    <p>Si tienes un codigo de descuento, Agregalo aqui</p>
+                    <div className='cartitems-promobox'>
+                        <input type="text" placeholder='promo code' />
+                        <button>Aceptar</button>
+                    </div>
+                </div>
                 <div className='cartitems-down'>
                     <div className='cartitems-total'>
                         <h1>Total Carrito</h1>
@@ -57,13 +64,7 @@ const CartItems = () => {
                         </div>
                         <button>PROCEDER CON LA COMPRA</button>
                     </div>
-                    <div className='cartitems-promocode'>
-                        <p>Si tienes un codigo de descuento, Agregalo aqui</p>
-                        <div className='cartitems-promobox'>
-                            <input type="text" placeholder='promo code' />
-                            <button>Aceptar</button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

@@ -21,25 +21,34 @@
     justify-content: space-between;
     align-items: center;
     margin: 0px 170px;
+    color: orangered;
 }
 
 .shopcategory-sort {
     padding: 10px 20px;
-    border: 1px solid #888;
+    border: 1px solid orangered;
     border-radius: 40px;
+    
+    
+}
+.buttonSort{
+    color: orangered;
+    border: orangered;
 }
 
 .shopcategory-indexSort p span {
     font-weight: 600;
+   
 }
 
 .shopCategory-Parties {
-    margin: 20px 170px;
+    margin: 20px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust column width */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Adjust column width */
     gap: 20px;
     justify-items: center; /* Align items in the center horizontally */
 }
+
 
 .shopCategory-Parties .item {
     max-width: 100%; /* Ensure images don't exceed their container */
@@ -51,7 +60,7 @@
     align-items: center;
     margin: 150px auto;
     width: 233px;
-    height: 69px;
+    height: 90px;
     border-radius: 75px;
     background: #ededed;
     color: #787878;
