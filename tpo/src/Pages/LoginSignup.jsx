@@ -78,16 +78,17 @@ const LoginSignup = () => {
           Ya tienes una cuenta?{" "}
           <span onClick={() => navigate("/loginUser")}>Inicia Sesión</span>
         </p>
-        <div className="loginsignup-agree"></div>
-        <input
-          type="checkbox"
-          checked={aceptarTerminos}
-          onChange={handleCheckboxChange}
-        />
-        <p className="loginsignup-login">
-          Al registrarte aceptas nuestros <span>Términos y Condiciones</span> y{" "}
-          <span>Política de Privacidad</span>
-        </p>
+        <div className="loginsignup-agree">
+          <input
+            type="checkbox"
+            checked={aceptarTerminos}
+            onChange={handleCheckboxChange}
+          />
+          <p className="loginsignup-login">
+            Al registrarte aceptas nuestros <span>Términos y Condiciones</span>{" "}
+            y <span>Política de Privacidad</span>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -87,7 +87,7 @@
 }
 
 input[type="checkbox"] {
-  width: 20px; /* Ancho del checkbox */
-  height: 20px; /* Altura del checkbox */
-  margin-right: 2px; /* Espacio entre el checkbox y el texto */
+  width: 35px; /* Ancho del checkbox */
+  height: 35px; /* Altura del checkbox */
+  margin-right: 2px; /*Espacio entre el checkbox y el texto */
 }

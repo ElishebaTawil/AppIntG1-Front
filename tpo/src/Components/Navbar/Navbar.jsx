@@ -33,7 +33,6 @@ const Nabvar = () => {
     }
   };
 
-  //terminar!
   const handleContinuarClick = () => {
     user.name = "";
     user.mail = "";
@@ -60,8 +59,8 @@ const Nabvar = () => {
         </li>
 
         {user.name === "admin" && (
-          <li onClick={() => setMenu("addCard_screen")}>
-            <Link to="/addCard_screen">AGREGAR FIESTA</Link>
+          <li onClick={() => setMenu("AgregarFiesta")}>
+            <Link to="/agregarFiesta">AGREGAR FIESTA</Link>
           </li>
         )}
 

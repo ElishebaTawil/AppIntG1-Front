@@ -7,7 +7,7 @@ import Partys from './Pages/Partys';
 import Cart from './Pages/Cart';
 import LoginSignup from './Pages/LoginSignup';
 import Footer from './Components/Footer/Footer';
-import addCard_screen from './Pages/addCard_screen';
+import AgregarFiesta from './Pages/AgregarFiesta';
 import Payments from "./Pages/Payments";
 import LoginUser from './Pages/LoginUser';
 import BotonesParty from './Components/BotonesParty/BotonesParty';
@@ -29,7 +29,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/loginSignUp' element={<LoginSignup />} />
           <Route path='/loginUser' element={<LoginUser />} />
-          <Route path="/addCard_screen" element={<addCard_screen />} />
+          <Route path="/agregarFiesta" element={<AgregarFiesta />} />
           <Route path="/EventsCategory" element={<EventsCategory />} />
           <Route path="/comprar" element={<BotonesParty />} />
         </Routes>
