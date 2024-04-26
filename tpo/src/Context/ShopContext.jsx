@@ -19,13 +19,18 @@ const ShopContextProvider = (props) => {
   const [user, setUser] = useState({ name: "", role: "", isLogged: false });
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const [parties, setParties] = useState([]);
-  const [fiesta, setFiesta] = useState({
+  const [party, setParty] = useState({
     id: 0,
     name: "",
-    descripcion: "",
-    price: 0,
     image: "",
+    price: 0,
+    category: "",
+    fecha: "",
+    hora: "00:00",
+    lugar: "",
+    ubicacion: "",
     cantEntradas: 0,
+    descripcion: "",
   }); //parametros de la fiesta
 
   const addToCart = (itemId, cantidad) => {
@@ -60,11 +65,15 @@ const ShopContextProvider = (props) => {
     return totalItems; // Move return statement outside of the loop
   };
 
+  const agregarParty = (party) => {
+    setParties((all_parties) => [...all_parties, party]);
+  };
+
   const contextValue = {
     getTotalCartItems,
     getTotalCartAmount,
     all_parties,
-    setParties,
+    agregarParty,
     cartItems,
     addToCart,
     removeFromCart,
@@ -76,8 +85,9 @@ const ShopContextProvider = (props) => {
     setUser,
     cantidadSeleccionada,
     setCantidadSeleccionada,
-    fiesta,
-    setFiesta,
+    party,
+    setParty,
+    setParties,
   };
 
   return (
