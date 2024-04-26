@@ -1,7 +1,6 @@
 import React, { createContext } from "react";
 import all_parties from "../Components/Assets/all_parties";
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const ShopContext = createContext(null);
 
@@ -19,7 +18,15 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [user, setUser] = useState({ name: "", role: "", isLogged: false });
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
-  const navigate = useNavigate;
+  const [parties, setParties] = useState([]);
+  const [fiesta, setFiesta] = useState({
+    id: 0,
+    name: "",
+    descripcion: "",
+    price: 0,
+    image: "",
+    cantEntradas: 0,
+  }); //parametros de la fiesta
 
   const addToCart = (itemId, cantidad) => {
     if (user.isLogged) {
@@ -57,6 +64,7 @@ const ShopContextProvider = (props) => {
     getTotalCartItems,
     getTotalCartAmount,
     all_parties,
+    setParties,
     cartItems,
     addToCart,
     removeFromCart,
@@ -68,6 +76,8 @@ const ShopContextProvider = (props) => {
     setUser,
     cantidadSeleccionada,
     setCantidadSeleccionada,
+    fiesta,
+    setFiesta,
   };
 
   return (
