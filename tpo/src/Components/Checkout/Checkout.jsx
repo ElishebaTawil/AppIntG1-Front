@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+
 import { ShopContext } from '../../Context/ShopContext';
 import './Checkout.css'; // Import the CSS file for styling
 
@@ -7,6 +7,9 @@ const Checkout = () => {
     const { cartItems, all_parties, getTotalCartAmount, removeFromCart } = useContext(ShopContext);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [expirationDate, setExpirationDate] = useState('');
+    const [cvv, setCvv] = useState('');
 
     const handleRemoveFromCart = (partyId) => {
         // Implement the logic to remove an item from the cart
@@ -34,6 +37,33 @@ const Checkout = () => {
                     onChange={(e) => setLastName(e.target.value)} 
                 />
             </div>
+            <div className="checkout-form">
+                <label htmlFor="cardNumber">Credit Card Number:</label>
+                <input 
+                    type="text" 
+                    id="cardNumber" 
+                    value={cardNumber} 
+                    onChange={(e) => setCardNumber(e.target.value)} 
+                />
+            </div>
+            <div className="checkout-form">
+                <label htmlFor="expirationDate">Expiration Date:</label>
+                <input 
+                    type="text" 
+                    id="expirationDate" 
+                    value={expirationDate} 
+                    onChange={(e) => setExpirationDate(e.target.value)} 
+                />
+            </div>
+            <div className="checkout-form">
+                <label htmlFor="cvv">CVV:</label>
+                <input 
+                    type="text" 
+                    id="cvv" 
+                    value={cvv} 
+                    onChange={(e) => setCvv(e.target.value)} 
+                />
+            </div>
             <div className="checkout-parties">
                 <h3>Parties Bought:</h3>
                 {Object.keys(cartItems).map((partyId) => {
@@ -55,7 +85,7 @@ const Checkout = () => {
                 <p>Subtotal: ${getTotalCartAmount()}</p>
                 <p>Shipping: Free</p>
                 <p>Total: ${getTotalCartAmount()}</p>
-                <button>Proceder con la compra</button>
+                <button>Comprar</button>
             </div>
         </div>
     );

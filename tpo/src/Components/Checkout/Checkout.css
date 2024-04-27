@@ -3,42 +3,41 @@
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
   }
   
   .checkout-form {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   
   .checkout-form label {
-    display: block;
-    margin-bottom: 5px;
+    font-weight: bold;
   }
   
   .checkout-form input {
     width: 100%;
     padding: 8px;
+    margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
   }
   
   .checkout-parties {
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   .checkout-parties-item {
     border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    padding: 10px 0;
+  }
+  
+  .checkout-parties-item:last-child {
+    border-bottom: none;
   }
   
   .checkout-parties-item p {
     margin: 5px 0;
-  }
-  
-  .checkout-total {
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
   }
   
   .checkout-button {
@@ -47,7 +46,8 @@
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
   }
   
   .checkout-button:hover {
