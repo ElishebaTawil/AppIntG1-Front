@@ -1,8 +1,12 @@
 import React from "react";
+import Checkout from "../Components/Checkout/Checkout";
+
 
 const Payments = () => {
   return (
-    <div>{/** hacer el pago aca y luego redireccionar a pago exitoso */}</div>
+    <div>
+      <Checkout />
+    </div>
   );
 };
 

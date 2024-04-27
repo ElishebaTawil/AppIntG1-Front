@@ -1,10 +1,15 @@
 import React,{useContext} from 'react'
 import './CartItems.css'
 import remove_icon from '../Assets/remove_icon.png'
+import { Link } from 'react-router-dom';
+
 
 import { ShopContext } from '../../Context/ShopContext';
 const CartItems = () => {
         const {getTotalCartAmount,all_parties,cartItems,removeFromCart} = useContext(ShopContext);
+    
+        
+
     return (
         <div className='cartitems'>
             <div className='cartitems-format-main'>
@@ -62,7 +67,7 @@ const CartItems = () => {
 
                             </div>
                         </div>
-                        <button>PROCEDER CON LA COMPRA</button>
+                       <Link to ='/payments' ><button>PROCEDER CON LA COMPRA</button></Link>
                     </div>
                     
 
