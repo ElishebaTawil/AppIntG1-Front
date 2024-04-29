@@ -1,55 +1,89 @@
 .checkout-container {
-    max-width: 600px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .checkout-form {
-    margin-bottom: 10px;
-  }
-  
-  .checkout-form label {
-    font-weight: bold;
-  }
-  
-  .checkout-form input {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.billing-address,
+.payment-details,
+.checkout-parties,
+.checkout-total {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box span {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"] {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .checkout-parties {
-    margin-top: 20px;
-  }
-  
-  .checkout-parties-item {
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border-color: #27ae60;
+}
+
+.checkout-parties-item {
     border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-  }
-  
-  .checkout-parties-item:last-child {
-    border-bottom: none;
-  }
-  
-  .checkout-parties-item p {
-    margin: 5px 0;
-  }
-  
-  .checkout-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.checkout-parties-item p {
+    margin-bottom: 5px;
+}
+.checkout-parties-item button{
+    padding: 5px 10px;
+    background-color: red;
     color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .checkout-button:hover {
-    background-color: #0056b3;
-  }
+
+}
+
+.checkout-total {
+    text-align: right;
+}
+
+.checkout-total button {
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-total button:hover {
+    background-color: #2ecc71;
+}
