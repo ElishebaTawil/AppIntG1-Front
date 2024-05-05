@@ -2,19 +2,27 @@ import React, { useContext, useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { ShopContext } from "../Context/ShopContext";
 import { useNavigate } from "react-router-dom";
-import all_parties from "../Components/Assets/all_parties";
 
 const AgregarFiesta = () => {
-  const { setParty, agregarParty } = useContext(ShopContext);
-  const [registro, setRegistro] = useState({});
+  const { agregarParty, allParties } = useContext(ShopContext);
+  const [registro, setRegistro] = useState({
+    name: "",
+    image: "",
+    price: 0,
+    category: "recintos",
+    fecha: "",
+    hora: "00:00",
+    lugar: "",
+    ubicacion: "",
+    cantEntradas: 0,
+    descripcion: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const onChangeValues = ({ target }) => {
     //me quedo con el target de todo el objeto value
     setRegistro({ ...registro, [target.name]: target.value });
-    console.log(registro);
-    console.log(all_parties.length);
   };
 
   const handleContinuarClick = () => {
@@ -27,11 +35,11 @@ const AgregarFiesta = () => {
     }
     // Si todos los campos están llenos, llamamos a setFiesta
     const nuevoId =
-      all_parties.length > 0 ? all_parties[all_parties.length - 1].id + 1 : 1;
-    const party = { ...registro, id: nuevoId };
-    setParty(party);
+      allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
+    const party = { id: nuevoId, ...registro };
+
     // Agrega la nueva fiesta a la lista
-    agregarParty([...all_parties, party]);
+    agregarParty(party);
     navigate(`/partys/${nuevoId}`);
     setErrorMessage(""); // Limpiar el mensaje de error
   };

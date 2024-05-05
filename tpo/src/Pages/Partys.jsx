@@ -10,9 +10,9 @@ import BotonAgregarAlCarrito from "../Components/BotonComprarParty/BotonAgregarA
 import { useNavigate } from "react-router-dom";
 
 const Partys = () => {
-  const { all_parties } = useContext(ShopContext);
+  const { allParties } = useContext(ShopContext);
   const { partyId } = useParams();
-  const party = all_parties.find((e) => e.id === Number(partyId));
+  const party = allParties.find((e) => e.id === Number(partyId));
   const navigate = useNavigate();
 
   useEffect(() => {
