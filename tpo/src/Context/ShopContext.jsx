@@ -19,6 +19,7 @@ const ShopContextProvider = (props) => {
   const [user, setUser] = useState({ name: "", role: "", isLogged: false });
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const [parties, setParties] = useState([]);
+  const [allParties, setAllParties] = useState(all_parties);
   const [party, setParty] = useState({
     id: 0,
     name: "",
@@ -43,6 +44,9 @@ const ShopContextProvider = (props) => {
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
+  const removeAllFromCart = () => {
+    setCartItems(() => ({}));
+  }
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -64,6 +68,21 @@ const ShopContextProvider = (props) => {
     }
     return totalItems; // Move return statement outside of the loop
   };
+  const descountStockParty = (itemId, cantidad) => {
+    setAllParties(prevParties => {
+        return prevParties.map(party => {
+            if (party.id === itemId) {
+              console.log('siii')
+                return {
+                    ...party,
+                    stock: party.stock - cantidad
+                };
+            }
+            return party;
+        });
+    });
+};
+
 
   const agregarParty = (party) => {
     setParties((all_parties) => [...all_parties, party]);
@@ -88,6 +107,9 @@ const ShopContextProvider = (props) => {
     party,
     setParty,
     setParties,
+    descountStockParty,
+    removeAllFromCart,
+
   };
 
   return (
