@@ -1,18 +1,41 @@
 import React, { useContext, useState } from 'react';
-
 import { ShopContext } from '../../Context/ShopContext';
 import './Checkout.css'; 
 import trash from '../Assets/trash.png';
+import paypal from '../Assets/card_img.png';
 
 
 const Checkout = () => {
     const { cartItems, all_parties, getTotalCartAmount, removeFromCart, descountStockParty, removeAllFromCart } = useContext(ShopContext);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setemail] = useState('');
+    const [adress, setadress] = useState('');
+    const [city, setcity] = useState('');
+    const [state, setstate] = useState('');
+    const [code, setcode] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
     const [cvv, setCvv] = useState('');
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+    const handleCardNumberChange = (e) => {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        value = value.slice(0, 16); // Limit to 16 characters
+        setCardNumber(value);
+    };
+
+    const handleExpirationDateChange = (e) => {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        value = value.slice(0, 6); // Limit to 6 characters (MMYYYY)
+        const formattedValue = value.replace(/(\d{2})(\d{0,4})/, '$1/$2'); // Format as MM/YYYY
+        setExpirationDate(formattedValue);
+    };
+
+    const handleCvvChange = (e) => {
+        const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        const maxLength = cardNumber.startsWith('3') ? 4 : 3; // Set max length based on card type
+        setCvv(value.slice(0, maxLength)); // Limit to maxLength characters
+    };
 
     const handleRemoveFromCart = (partyId) => {
         // Implement the logic to remove an item from the cart
@@ -25,13 +48,17 @@ const Checkout = () => {
                 descountStockParty(party.id, cartItems[partyId]);
             }
         }
-        if (!isValidCVV(cvv) || !isValidString(firstName) || !isValidString(lastName) || !isValidCardNumber(cardNumber)) {
+        if (!isValidCVV(cvv) ||  !isValidCardNumber(cardNumber)) {
             alert('datos invalidos, ingreselos correctamente');
             return; // No continuar con la compra si el CVV no es válido
         }
         else{
-            setFirstName('');
-        setLastName('');
+            setFullName('');
+            setemail('');
+            setadress('');
+            setcity('');
+            setstate('');
+            setcode('');
         setCardNumber('');
         setExpirationDate('');
         setCvv('');
@@ -56,51 +83,72 @@ const Checkout = () => {
 
     return (
         <div className="checkout-container">
-           
-            <div className="checkout-form">
-                <label htmlFor="firstName">First Name:</label>
-                <input 
-                    type="text" 
-                    id="firstName" 
-                    value={firstName} 
-                    onChange={(e) => setFirstName(e.target.value)} 
-                />
+            <div className="billing-address">
+                <h3 className="title">Billing Address</h3>
+                <div className="input-box">
+                    <span>Full Name:</span>
+                    <input type="text" name="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                </div>
+                <div className="input-box">
+                    <span>Email:</span>
+                    <input type="email" name="email" placeholder="example@example.com" value={email} onChange={(e) => setemail(e.target.value)}/>
+                </div>
+                <div className="input-box">
+                    <span>Address:</span>
+                    <input type="text" name="address" placeholder="Room - Street - Locality" value={adress} onChange={(e) => setadress(e.target.value)}/>
+                </div>
+                <div className="input-box">
+                    <span>City:</span>
+                    <input type="text" name="city" placeholder="Mumbai" value={city} onChange={(e) => setcity(e.target.value)}/>
+                </div>
+                <div className="flex">
+                    <div className="input-box">
+                        <span>State:</span>
+                        <input type="text" name="state" placeholder="India" value={state} onChange={(e) => setstate(e.target.value)}/>
+                    </div>
+                    <div className="input-box">
+                        <span>Zip Code:</span>
+                        <input type="text" name="zip-code" placeholder="123456" value={code} onChange={(e) => setcode(e.target.value)}/>
+                    </div>
+                </div>
             </div>
-            <div className="checkout-form">
-                <label htmlFor="lastName">Last Name:</label>
-                <input 
-                    type="text" 
-                    id="lastName" 
-                    value={lastName} 
-                    onChange={(e) => setLastName(e.target.value)} 
-                />
-            </div>
-            <div className="checkout-form">
-                <label htmlFor="cardNumber">Credit Card Number:</label>
-                <input 
-                    type="text" 
-                    id="cardNumber" 
-                    value={cardNumber} 
-                    onChange={(e) => setCardNumber(e.target.value)} 
-                />
-            </div>
-            <div className="checkout-form">
-                <label htmlFor="expirationDate">Expiration Date:</label>
-                <input 
-                    type="text" 
-                    id="expirationDate" 
-                    value={expirationDate} 
-                    onChange={(e) => setExpirationDate(e.target.value)} 
-                />
-            </div>
-            <div className="checkout-form">
-                <label htmlFor="cvv">CVV:</label>
-                <input 
-                    type="text" 
-                    id="cvv" 
-                    value={cvv} 
-                    onChange={(e) => setCvv(e.target.value)} 
-                />
+            <div className="payment-details">
+                <h3 className="title">Payment</h3>
+
+                <div class="inputBox">
+                    <span>cards accepted :</span>
+                    <img src={paypal} alt=""/>
+                </div>
+                <div className="input-box">
+                    <span>Credit Card Number:</span>
+                    <input 
+                        type="text" 
+                        name="card-number" 
+                        placeholder="1111-2222-3333-4444" 
+                        value={cardNumber}
+                        onChange={handleCardNumberChange}
+                    />
+                </div>
+                <div className="input-box">
+                    <span>Expiration Date:</span>
+                    <input 
+                        type="text" 
+                        name="expiration-date" 
+                        placeholder="MM/YYYY" 
+                        value={expirationDate}
+                        onChange={handleExpirationDateChange}
+                    />
+                </div>
+                <div className="input-box">
+                    <span>CVV:</span>
+                    <input 
+                        type="text" 
+                        name="cvv" 
+                        placeholder="123" 
+                        value={cvv}
+                        onChange={handleCvvChange}
+                    />
+                </div>
             </div>
             <div className="checkout-parties">
                 <h3>Resumen:</h3>
@@ -113,7 +161,7 @@ const Checkout = () => {
                                 <p>Quantity: {cartItems[partyId]}</p>
                                 <p>Total: ${party.new_price * cartItems[partyId]}</p>
                                 <button onClick={() => handleRemoveFromCart(party.id)}>
-                                    <img className= 'removeFoto' src={trash} alt="remove" />
+                                    Remove
                                 </button>
                             </div>
                         );
