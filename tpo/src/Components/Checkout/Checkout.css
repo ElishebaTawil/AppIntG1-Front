@@ -2,13 +2,35 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 3px solid orangered;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+   
+  }
+  .checkout-container button{
+    background-color: orangered;
+    color: white;
+    border-radius: 20px;
+    border: none;
+  }
+  .checkout-total button{
+    
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 20px;
+    
+   
+  }
+  .checkout-container h2{
+    align-content: center;
+    color: #f9f9f9;
   }
   
   .checkout-form {
     margin-bottom: 10px;
+    color: orangered;
   }
   
   .checkout-form label {
@@ -19,18 +41,26 @@
     width: 100%;
     padding: 8px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    border: 3px solid orangered;
     border-radius: 4px;
+    background-color: white;
   }
   
   .checkout-parties {
     margin-top: 20px;
+    color: orangered;
   }
   
   .checkout-parties-item {
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
+    
   }
+  .removeFoto{
+    height: 30px;
+    width: 30px;
+  }
+  
   
   .checkout-parties-item:last-child {
     border-bottom: none;
@@ -38,18 +68,19 @@
   
   .checkout-parties-item p {
     margin: 5px 0;
+    
   }
   
-  .checkout-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+  .checkout-total{
+    color: orangered;
+    text-align: center;
+   font-weight: bolder;
   }
-  
-  .checkout-button:hover {
-    background-color: #0056b3;
+
+  .success-message{
+    background-color: orangered;
+    padding: 50px;
+    color: #f9f9f9;
+    align-items: center;
   }
+ 
