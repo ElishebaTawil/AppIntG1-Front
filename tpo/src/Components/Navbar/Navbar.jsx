@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "./Navbar.css";
 import logo from "../Assets/logo2.png";
 import cart_icon from "../Assets/bolsa_compras.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 import lupa from "../Assets/lupa.png";
 import { IconButton } from "@mui/material";
@@ -15,6 +15,7 @@ const Nabvar = () => {
   const navigate = useNavigate();
   const { shoppingCart, setSearch } = useContext(ShopContext);
   const { user } = useContext(ShopContext);
+  const location = useLocation();
 
   const handleChangeSearch = (event) => {
     const value = event.target.value;
@@ -52,7 +53,6 @@ const Nabvar = () => {
         <div className="menu-icon-lines"></div>
         <div className="menu-icon-lines"></div>
       </button>
-
       <ul className={`nav-menu ${showMenu ? "show" : ""}`}>
         <li onClick={() => setMenu("recintos")}>
           <Link to="/">HOME</Link>
@@ -81,17 +81,20 @@ const Nabvar = () => {
           </li>
         )}
       </ul>
-
-      <div className="nav-search">
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={handleChangeSearch}
-        />
-        <IconButton onClick={handleClickSearch}>
-          <img src={lupa} alt="search" />
-        </IconButton>
-      </div>
+      {!location.pathname.includes("partys") &&
+      !location.pathname.includes("login") &&
+      !location.pathname.includes("cart") ? (
+        <div className="nav-search">
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={handleChangeSearch}
+          />
+          <IconButton onClick={handleClickSearch}>
+            <img src={lupa} alt="search" />
+          </IconButton>
+        </div>
+      ) : null}
 
       <Link className="nav-login-cart" to="/cart">
         <img src={cart_icon} alt="" className="logocart" />

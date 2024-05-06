@@ -8,7 +8,7 @@ const AgregarFiesta = () => {
   const [registro, setRegistro] = useState({
     name: "",
     image: "",
-    new_price: 0,
+    new_price: "",
     old_price: 0,
     category: "recintos",
     fecha: "",
@@ -33,6 +33,10 @@ const AgregarFiesta = () => {
       // Si alguno de los campos está vacío, mostrar mensaje de error
       setErrorMessage("Por favor, completá los campos obligatorios.");
       return; // No continuar con el proceso de agregar fiesta
+    }
+    if (new_price <= 0 || stock <= 0) {
+      setErrorMessage("Por favor, revisa los datos ingresados.");
+      return;
     }
     // Si todos los campos están llenos, llamamos a setFiesta
     const nuevoId =
@@ -92,17 +96,23 @@ const AgregarFiesta = () => {
           <input
             type="number"
             name="stock"
+            min="1"
             onChange={onChangeValues}
             placeholder="Cantidad de Entradas del Evento (*)"
             value={registro.stock}
           />
-          <input
-            type="number"
-            name="new_price"
-            onChange={onChangeValues}
-            placeholder="Precio de la Entrada del Evento (*)"
-            value={registro.new_price}
-          />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span style={{ fontSize: "1.5rem", marginRight: "10px" }}>$</span>
+            <input
+              type="number"
+              name="new_price"
+              min="1"
+              onChange={onChangeValues}
+              placeholder="Precio de la Entrada del Evento (*)"
+              value={registro.new_price}
+            />
+          </div>
+
           <input
             type="text"
             name="image"
