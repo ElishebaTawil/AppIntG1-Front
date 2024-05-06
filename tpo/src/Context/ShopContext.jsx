@@ -4,55 +4,52 @@ import { useState } from "react";
 
 export const ShopContext = createContext(null);
 
-const getDefaultCart = (allParties) => {
-  let cart = {};
-  for (let index = 0; index < allParties.length + 1; index++) {
-    cart[index] = 0;
-  }
-  return cart;
-};
-
 const ShopContextProvider = (props) => {
   const [allParties, setAllParties] = useState(all_parties);
-  const [cartItems, setCartItems] = useState(getDefaultCart(allParties));
+  const [cartItems, setCartItems] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [search, setSearch] = useState("");
   const [user, setUser] = useState({ name: "", role: "", isLogged: false });
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
 
-  const addToCart = (itemId, cantidad) => {
+  const addToCart = (evento, cantidad) => {
     if (user.isLogged) {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + cantidad }));
+      const item = cartItems.find((item) => item.id === evento.id);
+
+      if (item) {
+        const nuevaCantidad = item.cantidad + cantidad;
+        const nuevoCart = [
+          ...cartItems.filter((item) => item.id !== evento.id),
+          { ...evento, cantidad: nuevaCantidad },
+        ];
+        setCartItems(nuevoCart);
+      } else {
+        setCartItems((cartItems) => [...cartItems, { ...evento, cantidad }]);
+      }
     }
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    //excluyo al item con el id que no quiero
+    setCartItems(cartItems.filter((item) => item.id !== itemId));
   };
+
   const removeAllFromCart = () => {
     setCartItems(() => ({}));
   };
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = all_parties.find((party) => party.id === Number(item));
-        totalAmount += itemInfo.new_price * cartItems[item];
-      }
-    }
-    return totalAmount; // Move return statement outside of the loop
+    cartItems.forEach((item) => {
+      totalAmount += item.new_price * item.cantidad;
+    });
+    return totalAmount;
   };
 
   const getTotalCartItems = () => {
-    let totalItems = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        totalItems += cartItems[item];
-      }
-    }
-    return totalItems; // Move return statement outside of the loop
+    return cartItems.length;
   };
+
   const descountStockParty = (itemId, cantidad) => {
     setAllParties((prevParties) => {
       return prevParties.map((party) => {

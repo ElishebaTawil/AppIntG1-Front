@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { ShopContext } from "../../Context/ShopContext";
 const CartItems = () => {
-  const { getTotalCartAmount, allParties, cartItems, removeFromCart } =
+  const { getTotalCartAmount, cartItems, removeFromCart } =
     useContext(ShopContext);
 
   return (
@@ -20,32 +20,31 @@ const CartItems = () => {
       </div>
       <hr />
       <div>
-        {allParties.map((e) => {
-          if (cartItems[e.id] > 0) {
-            return (
-              <div>
-                <div className="cartitems-format cartitems-format-main">
-                  <img src={e.image} alt="" className="carticon-product-icon" />
-                  <p>{e.name}</p>
-                  <p>${e.new_price}</p>
-                  <button className="cartitems-quantity">
-                    {cartItems[e.id]}
-                  </button>
-                  <p>${e.new_price * cartItems[e.id]}</p>
-                  <img
-                    className="cartitems-remove-icon"
-                    src={remove_icon}
-                    onClick={() => {
-                      removeFromCart(e.id);
-                    }}
-                    alt=""
-                  />
-                </div>
-                <hr />
+        {cartItems.map((item) => {
+          return (
+            <div>
+              <div className="cartitems-format cartitems-format-main">
+                <img
+                  src={item.image}
+                  alt=""
+                  className="carticon-product-icon"
+                />
+                <p>{item.name}</p>
+                <p>${item.new_price}</p>
+                <button className="cartitems-quantity">{item.cantidad}</button>
+                <p>${item.new_price * item.cantidad}</p>
+                <img
+                  className="cartitems-remove-icon"
+                  src={remove_icon}
+                  onClick={() => {
+                    removeFromCart(item.id);
+                  }}
+                  alt=""
+                />
               </div>
-            );
-          }
-          return null;
+              <hr />
+            </div>
+          );
         })}
         <div className="cartitems-promocode">
           <p>Si tienes un codigo de descuento, Agregalo aqui</p>

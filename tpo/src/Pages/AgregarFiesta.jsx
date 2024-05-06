@@ -8,13 +8,14 @@ const AgregarFiesta = () => {
   const [registro, setRegistro] = useState({
     name: "",
     image: "",
-    price: 0,
+    new_price: 0,
+    old_price: 0,
     category: "recintos",
     fecha: "",
-    hora: "00:00",
+    hora: "",
     lugar: "",
     ubicacion: "",
-    cantEntradas: 0,
+    cantEntradas: 1,
     descripcion: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,8 +28,8 @@ const AgregarFiesta = () => {
 
   const handleContinuarClick = () => {
     // Verificar si alguno de los campos está vacío
-    const { name, fecha, hora, lugar, price, stock, image } = registro;
-    if (!name || !fecha || !hora || !lugar || !price || !stock || !image) {
+    const { name, fecha, hora, lugar, new_price, stock, image } = registro;
+    if (!name || !fecha || !hora || !lugar || !new_price || !stock || !image) {
       // Si alguno de los campos está vacío, mostrar mensaje de error
       setErrorMessage("Por favor, completá los campos obligatorios.");
       return; // No continuar con el proceso de agregar fiesta
@@ -61,7 +62,7 @@ const AgregarFiesta = () => {
             value={registro.name}
           />
           <input
-            type="text"
+            type="date"
             name="fecha"
             onChange={onChangeValues}
             placeholder="Fecha del Evento (DD/MM/AA) (*)"
@@ -89,18 +90,18 @@ const AgregarFiesta = () => {
             value={registro.ubicacion}
           />
           <input
-            type="text"
+            type="number"
             name="stock"
             onChange={onChangeValues}
             placeholder="Cantidad de Entradas del Evento (*)"
             value={registro.stock}
           />
           <input
-            type="text"
-            name="price"
+            type="number"
+            name="new_price"
             onChange={onChangeValues}
             placeholder="Precio de la Entrada del Evento (*)"
-            value={registro.price}
+            value={registro.new_price}
           />
           <input
             type="text"

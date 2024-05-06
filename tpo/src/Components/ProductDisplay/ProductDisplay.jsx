@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import "./ProductDisplay.css";
 import star_icon from "../Assets/star_icon.jpg";
 import star_dull_icon from "../Assets/star_dull_icon.jpg";
-import { ShopContext } from "../../Context/ShopContext";
 
 const ProductDisplay = (props) => {
   const { party } = props;
-  const { addToCart } = useContext(ShopContext); // Corrected the function name here
 
   return (
     <div className="partydisplay">
