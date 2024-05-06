@@ -6,13 +6,12 @@ import RelatedPartys from "../Components/RelatedPartys/RelatedPartys";
 import "./CSS/Partys.css";
 import HeaderParty from "../Components/HeaderParty/HeaderParty";
 import BotonesParty from "../Components/BotonesParty/BotonesParty";
-import BotonAgregarAlCarrito from "../Components/BotonComprarParty/BotonAgregarAlCarrito";
 import { useNavigate } from "react-router-dom";
 
 const Partys = () => {
-  const { all_parties } = useContext(ShopContext);
+  const { allParties } = useContext(ShopContext);
   const { partyId } = useParams();
-  const party = all_parties.find((e) => e.id === Number(partyId));
+  const party = allParties.find((e) => e.id === Number(partyId));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const Partys = () => {
       <HeaderParty party={party} />
       <div>
         <BotonesParty party={party} />
-        {/*<BotonAgregarAlCarrito navigate={navigate} />*/}
       </div>
 
       <div>

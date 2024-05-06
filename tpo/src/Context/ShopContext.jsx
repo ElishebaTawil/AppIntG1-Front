@@ -4,94 +4,74 @@ import { useState } from "react";
 
 export const ShopContext = createContext(null);
 
-const getDefaultCart = () => {
-  let cart = {};
-  for (let index = 0; index < all_parties.length + 1; index++) {
-    cart[index] = 0;
-  }
-  return cart;
-};
-
 const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [allParties, setAllParties] = useState(all_parties);
+  const [cartItems, setCartItems] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [search, setSearch] = useState("");
   const [user, setUser] = useState({ name: "", role: "", isLogged: false });
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
-  const [parties, setParties] = useState([]);
-  const [allParties, setAllParties] = useState(all_parties);
-  const [party, setParty] = useState({
-    id: 0,
-    name: "",
-    image: "",
-    price: 0,
-    category: "",
-    fecha: "",
-    hora: "00:00",
-    lugar: "",
-    ubicacion: "",
-    cantEntradas: 0,
-    descripcion: "",
-  }); //parametros de la fiesta
 
-  const addToCart = (itemId, cantidad) => {
+  const addToCart = (evento, cantidad) => {
     if (user.isLogged) {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + cantidad }));
-      console.log(cartItems);
+      const item = cartItems.find((item) => item.id === evento.id);
+
+      if (item) {
+        const nuevaCantidad = item.cantidad + cantidad;
+        const nuevoCart = [
+          ...cartItems.filter((item) => item.id !== evento.id),
+          { ...evento, cantidad: nuevaCantidad },
+        ];
+        setCartItems(nuevoCart);
+      } else {
+        setCartItems((cartItems) => [...cartItems, { ...evento, cantidad }]);
+      }
     }
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    //excluyo al item con el id que no quiero
+    setCartItems(cartItems.filter((item) => item.id !== itemId));
   };
+
   const removeAllFromCart = () => {
     setCartItems(() => ({}));
-  }
+  };
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = all_parties.find((party) => party.id === Number(item));
-        totalAmount += itemInfo.new_price * cartItems[item];
-      }
-    }
-    return totalAmount; // Move return statement outside of the loop
+    cartItems.forEach((item) => {
+      totalAmount += item.new_price * item.cantidad;
+    });
+    return totalAmount;
   };
 
   const getTotalCartItems = () => {
-    let totalItems = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        totalItems += cartItems[item];
-      }
-    }
-    return totalItems; // Move return statement outside of the loop
+    return cartItems.length;
   };
-  const descountStockParty = (itemId, cantidad) => {
-    setAllParties(prevParties => {
-        return prevParties.map(party => {
-            if (party.id === itemId) {
-              console.log('siii')
-                return {
-                    ...party,
-                    stock: party.stock - cantidad
-                };
-            }
-            return party;
-        });
-    });
-};
 
+  const descountStockParty = (itemId, cantidad) => {
+    setAllParties((prevParties) => {
+      return prevParties.map((party) => {
+        if (party.id === itemId) {
+          return {
+            ...party,
+            stock: party.stock - cantidad,
+          };
+        }
+        return party;
+      });
+    });
+  };
 
   const agregarParty = (party) => {
-    setParties((all_parties) => [...all_parties, party]);
+    setAllParties(() => [...allParties, party]);
   };
 
   const contextValue = {
     getTotalCartItems,
     getTotalCartAmount,
-    all_parties,
+    allParties,
     agregarParty,
     cartItems,
     addToCart,
@@ -104,12 +84,8 @@ const ShopContextProvider = (props) => {
     setUser,
     cantidadSeleccionada,
     setCantidadSeleccionada,
-    party,
-    setParty,
-    setParties,
     descountStockParty,
     removeAllFromCart,
-
   };
 
   return (

@@ -2,36 +2,45 @@ import React, { useContext, useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { ShopContext } from "../Context/ShopContext";
 import { useNavigate } from "react-router-dom";
-import all_parties from "../Components/Assets/all_parties";
 
 const AgregarFiesta = () => {
-  const { setParty, agregarParty } = useContext(ShopContext);
-  const [registro, setRegistro] = useState({});
+  const { agregarParty, allParties } = useContext(ShopContext);
+  const [registro, setRegistro] = useState({
+    name: "",
+    image: "",
+    new_price: 0,
+    old_price: 0,
+    category: "recintos",
+    fecha: "",
+    hora: "",
+    lugar: "",
+    ubicacion: "",
+    cantEntradas: 1,
+    descripcion: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const onChangeValues = ({ target }) => {
     //me quedo con el target de todo el objeto value
     setRegistro({ ...registro, [target.name]: target.value });
-    console.log(registro);
-    console.log(all_parties.length);
   };
 
   const handleContinuarClick = () => {
     // Verificar si alguno de los campos está vacío
-    const { name, fecha, hora, lugar, price, stock, image } = registro;
-    if (!name || !fecha || !hora || !lugar || !price || !stock || !image) {
+    const { name, fecha, hora, lugar, new_price, stock, image } = registro;
+    if (!name || !fecha || !hora || !lugar || !new_price || !stock || !image) {
       // Si alguno de los campos está vacío, mostrar mensaje de error
       setErrorMessage("Por favor, completá los campos obligatorios.");
       return; // No continuar con el proceso de agregar fiesta
     }
     // Si todos los campos están llenos, llamamos a setFiesta
     const nuevoId =
-      all_parties.length > 0 ? all_parties[all_parties.length - 1].id + 1 : 1;
-    const party = { ...registro, id: nuevoId };
-    setParty(party);
+      allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
+    const party = { id: nuevoId, ...registro };
+
     // Agrega la nueva fiesta a la lista
-    agregarParty([...all_parties, party]);
+    agregarParty(party);
     navigate(`/partys/${nuevoId}`);
     setErrorMessage(""); // Limpiar el mensaje de error
   };
@@ -53,7 +62,7 @@ const AgregarFiesta = () => {
             value={registro.name}
           />
           <input
-            type="text"
+            type="date"
             name="fecha"
             onChange={onChangeValues}
             placeholder="Fecha del Evento (DD/MM/AA) (*)"
@@ -81,18 +90,18 @@ const AgregarFiesta = () => {
             value={registro.ubicacion}
           />
           <input
-            type="text"
+            type="number"
             name="stock"
             onChange={onChangeValues}
             placeholder="Cantidad de Entradas del Evento (*)"
             value={registro.stock}
           />
           <input
-            type="text"
-            name="price"
+            type="number"
+            name="new_price"
             onChange={onChangeValues}
             placeholder="Precio de la Entrada del Evento (*)"
-            value={registro.price}
+            value={registro.new_price}
           />
           <input
             type="text"

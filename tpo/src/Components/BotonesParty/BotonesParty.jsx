@@ -21,7 +21,7 @@ const BotonesParty = (props) => {
 
   const handleAgregarAlCarrito = () => {
     if (user.isLogged) {
-      addToCart(party.id, cantidadSeleccionada);
+      addToCart(party, cantidadSeleccionada);
     } else {
       // Guarda la ruta actual antes de redirigir al usuario a la página de inicio de sesión
       setPreviousPath(window.location.pathname);
