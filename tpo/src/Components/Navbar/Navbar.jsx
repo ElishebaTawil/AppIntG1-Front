@@ -83,7 +83,7 @@ const Nabvar = () => {
       </ul>
 
       <div className="nav-search">
-        <input
+        <input 
           type="text"
           placeholder="Search..."
           onChange={handleChangeSearch}
