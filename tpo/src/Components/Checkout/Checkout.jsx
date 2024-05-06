@@ -14,15 +14,29 @@ const Checkout = () => {
     removeAllFromCart,
   } = useContext(ShopContext);
   const [fullName, setFullName] = useState("");
-  const [email, setemail] = useState("");
-  const [adress, setadress] = useState("");
-  const [city, setcity] = useState("");
-  const [state, setstate] = useState("");
-  const [code, setcode] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(""); // New state for email error message
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [code, setCode] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    // Validate email format
+    const isValidEmail = /\S+@\S+\.\S+/.test(value);
+    if (!isValidEmail) {
+      // Display error message if email is not valid
+      setEmailError("Invalid email address");
+    } else {
+      setEmailError(""); // Clear error message if email is valid
+    }
+    setEmail(value);
+  };
 
   const handleCardNumberChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -54,16 +68,16 @@ const Checkout = () => {
         descountStockParty(party.id, cartItems[partyId]);
       }
     }
-    if (!isValidCVV(cvv) || !isValidCardNumber(cardNumber)) {
-      alert("datos invalidos, ingreselos correctamente");
-      return; // No continuar con la compra si el CVV no es válido
+    if (!isValidCVV(cvv) || !isValidCardNumber(cardNumber) || emailError) {
+      alert("Invalid data, please enter them correctly");
+      return; // Stop the purchase process if the data is invalid
     } else {
       setFullName("");
-      setemail("");
-      setadress("");
-      setcity("");
-      setstate("");
-      setcode("");
+      setEmail("");
+      setAddress("");
+      setCity("");
+      setState("");
+      setCode("");
       setCardNumber("");
       setExpirationDate("");
       setCvv("");
@@ -106,8 +120,9 @@ const Checkout = () => {
             name="email"
             placeholder="example@example.com"
             value={email}
-            onChange={(e) => setemail(e.target.value)}
+            onChange={handleEmailChange}
           />
+          {emailError && <p className="error-message">{emailError}</p>} {/* Display error message */}
         </div>
         <div className="input-box">
           <span>Address:</span>
@@ -115,8 +130,8 @@ const Checkout = () => {
             type="text"
             name="address"
             placeholder="Room - Street - Locality"
-            value={adress}
-            onChange={(e) => setadress(e.target.value)}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className="input-box">
@@ -126,7 +141,7 @@ const Checkout = () => {
             name="city"
             placeholder="Mumbai"
             value={city}
-            onChange={(e) => setcity(e.target.value)}
+            onChange={(e) => setCity(e.target.value)}
           />
         </div>
         <div className="flex">
@@ -137,7 +152,7 @@ const Checkout = () => {
               name="state"
               placeholder="India"
               value={state}
-              onChange={(e) => setstate(e.target.value)}
+              onChange={(e) => setState(e.target.value)}
             />
           </div>
           <div className="input-box">
@@ -147,7 +162,7 @@ const Checkout = () => {
               name="zip-code"
               placeholder="123456"
               value={code}
-              onChange={(e) => setcode(e.target.value)}
+              onChange={(e) => setCode(e.target.value)}
             />
           </div>
         </div>
@@ -191,7 +206,7 @@ const Checkout = () => {
         </div>
       </div>
       <div className="checkout-parties">
-        <h3>Resumen:</h3>
+        <h3>Summary:</h3>
         {Object.keys(cartItems).map((partyId) => {
           const party = allParties.find(
             (party) => party.id === parseInt(partyId)
@@ -215,13 +230,13 @@ const Checkout = () => {
         <p>Subtotal: ${getTotalCartAmount()}</p>
         <p>Shipping: Free</p>
         <p>Total: ${getTotalCartAmount()}</p>
-        <button onClick={() => handleDescountStock()}>Comprar</button>
+        <button onClick={() => handleDescountStock()}>Purchase</button>
       </div>
 
       {showSuccessMessage && (
         <div className="success-message">
-          <h2>¡Compra exitosa!</h2>
-          <p>Le estara llegando al mail los QR para las entradas</p>
+          <h2>Successful purchase!</h2>
+          <p>You will receive the QR codes for the tickets by email</p>
         </div>
       )}
     </div>
