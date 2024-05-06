@@ -91,3 +91,18 @@ input[type="checkbox"] {
   height: 35px; /* Altura del checkbox */
   margin-right: 2px; /*Espacio entre el checkbox y el texto */
 }
+
+/* Selector específico para el calendario en input tipo date */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  /* Modifica el tamaño del icono del calendario */
+  position: relative;
+  transform: scale(2);
+  right: 25px;
+}
+
+/* Ajusta el tamaño del calendario */
+input[type="date"]::-webkit-calendar-picker-popup {
+  font-size: 40px; /* Ajusta el tamaño del texto en el calendario */
+  width: 300px; /* Ajusta el ancho del calendario */
+  height: 300px; /* Ajusta la altura del calendario */
+}
