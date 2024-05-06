@@ -1,7 +1,6 @@
 import React from 'react';
 import Nabvar from './Components/Navbar/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Eventos from './Pages/Eventos';
 import EventsCategory from './Pages/EventsCategory';
 import Partys from './Pages/Partys';
 import Cart from './Pages/Cart';
@@ -21,7 +20,6 @@ function App() {
         <Nabvar />
         <Routes>
           <Route path='/' element={<EventsCategory category="recintos" />} />
-          <Route path='/eventos' element={<EventsCategory category="eventos" />} />
           <Route path='/artistas' element={<EventsCategory category="artistas" />} />
           <Route path='/partys' element={<Partys />} />
           <Route path="/payments" element={<Payments />} />

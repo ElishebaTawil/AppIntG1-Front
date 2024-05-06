@@ -1,31 +1,26 @@
 import "./BotonesParty.css";
-import React, { useState, useContext } from "react";
-import { ShopContext } from "../../Context/ShopContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { agregarAlCarrito } from "../../Redux/actions/cartActions";
 
 const BotonesParty = (props) => {
-  const { party } = props;
-  const { user, addToCart } = useContext(ShopContext);
+  const { party, user, addToCart } = props;
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [previousPath, setPreviousPath] = useState(null);
 
   const handleCantidadChange = (event) => {
     const cantidad = parseInt(event.target.value);
     setCantidadSeleccionada(cantidad);
   };
+
   const VerificarStock = (cantidadSeleccionada) => {
     return cantidadSeleccionada <= party.stock;
   };
 
   const handleAgregarAlCarrito = () => {
     if (user.isLogged) {
-      addToCart(party.id, cantidadSeleccionada);
+      agregarAlCarrito(party.id, cantidadSeleccionada);
     } else {
-      // Guarda la ruta actual antes de redirigir al usuario a la página de inicio de sesión
-      setPreviousPath(window.location.pathname);
-      navigate("/loginSignUp");
+      // Manejo de la lógica para redirigir al usuario a la página de inicio de sesión
     }
   };
 
@@ -85,4 +80,12 @@ const BotonesParty = (props) => {
   );
 };
 
-export default BotonesParty;
+const mapStateToProps = (state) => ({
+  user: state.user, // Suponiendo que tienes un reducer para el usuario en tu store de Redux
+});
+
+const mapDispatchToProps = {
+  agregarAlCarrito, // Hace que la acción addToCart esté disponible como una propiedad en el componente
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BotonesParty);

@@ -1,56 +1,68 @@
-import React, { useContext, useState, useEffect } from "react";
-import "./CSS/LoginSignup.css";
-import { ShopContext } from "../Context/ShopContext";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser, registerUser } from "../Redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
 
-const LoginUser = () => {
-  const { setUser } = useContext(ShopContext);
+const LoginSignup = () => {
+  const dispatch = useDispatch();
   const [registro, setRegistro] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [aceptarTerminos, setAceptarTerminos] = useState(false);
   const navigate = useNavigate();
 
   const onChangeValues = ({ target }) => {
-    //me quedo con el target de todo el objeto value
-    setRegistro({ ...registro, [target.name]: target.value, isLogged: true });
+    setRegistro({ ...registro, [target.name]: target.value });
   };
-  const handleContinuarClick = () => {
-    // Verificar si alguno de los campos está vacío
-    const { email, password } = registro;
-    registro.name = "admin"; //hardcodeo el nombre
 
-    if (!email || !password) {
+  const handleContinuarClick = () => {
+    // Realiza validaciones de los campos y lógica de registro/login
+
+    if (!registro.name || !registro.email || !registro.password) {
       // Si alguno de los campos está vacío, mostrar mensaje de error
       setErrorMessage("Por favor, completá todos los campos.");
       return; // No continuar con el proceso de creación de usuario
     }
-    // Si todos los campos están llenos, llamamos a setUser
-    setUser(registro); //lo guardo en user
-    navigate("/");
-    setErrorMessage(""); // Limpiar el mensaje de error
-  };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (!aceptarTerminos) {
+      setErrorMessage("Debes aceptar nuestros Términos y Condiciones.");
+      return;
+    }
+
+    // Dispatch de la acción correspondiente
+    if (registro.isLogged) {
+      // Si ya hay un usuario logueado, se trata de un inicio de sesión
+      dispatch(loginUser(registro));
+    } else {
+      // Si no hay un usuario logueado, se trata de un registro
+      dispatch(registerUser(registro));
+    }
+  };
 
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">
-        <h1>Inicia Sesión</h1>
+        <h1>Registrate</h1>
         <div className="loginsignup-fields">
+          <input
+            type="text"
+            name="name"
+            onChange={onChangeValues}
+            placeholder="Tu Nombre"
+            value={registro.name || ""}
+          />
           <input
             type="email"
             name="email"
             onChange={onChangeValues}
             placeholder="Tu Email"
-            value={registro.email}
+            value={registro.email || ""}
           />
           <input
             type="password"
             name="password"
             onChange={onChangeValues}
             placeholder="Tu Contraseña"
-            value={registro.password}
+            value={registro.password || ""}
           />
         </div>
         {/* Mostrar mensaje de error si existe */}
@@ -59,14 +71,26 @@ const LoginUser = () => {
             {errorMessage}
           </p>
         )}
-        <button onClick={handleContinuarClick}>Iniciar Sesión</button>
+        <button onClick={handleContinuarClick}>Continuar</button>
         <p className="loginsignup-login">
-          No tienes una cuenta?{" "}
-          <span onClick={() => navigate("/loginSignUp")}>Registrate</span>
+          Ya tienes una cuenta?{" "}
+          <span onClick={() => navigate("/loginUser")}>Inicia Sesión</span>
         </p>
+        <div className="loginsignup-agree">
+          <input
+            type="checkbox"
+            checked={aceptarTerminos}
+            onChange={() => setAceptarTerminos(!aceptarTerminos)}
+          />
+          <p className="loginsignup-login">
+            Al registrarte aceptas nuestros{" "}
+            <span>Términos y Condiciones</span> y{" "}
+            <span>Política de Privacidad</span>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LoginUser;
+export default LoginSignup;

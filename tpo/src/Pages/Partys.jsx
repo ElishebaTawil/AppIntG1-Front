@@ -1,32 +1,32 @@
-import React from "react";
-import { useEffect, useContext } from "react";
-import { ShopContext } from "../Context/ShopContext";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import RelatedPartys from "../Components/RelatedPartys/RelatedPartys";
 import "./CSS/Partys.css";
 import HeaderParty from "../Components/HeaderParty/HeaderParty";
 import BotonesParty from "../Components/BotonesParty/BotonesParty";
-import BotonAgregarAlCarrito from "../Components/BotonComprarParty/BotonAgregarAlCarrito";
-import { useNavigate } from "react-router-dom";
+import { getPartyById } from '../Redux/selectors/partySelectors';
+import { fetchPartyById } from '../Redux/actions/partyActions';
 
-const Partys = () => {
-  const { all_parties } = useContext(ShopContext);
+const Partys = ({ party, fetchPartyById }) => {
   const { partyId } = useParams();
-  const party = all_parties.find((e) => e.id === Number(partyId));
-  const navigate = useNavigate();
 
   useEffect(() => {
+    fetchPartyById(partyId);
     window.scrollTo(0, 0);
-  }, []);
+  }, [fetchPartyById, partyId]);
+
+  if (!party) {
+    // Puedes mostrar un spinner o un mensaje de carga mientras se obtienen los datos de la fiesta
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <HeaderParty party={party} />
       <div>
         <BotonesParty party={party} />
-        {/*<BotonAgregarAlCarrito navigate={navigate} />*/}
       </div>
-
       <div>
         <RelatedPartys style={{ marginTop: "20px" }} />
       </div>
@@ -34,4 +34,12 @@ const Partys = () => {
   );
 };
 
-export default Partys;
+const mapStateToProps = (state, ownProps) => ({
+  party: getPartyById(state, ownProps.partyId),
+});
+
+const mapDispatchToProps = {
+  fetchPartyById,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Partys);

@@ -1,20 +1,17 @@
-import React, { useState, useContext } from "react";
-import "./Navbar.css";
 import logo from "../Assets/logo2.png";
 import cart_icon from "../Assets/bolsa_compras.jpg";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ShopContext } from "../../Context/ShopContext";
 import lupa from "../Assets/lupa.png";
 import { IconButton } from "@mui/material";
+import { logoutUser } from '../../Redux/actions/userActions';
 
-const Nabvar = () => {
+const Navbar = ({ user, getTotalCartItems, setSearch, logoutUser }) => {
   const [menu, setMenu] = useState("recintos");
-  const { getTotalCartItems } = useContext(ShopContext);
   const [localSearch, setLocalSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
-  const { shoppingCart, setSearch } = useContext(ShopContext);
-  const { user } = useContext(ShopContext);
 
   const handleChangeSearch = (event) => {
     const value = event.target.value;
@@ -26,6 +23,7 @@ const Nabvar = () => {
       setSearch(value);
     }
   };
+
   const handleClickSearch = () => {
     if (localSearch.length >= 3) {
       setSearch(localSearch);
@@ -34,10 +32,7 @@ const Nabvar = () => {
   };
 
   const handleContinuarClick = () => {
-    user.name = "";
-    user.mail = "";
-    user.password = "";
-    user.isLogged = false;
+    logoutUser();
     navigate("/");
   };
 
@@ -46,7 +41,6 @@ const Nabvar = () => {
       <div className="nav-logo">
         <img src={logo} alt="logo" className="logoshopper" />
       </div>
-      {/* Botón de hamburguesa */}
       <button className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
         <div className="menu-icon-lines"></div>
         <div className="menu-icon-lines"></div>
@@ -58,13 +52,13 @@ const Nabvar = () => {
           <Link to="/">HOME</Link>
         </li>
 
-        {user.name === "admin" && (
+        {user && user.name === "admin" && (
           <li onClick={() => setMenu("AgregarFiesta")}>
             <Link to="/agregarFiesta">AGREGAR FIESTA</Link>
           </li>
         )}
 
-        {user.isLogged ? (
+        {user && user.isLogged ? (
           <>
             <div className="loginName">
               <p>HOLA, {user.name}!</p>
@@ -101,4 +95,12 @@ const Nabvar = () => {
   );
 };
 
-export default Nabvar;
+const mapStateToProps = (state) => ({
+  user: state.user, // Accede al estado del usuario desde Redux
+});
+
+const mapDispatchToProps = {
+  logoutUser, // Proporciona la acción logoutUser como una prop
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
