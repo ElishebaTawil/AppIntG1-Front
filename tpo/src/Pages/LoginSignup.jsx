@@ -30,6 +30,11 @@ const LoginSignup = () => {
       setErrorMessage("Debes aceptar nuestros Términos y Condiciones.");
       return;
     }
+
+    if (!isValidEmail(email)) {
+      setErrorMessage("Por favor, ingresa un correo electrónico válido.");
+      return;
+    }
     // Si todos los campos están llenos, llamamos a setUser
     setUser(registro); //lo guardo en user
     navigate("/");
@@ -39,6 +44,12 @@ const LoginSignup = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const isValidEmail = (email) => {
+    // Expresión regular para validar el formato del correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   return (
     <div className="loginsignup">

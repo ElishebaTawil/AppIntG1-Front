@@ -35,8 +35,9 @@ const ShopContextProvider = (props) => {
   };
 
   const removeAllFromCart = () => {
-    setCartItems(() => ({}));
+    setCartItems([]);
   };
+  
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;

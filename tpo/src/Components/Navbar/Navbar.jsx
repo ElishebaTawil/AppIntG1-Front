@@ -81,6 +81,7 @@ const Nabvar = () => {
           </li>
         )}
       </ul>
+ AgregarFiestaFixec_SebastianSosa
       {!location.pathname.includes("partys") &&
       !location.pathname.includes("login") &&
       !location.pathname.includes("cart") ? (
