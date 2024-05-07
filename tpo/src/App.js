@@ -11,13 +11,16 @@ import AgregarFiesta from './Pages/AgregarFiesta';
 import Payments from "./Pages/Payments";
 import LoginUser from './Pages/LoginUser';
 import BotonesParty from './Components/BotonesParty/BotonesParty';
+import Terminos_y_condiciones from './Pages/Terminos_y_condiciones';
+import Contacto from './Pages/Contacto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   
   return (
-    <div>
-      <BrowserRouter>
+    
+      <div>
+        <BrowserRouter>
         <Nabvar />
         <Routes>
           <Route path='/' element={<EventsCategory category="recintos" />} />
@@ -32,10 +35,13 @@ function App() {
           <Route path="/agregarFiesta" element={<AgregarFiesta />} />
           <Route path="/EventsCategory" element={<EventsCategory />} />
           <Route path="/comprar" element={<BotonesParty />} />
+          <Route path="/Terminos_y_condiciones" element={<Terminos_y_condiciones />} />
+          <Route path="/Contacto" element={<Contacto />} />
         </Routes>
-      </BrowserRouter>
-      <Footer />
-    </div>
+        <Footer />
+        </BrowserRouter>
+      </div>
+    
   );
 }
 
