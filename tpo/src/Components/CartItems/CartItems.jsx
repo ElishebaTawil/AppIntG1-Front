@@ -2,11 +2,32 @@ import React, { useContext } from "react";
 import "./CartItems.css";
 import remove_icon from "../Assets/remove_icon.png";
 import { Link } from "react-router-dom";
-
 import { ShopContext } from "../../Context/ShopContext";
+import { useState } from "react";
+
 const CartItems = () => {
-  const { getTotalCartAmount, cartItems, removeFromCart } =
-    useContext(ShopContext);
+  const { cartItems, removeFromCart } = useContext(ShopContext);
+    const [promoCode, setPromoCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
+
+  const applyPromoCode = () => {
+    if (promoCode === "1234") {
+      setDiscountApplied(true);
+    } else {
+      alert("El código promocional no es válido");
+    }
+  };
+  
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    cartItems.forEach((item) => {
+      totalAmount += item.new_price * item.cantidad;
+    });
+    if (discountApplied) {
+      return totalAmount * 0.9;
+    }
+    return totalAmount;
+  };
 
   return (
     <div className="cartitems">
@@ -47,12 +68,17 @@ const CartItems = () => {
           );
         })}
         <div className="cartitems-promocode">
-          <p>Si tienes un codigo de descuento, Agregalo aqui</p>
-          <div className="cartitems-promobox">
-            <input type="text" placeholder="promo code" />
-            <button>Aceptar</button>
-          </div>
+        <p>Si tienes un código de descuento, agrégalo aquí</p>
+        <div className="cartitems-promobox">
+          <input
+            type="text"
+            placeholder="Código promocional"
+            value={promoCode}
+            onChange={(e) => setPromoCode(e.target.value)}
+          />
+          <button onClick={applyPromoCode}>Aceptar</button>
         </div>
+      </div>
         <div className="cartitems-down">
           <div className="cartitems-total">
             <h1>Total Carrito</h1>
