@@ -14,7 +14,7 @@ const Nabvar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const { shoppingCart, setSearch } = useContext(ShopContext);
-  const { user } = useContext(ShopContext);
+  const { user, removeAllFromCart } = useContext(ShopContext);
   const location = useLocation();
 
   const handleChangeSearch = (event) => {
@@ -39,6 +39,7 @@ const Nabvar = () => {
     user.mail = "";
     user.password = "";
     user.isLogged = false;
+    removeAllFromCart();
     navigate("/");
   };
 
@@ -81,7 +82,7 @@ const Nabvar = () => {
           </li>
         )}
       </ul>
- 
+
       {!location.pathname.includes("partys") &&
       !location.pathname.includes("login") &&
       !location.pathname.includes("cart") ? (

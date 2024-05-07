@@ -1,5 +1,5 @@
 import "./BotonesParty.css";
-import React, { useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -10,7 +10,6 @@ const BotonesParty = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [previousPath, setPreviousPath] = useState(null);
-  
 
   const handleCantidadChange = (event) => {
     const cantidad = parseInt(event.target.value);
@@ -30,12 +29,9 @@ const BotonesParty = (props) => {
     }
   };
   const esAdmin = () => {
-     return user.isLogged;
-
-  }
-  const modificarFiesta = (party) =>{
-
-  }
+    return user.isLogged;
+  };
+  const modificarFiesta = (party) => {};
 
   return (
     <div>
@@ -90,8 +86,8 @@ const BotonesParty = (props) => {
         </div>
       )}
       <div>
-      {/* Utilizando un objeto para condicionalmente renderizar el botón */}
-      {/* {esAdmin() && (
+        {/* Utilizando un objeto para condicionalmente renderizar el botón */}
+        {/* {esAdmin() && (
         {
           esAdmin() && (
             <div className="ComprarPartyButton">
@@ -100,8 +96,7 @@ const BotonesParty = (props) => {
           )
         }
       )} */}
-    </div>
-      
+      </div>
     </div>
   );
 };

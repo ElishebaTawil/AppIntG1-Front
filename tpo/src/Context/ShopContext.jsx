@@ -37,7 +37,6 @@ const ShopContextProvider = (props) => {
   const removeAllFromCart = () => {
     setCartItems([]);
   };
-  
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -48,7 +47,11 @@ const ShopContextProvider = (props) => {
   };
 
   const getTotalCartItems = () => {
-    return cartItems.length;
+    let cantEntradas = 0;
+    cartItems.forEach((item) => {
+      cantEntradas += item.cantidad;
+    });
+    return cantEntradas;
   };
 
   const descountStockParty = (itemId, cantidad) => {
