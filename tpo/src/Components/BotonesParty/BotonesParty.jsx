@@ -29,7 +29,11 @@ const BotonesParty = (props) => {
     }
   };
   const esAdmin = () => {
-    return user.isLogged;
+    if (user.name === "admin") {
+      return true;
+    } else {
+      return false;
+    }
   };
   const modificarFiesta = (party) => {};
 
