@@ -85,7 +85,8 @@ const Nabvar = () => {
 
       {!location.pathname.includes("partys") &&
       !location.pathname.includes("login") &&
-      !location.pathname.includes("cart") ? (
+      !location.pathname.includes("cart") &&
+      !location.pathname.includes("agregarFiesta") ? (
         <div className="nav-search">
           <input
             type="text"

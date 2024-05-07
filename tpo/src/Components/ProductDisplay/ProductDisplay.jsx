@@ -24,12 +24,16 @@ const ProductDisplay = (props) => {
           <p>(122)</p>
         </div>
         <div className="productdisplay-right-prices">
-          <div className="productdisplay-right-price-new">
-            $ {party.new_price}
-          </div>
-          <div className="productdisplay-right-price-old">
-            $ {party.old_price}
-          </div>
+          {party.new_price > 1 && (
+            <div className="productdisplay-right-price-new">
+              $ {party.new_price}
+            </div>
+          )}
+          {party.old_price > 1 && (
+            <div className="productdisplay-right-price-old">
+              $ {party.old_price}
+            </div>
+          )}
         </div>
         <div className="productdisplay-right-description">Party</div>
 

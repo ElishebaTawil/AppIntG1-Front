@@ -70,6 +70,17 @@ const ShopContextProvider = (props) => {
 
   const agregarParty = (party) => {
     setAllParties(() => [...allParties, party]);
+    console.log("Fiestas: ", allParties);
+  };
+
+  const eliminarParty = (partyId) => {
+    //Me quedo con todas las fiestas menos con la que quiero eliminar
+    setAllParties(allParties.filter((party) => party.id !== Number(partyId)));
+
+    // Actualizar los IDs de las fiestas siguientes
+    //for (let i = partyId + 1; i < allParties.length; i++) {
+    //allParties[i].id -= 1;
+    //}
   };
 
   const contextValue = {
@@ -77,6 +88,7 @@ const ShopContextProvider = (props) => {
     getTotalCartAmount,
     allParties,
     agregarParty,
+    eliminarParty,
     cartItems,
     addToCart,
     removeFromCart,
@@ -90,6 +102,7 @@ const ShopContextProvider = (props) => {
     setCantidadSeleccionada,
     descountStockParty,
     removeAllFromCart,
+    setAllParties,
   };
 
   return (
