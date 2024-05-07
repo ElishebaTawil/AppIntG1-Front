@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 220px;
+  margin-top: -140px;
 }
 .botonComprar {
   color: white;
@@ -49,6 +50,11 @@
   border: 2px solid orangered;
   margin-left: 2rem;
   margin-top: 2px;
+}
+
+/* Aplica el margen entre los botones */
+.ComprarPartyButton .botonComprar + .botonComprar {
+  margin-left: 30px; /* Ajusta este valor según sea necesario */
 }
 
 .estiloBoton {

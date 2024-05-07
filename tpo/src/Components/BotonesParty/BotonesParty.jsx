@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const BotonesParty = (props) => {
   const { party } = props;
-  const { user, addToCart } = useContext(ShopContext);
+  const { user, addToCart, eliminarParty } = useContext(ShopContext);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,6 +32,14 @@ const BotonesParty = (props) => {
     return user.isLogged;
   };
   const modificarFiesta = (party) => {};
+
+  const handleEliminarFiesta = () => {
+    // Obtiene el último número del pathname
+    const partyId = location.pathname.split("/").pop();
+    console.log("ID de la party a eliminar: ", partyId);
+    eliminarParty(partyId);
+    navigate("/");
+  };
 
   return (
     <div>
@@ -71,7 +79,23 @@ const BotonesParty = (props) => {
           </select>
         </div>
       </div>
-      {VerificarStock(cantidadSeleccionada) ? (
+
+      {esAdmin() ? (
+        <div className="ComprarPartyButton">
+          <button
+            className="botonComprar aviable"
+            onClick={() => modificarFiesta(party)}
+          >
+            MODIFICAR FIESTA
+          </button>
+          <button
+            className="botonComprar aviable"
+            onClick={handleEliminarFiesta}
+          >
+            ELIMINAR FIESTA
+          </button>
+        </div>
+      ) : VerificarStock(cantidadSeleccionada) ? (
         <div className="ComprarPartyButton">
           <button
             onClick={handleAgregarAlCarrito}
@@ -85,18 +109,6 @@ const BotonesParty = (props) => {
           <button className="botonComprar disable"> AGREGAR AL CARRITO</button>
         </div>
       )}
-      <div>
-        {/* Utilizando un objeto para condicionalmente renderizar el botón */}
-        {/* {esAdmin() && (
-        {
-          esAdmin() && (
-            <div className="ComprarPartyButton">
-              <button className="botonComprar" onClick={() => modificarFiesta(party)}>MODIFICAR FIESTA</button>
-            </div>
-          )
-        }
-      )} */}
-      </div>
     </div>
   );
 };
