@@ -8,6 +8,7 @@ import Cart from './Pages/Cart';
 import LoginSignup from './Pages/LoginSignup';
 import Footer from './Components/Footer/Footer';
 import AgregarFiesta from './Pages/AgregarFiesta';
+import ModificarFiesta from './Pages/ModificarFiesta';
 import Payments from "./Pages/Payments";
 import LoginUser from './Pages/LoginUser';
 import BotonesParty from './Components/BotonesParty/BotonesParty';
@@ -33,6 +34,7 @@ function App() {
           <Route path='/loginSignUp' element={<LoginSignup />} />
           <Route path='/loginUser' element={<LoginUser />} />
           <Route path="/agregarFiesta" element={<AgregarFiesta />} />
+          <Route path="/modificarFiesta" element={<ModificarFiesta />} />
           <Route path="/EventsCategory" element={<EventsCategory />} />
           <Route path="/comprar" element={<BotonesParty />} />
           <Route path="/Terminos_y_condiciones" element={<Terminos_y_condiciones />} />

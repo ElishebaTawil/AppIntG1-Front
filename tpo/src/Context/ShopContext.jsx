@@ -82,6 +82,11 @@ const ShopContextProvider = (props) => {
     //allParties[i].id -= 1;
     //}
   };
+  const getPartyById = (partyId) => {
+    return allParties.find((party) => party.id === partyId);
+  };
+
+  
 
   const contextValue = {
     getTotalCartItems,
@@ -103,6 +108,8 @@ const ShopContextProvider = (props) => {
     descountStockParty,
     removeAllFromCart,
     setAllParties,
+    getPartyById,
+    
   };
 
   return (
