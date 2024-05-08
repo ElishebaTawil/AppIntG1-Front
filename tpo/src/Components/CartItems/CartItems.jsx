@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 import { useState } from "react";
 
+// import { useDispatch } from 'react-redux';
+// import { removeFromCart } from '../../Redux/actions/cartActions';
+
 const CartItems = () => {
   const { cartItems, removeFromCart } = useContext(ShopContext);
     const [promoCode, setPromoCode] = useState("");
   const [discountApplied, setDiscountApplied] = useState(false);
+  // const dispatch = useDispatch();
 
   const applyPromoCode = () => {
     if (promoCode === "1234") {

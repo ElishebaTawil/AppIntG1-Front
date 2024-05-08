@@ -10,6 +10,7 @@ const BotonesParty = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [previousPath, setPreviousPath] = useState(null);
+  
 
   const handleCantidadChange = (event) => {
     const cantidad = parseInt(event.target.value);
@@ -35,7 +36,16 @@ const BotonesParty = (props) => {
       return false;
     }
   };
-  const modificarFiesta = (party) => {};
+  const handlemodificarFiesta = () => {
+    const partyId = location.pathname.split("/").pop();
+    console.log("ID de la party a eliminar: ", partyId);
+    eliminarParty(partyId);
+    
+    
+    navigate("/modificarFiesta?party=${party}");
+    
+
+  };
 
   const handleEliminarFiesta = () => {
     // Obtiene el último número del pathname
@@ -88,7 +98,7 @@ const BotonesParty = (props) => {
         <div className="ComprarPartyButton">
           <button
             className="botonComprar aviable"
-            onClick={() => modificarFiesta(party)}
+            onClick={ handlemodificarFiesta}
           >
             MODIFICAR FIESTA
           </button>
