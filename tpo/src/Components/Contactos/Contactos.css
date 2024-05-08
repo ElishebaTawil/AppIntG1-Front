@@ -41,10 +41,22 @@
   .mensaje-enviado {
     padding: 10px;
     margin-top: 10px;
-    background-color: #dff0d8; /* Verde claro para indicar éxito */
-    color: #3c763d; /* Color de texto oscuro para contraste */
+    background-color: #dff0d8; 
+    color: #3c763d; 
     text-align: center;
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
   }
+
+  .error-message {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f2dede; 
+    color: #a94442; 
+    text-align: center;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
