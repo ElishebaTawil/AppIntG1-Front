@@ -1,11 +1,10 @@
-/* TermsAndConditions.css */
 .terms {
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 20px;
-    background-color: #d1d1d1; /* Cambio a un tono salmón, como en la imagen */
-    color: #000000; /* Texto oscuro */
-    border-radius: 10px; /* Esquinas redondeadas */
+    background-color: #d1d1d1; 
+    color: #000000; 
+    border-radius: 10px; 
   }
   
   
