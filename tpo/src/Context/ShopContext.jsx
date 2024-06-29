@@ -11,6 +11,7 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [user, setUser] = useState({ name: "", role: "", isLogged: false });
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
+  const [discountApplied, setDiscountApplied] = useState(false);
 
   const addToCart = (evento, cantidad) => {
     if (user.isLogged) {
@@ -28,6 +29,8 @@ const ShopContextProvider = (props) => {
       }
     }
   };
+
+
 
   const removeFromCart = (itemId) => {
     //excluyo al item con el id que no quiero
@@ -54,19 +57,14 @@ const ShopContextProvider = (props) => {
     return cantEntradas;
   };
 
-  const descountStockParty = (itemId, cantidad) => {
-    setAllParties((prevParties) => {
-      return prevParties.map((party) => {
-        if (party.id === itemId) {
-          return {
-            ...party,
-            stock: party.stock - cantidad,
-          };
-        }
-        return party;
-      });
-    });
+  const descountStockParty = (id, quantity) => {
+    setAllParties((prevParties) =>
+      prevParties.map((party) =>
+        party.id === id ? { ...party, stock: party.stock - quantity } : party
+      )
+    );
   };
+
 
   const agregarParty = (party) => {
     setAllParties(() => [...allParties, party]);
@@ -106,6 +104,8 @@ const ShopContextProvider = (props) => {
     cantidadSeleccionada,
     setCantidadSeleccionada,
     descountStockParty,
+    discountApplied,
+    setDiscountApplied,
     removeAllFromCart,
     setAllParties,
     getPartyById,
