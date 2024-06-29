@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import "./Checkout.css";
 import paypal from "../Assets/card_img.png";
@@ -10,14 +10,19 @@ const Checkout = () => {
     removeFromCart,
     descountStockParty,
     removeAllFromCart,
+    discountApplied,
   } = useContext(ShopContext);
 
-  // Calculate total cart amount with discounts
   const getTotalCartAmount = () => {
-    return cartItems.reduce((total, item) => {
+    let totalAmount = 0;
+    cartItems.forEach((item) => {
       const party = allParties.find((party) => party.id === item.id);
-      return total + (party ? party.new_price * item.cantidad : 0);
-    }, 0);
+      totalAmount += party ? party.new_price * item.cantidad : 0;
+    });
+    if (discountApplied) {
+      return totalAmount * 0.9;
+    }
+    return totalAmount;
   };
 
   const [fullName, setFullName] = useState("");
@@ -130,7 +135,7 @@ const Checkout = () => {
             value={email}
             onChange={handleEmailChange}
           />
-          {emailError && <p className="error-message">{emailError}</p>} {/* Display error message */}
+          {emailError && <p className="error-message">{emailError}</p>}
         </div>
         <div className="input-box">
           <span>Address:</span>

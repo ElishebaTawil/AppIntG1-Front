@@ -1,18 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./CartItems.css";
 import remove_icon from "../Assets/remove_icon.png";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
-import { useState } from "react";
-
-// import { useDispatch } from 'react-redux';
-// import { removeFromCart } from '../../Redux/actions/cartActions';
 
 const CartItems = () => {
-  const { cartItems, removeFromCart } = useContext(ShopContext);
-    const [promoCode, setPromoCode] = useState("");
-  const [discountApplied, setDiscountApplied] = useState(false);
-  // const dispatch = useDispatch();
+  const { cartItems, removeFromCart, discountApplied, setDiscountApplied } = useContext(ShopContext);
+  const [promoCode, setPromoCode] = useState("");
 
   const applyPromoCode = () => {
     if (promoCode === "1234") {
@@ -21,7 +15,7 @@ const CartItems = () => {
       alert("El código promocional no es válido");
     }
   };
-  
+
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     cartItems.forEach((item) => {
@@ -47,7 +41,7 @@ const CartItems = () => {
       <div>
         {cartItems.map((item) => {
           return (
-            <div>
+            <div key={item.id}>
               <div className="cartitems-format cartitems-format-main">
                 <img
                   src={item.image}
@@ -72,17 +66,17 @@ const CartItems = () => {
           );
         })}
         <div className="cartitems-promocode">
-        <p>Si tienes un código de descuento, agrégalo aquí</p>
-        <div className="cartitems-promobox">
-          <input
-            type="text"
-            placeholder="Código promocional"
-            value={promoCode}
-            onChange={(e) => setPromoCode(e.target.value)}
-          />
-          <button onClick={applyPromoCode}>Aceptar</button>
+          <p>Si tienes un código de descuento, agrégalo aquí</p>
+          <div className="cartitems-promobox">
+            <input
+              type="text"
+              placeholder="Código promocional"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+            />
+            <button onClick={applyPromoCode}>Aceptar</button>
+          </div>
         </div>
-      </div>
         <div className="cartitems-down">
           <div className="cartitems-total">
             <h1>Total Carrito</h1>
