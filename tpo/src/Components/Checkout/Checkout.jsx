@@ -1,18 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import "./Checkout.css";
-import trash from "../Assets/trash.png";
 import paypal from "../Assets/card_img.png";
 
 const Checkout = () => {
   const {
     cartItems,
     allParties,
-    getTotalCartAmount,
     removeFromCart,
     descountStockParty,
     removeAllFromCart,
   } = useContext(ShopContext);
+
+  // Calculate total cart amount with discounts
+  const getTotalCartAmount = () => {
+    return cartItems.reduce((total, item) => {
+      const party = allParties.find((party) => party.id === item.id);
+      return total + (party ? party.new_price * item.cantidad : 0);
+    }, 0);
+  };
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(""); // New state for email error message
@@ -27,40 +34,38 @@ const Checkout = () => {
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
-    // Validate email format
     const isValidEmail = /\S+@\S+\.\S+/.test(value);
     if (!isValidEmail) {
-      // Display error message if email is not valid
       setEmailError("Invalid email address");
     } else {
-      setEmailError(""); // Clear error message if email is valid
+      setEmailError("");
     }
     setEmail(value);
   };
 
   const handleCardNumberChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    value = value.slice(0, 16); // Limit to 16 characters
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.slice(0, 16);
     setCardNumber(value);
   };
 
   const handleExpirationDateChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    value = value.slice(0, 6); // Limit to 6 characters (MMYYYY)
-    const formattedValue = value.replace(/(\d{2})(\d{0,4})/, "$1/$2"); // Format as MM/YYYY
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.slice(0, 6);
+    const formattedValue = value.replace(/(\d{2})(\d{0,4})/, "$1/$2");
     setExpirationDate(formattedValue);
   };
 
   const handleCvvChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    const maxLength = cardNumber.startsWith("3") ? 4 : 3; // Set max length based on card type
-    setCvv(value.slice(0, maxLength)); // Limit to maxLength characters
+    const value = e.target.value.replace(/\D/g, "");
+    const maxLength = cardNumber.startsWith("3") ? 4 : 3;
+    setCvv(value.slice(0, maxLength));
   };
 
   const handleRemoveFromCart = (partyId) => {
-    // Implement the logic to remove an item from the cart
     removeFromCart(partyId);
   };
+
   const handleDescountStock = () => {
     for (const partyId in cartItems) {
       const party = allParties.find((party) => party.id === parseInt(partyId));
@@ -70,7 +75,7 @@ const Checkout = () => {
     }
     if (!isValidCVV(cvv) || !isValidCardNumber(cardNumber) || emailError) {
       alert("Invalid data, please enter them correctly");
-      return; // Stop the purchase process if the data is invalid
+      return;
     } else {
       setFullName("");
       setEmail("");
@@ -85,6 +90,7 @@ const Checkout = () => {
       setShowSuccessMessage(true);
     }
   };
+
   const handleRemoveAllCart = () => {
     removeAllFromCart();
   };
@@ -92,9 +98,11 @@ const Checkout = () => {
   const isValidCVV = (cvv) => {
     return /^\d{3}$/.test(cvv);
   };
+
   const isValidString = (value) => {
     return typeof value === "string" && value.trim() !== "";
   };
+
   const isValidCardNumber = (cardNumber) => {
     return /^\d{16}$/.test(cardNumber);
   };
@@ -170,9 +178,9 @@ const Checkout = () => {
       <div className="payment-details">
         <h3 className="title">Payment</h3>
 
-        <div class="inputBox">
+        <div className="inputBox">
           <span>cards accepted :</span>
-          <img src={paypal} alt="" />
+          <img src={paypal} alt="paypal" />
         </div>
         <div className="input-box">
           <span>Credit Card Number:</span>
@@ -207,24 +215,26 @@ const Checkout = () => {
       </div>
       <div className="checkout-parties">
         <h3>Summary:</h3>
-        {Object.keys(cartItems).map((partyId) => {
-          const party = allParties.find(
-            (party) => party.id === parseInt(partyId)
-          );
-          if (party && cartItems[partyId] > 0) {
-            return (
-              <div className="checkout-parties-item" key={party.id}>
-                <p>{party.name}</p>
-                <p>Quantity: {cartItems[partyId]}</p>
-                <p>Total: ${party.new_price * cartItems[partyId]}</p>
-                <button onClick={() => handleRemoveFromCart(party.id)}>
-                  Remove
-                </button>
-              </div>
-            );
-          }
-          return null;
-        })}
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => {
+            const party = allParties.find((party) => party.id === item.id);
+            if (party) {
+              return (
+                <div className="checkout-parties-item" key={party.id}>
+                  <p>{party.name}</p>
+                  <p>Quantity: {item.cantidad}</p>
+                  <p>Total: ${party.new_price * item.cantidad}</p>
+                  <button onClick={() => handleRemoveFromCart(party.id)}>
+                    Remove
+                  </button>
+                </div>
+              );
+            }
+            return null;
+          })
+        ) : (
+          <p>No items in the cart</p>
+        )}
       </div>
       <div className="checkout-total">
         <p>Subtotal: ${getTotalCartAmount()}</p>
@@ -236,7 +246,7 @@ const Checkout = () => {
       {showSuccessMessage && (
         <div className="success-message">
           <h2>Successful purchase!</h2>
-          <p>You will receive the QR codes for the tickets by email</p>
+          <p>You will receive the ticket information via email.</p>
         </div>
       )}
     </div>
