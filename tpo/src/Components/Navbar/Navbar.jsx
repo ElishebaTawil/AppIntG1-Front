@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext} from "react";
 import "./Navbar.css";
 import logo from "../Assets/logo2.png";
 import cart_icon from "../Assets/bolsa_compras.jpg";
@@ -6,14 +6,18 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 import lupa from "../Assets/lupa.png";
 import { IconButton } from "@mui/material";
+import { setSearch, selectSearch } from "../../ReduxToolkit/partySlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Nabvar = () => {
+  const dispatch = useDispatch();
+  const search = useSelector(selectSearch) || '';
   const [menu, setMenu] = useState("recintos");
   const { getTotalCartItems } = useContext(ShopContext);
   const [localSearch, setLocalSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
-  const { shoppingCart, setSearch } = useContext(ShopContext);
+  const { shoppingCart } = useContext(ShopContext);
   const { user, removeAllFromCart } = useContext(ShopContext);
   const location = useLocation();
 
@@ -21,16 +25,17 @@ const Nabvar = () => {
     const value = event.target.value;
     setLocalSearch(value);
     if (!value.length) {
-      setSearch("");
+      dispatch(setSearch(""));
     }
     if (value.length >= 3) {
-      setSearch(value);
+      dispatch(setSearch(value));
     }
   };
+
   const handleClickSearch = () => {
     if (localSearch.length >= 3) {
-      setSearch(localSearch);
-      navigate("/recintos");
+      dispatch(setSearch(localSearch));
+      navigate("/recintos"); // Ajusta la ruta según sea necesario
     }
   };
 

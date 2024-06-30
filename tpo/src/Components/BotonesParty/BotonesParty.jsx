@@ -2,14 +2,17 @@ import "./BotonesParty.css";
 import React, { useState, useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import { deleteParty } from "../../ReduxToolkit/partySlice";
+import { useSelector,useDispatch } from "react-redux";
 
 const BotonesParty = (props) => {
   const { party } = props;
-  const { user, addToCart, eliminarParty } = useContext(ShopContext);
+  const { user, addToCart } = useContext(ShopContext);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
   const [previousPath, setPreviousPath] = useState(null);
+  const dispatch = useDispatch();
   
 
   const handleCantidadChange = (event) => {
@@ -37,21 +40,20 @@ const BotonesParty = (props) => {
     }
   };
   const handlemodificarFiesta = () => {
-    const partyId = location.pathname.split("/").pop();
-    console.log("ID de la party a eliminar: ", partyId);
-    eliminarParty(partyId);
-    
-    
-    navigate("/modificarFiesta?party=${party}");
+    navigate("/modificarFiesta", { state: { party } });
+    // const partyId = location.pathname.split("/").pop();
+    // console.log("ID de la party a eliminar: ", partyId);
+    // dispatch(deleteParty(partyId));
+    // navigate("/modificarFiesta?party=${party}");
     
 
   };
 
   const handleEliminarFiesta = () => {
-    // Obtiene el último número del pathname
-    const partyId = location.pathname.split("/").pop();
+    // const partyId = location.pathname.split("/").pop();
+    const partyId = party.id;
     console.log("ID de la party a eliminar: ", partyId);
-    eliminarParty(partyId);
+    dispatch(deleteParty(partyId));
     navigate("/");
   };
 
