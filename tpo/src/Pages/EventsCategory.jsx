@@ -1,15 +1,20 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./CSS/EventsCategory.css";
-import { ShopContext } from "../Context/ShopContext";
-import dropdown_icon from "../Components/Assets/dropdown_icon.png";
 import Item from "../Components/Items/Item";
+import { selectAllParties, selectSearch, setSearch } from "../ReduxToolkit/partySlice";
 
 const EventsCategory = (props) => {
-  const { allParties, search } = useContext(ShopContext);
-  const [sortBy, setSortBy] = useState(null); // Estado para almacenar la opción seleccionada
+  const dispatch = useDispatch();
+  const allParties = useSelector(selectAllParties);
+  const search = useSelector(selectSearch) || '';
+  const [sortBy, setSortBy] = useState(null);
 
   const handleChangeSortBy = (option) => {
     setSortBy(option);
+  };
+  const handleSearchChange = (event) => {
+    dispatch(setSearch(event.target.value)); // Actualizar el estado de búsqueda
   };
 
   // Lógica para filtrar y ordenar los elementos según la opción seleccionada

@@ -1,10 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
-import { ShopContext } from "../Context/ShopContext";
+import { useSelector, useDispatch } from "react-redux";
+import { addParty } from "../ReduxToolkit/partySlice";
 import { useNavigate } from "react-router-dom";
 
 const AgregarFiesta = () => {
-  const { agregarParty, allParties } = useContext(ShopContext);
+  const dispatch = useDispatch();
+  const allParties = useSelector((state) => state.party.items);
+  const navigate = useNavigate();
+  
   const [registro, setRegistro] = useState({
     name: "",
     image: "",
@@ -15,38 +19,33 @@ const AgregarFiesta = () => {
     hora: "",
     lugar: "",
     ubicacion: "",
-    cantEntradas: 1,
+    stock: 1,
     descripcion: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
-  const onChangeValues = ({ target }) => {
-    //me quedo con el target de todo el objeto value
-    setRegistro({ ...registro, [target.name]: target.value });
+  const onChangeValues = (event) => {
+    const { name, value } = event.target;
+    setRegistro({ ...registro, [name]: value });
   };
 
   const handleContinuarClick = () => {
-    // Verificar si alguno de los campos está vacío
     const { name, fecha, hora, lugar, new_price, stock, image } = registro;
     if (!name || !fecha || !hora || !lugar || !new_price || !stock || !image) {
-      // Si alguno de los campos está vacío, mostrar mensaje de error
       setErrorMessage("Por favor, completá los campos obligatorios.");
-      return; // No continuar con el proceso de agregar fiesta
+      return;
     }
     if (new_price <= 0 || stock <= 0) {
       setErrorMessage("Por favor, revisa los datos ingresados.");
       return;
     }
-    // Si todos los campos están llenos, llamamos a setFiesta
-    const nuevoId =
-      allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
+    
+    const nuevoId = allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
     const party = { id: nuevoId, ...registro };
 
-    // Agrega la nueva fiesta a la lista
-    agregarParty(party);
+    dispatch(addParty(party));
     navigate(`/partys/${nuevoId}`);
-    setErrorMessage(""); // Limpiar el mensaje de error
+    setErrorMessage("");
   };
 
   useEffect(() => {
@@ -121,7 +120,6 @@ const AgregarFiesta = () => {
             value={registro.image}
           />
         </div>
-        {/* Mostrar mensaje de error si existe */}
         {errorMessage && (
           <p className="error-message" style={{ color: "red" }}>
             {errorMessage}
