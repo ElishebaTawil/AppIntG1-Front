@@ -1,32 +1,31 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
-import { ShopContext } from "../Context/ShopContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../ReduxToolkit/userSlice";
 
 const LoginUser = () => {
-  const { setUser } = useContext(ShopContext);
-  const [registro, setRegistro] = useState({});
+  const dispatch = useDispatch();
+  const [registro, setRegistro] = useState({ email: "", password: "", isLogged: false });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const onChangeValues = ({ target }) => {
-    //me quedo con el target de todo el objeto value
     setRegistro({ ...registro, [target.name]: target.value, isLogged: true });
   };
+
   const handleContinuarClick = () => {
-    // Verificar si alguno de los campos está vacío
     const { email, password } = registro;
-    registro.name = "admin"; //hardcodeo el nombre
+    const updatedRegistro = { ...registro, name: "admin" }; // hardcodeo el nombre
 
     if (!email || !password) {
-      // Si alguno de los campos está vacío, mostrar mensaje de error
       setErrorMessage("Por favor, completá todos los campos.");
-      return; // No continuar con el proceso de creación de usuario
+      return;
     }
-    // Si todos los campos están llenos, llamamos a setUser
-    setUser(registro); //lo guardo en user
+
+    dispatch(setUser(updatedRegistro)); // actualizar el estado del usuario en Redux
     navigate("/");
-    setErrorMessage(""); // Limpiar el mensaje de error
+    setErrorMessage("");
   };
 
   useEffect(() => {
@@ -53,7 +52,6 @@ const LoginUser = () => {
             value={registro.password}
           />
         </div>
-        {/* Mostrar mensaje de error si existe */}
         {errorMessage && (
           <p className="error-message" style={{ color: "red" }}>
             {errorMessage}

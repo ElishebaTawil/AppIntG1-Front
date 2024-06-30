@@ -6,8 +6,9 @@ import { deleteParty } from "../../ReduxToolkit/partySlice";
 import { useSelector,useDispatch } from "react-redux";
 
 const BotonesParty = (props) => {
-  const { party } = props;
-  const { user, addToCart } = useContext(ShopContext);
+  const { party} = props;
+  const user = useSelector((state) => state.user);
+  const { addToCart } = useContext(ShopContext);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,6 +26,7 @@ const BotonesParty = (props) => {
 
   const handleAgregarAlCarrito = () => {
     if (user.isLogged) {
+      console.log(user.isLogged);
       addToCart(party, cantidadSeleccionada);
     } else {
       // Guarda la ruta actual antes de redirigir al usuario a la página de inicio de sesión
