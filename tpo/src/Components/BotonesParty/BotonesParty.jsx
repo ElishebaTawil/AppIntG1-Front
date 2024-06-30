@@ -35,7 +35,7 @@ const BotonesParty = (props) => {
     }
   };
   const esAdmin = () => {
-    if (user.name === "admin") {
+    if (user.role === "admin") {
       return true;
     } else {
       return false;

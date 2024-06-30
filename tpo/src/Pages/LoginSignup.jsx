@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../ReduxToolkit/userSlice";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
-  const [registro, setRegistro] = useState({ name: "", email: "", password: "", isLogged: false });
+  const [registro, setRegistro] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user", // Asignamos automáticamente el rol como "admin"
+    isLogged: false,
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const [aceptarTerminos, setAceptarTerminos] = useState(false);
   const navigate = useNavigate();
@@ -16,13 +22,13 @@ const LoginSignup = () => {
   };
 
   const onChangeValues = ({ target }) => {
-    setRegistro({ ...registro, [target.name]: target.value, isLogged: true });
+    setRegistro({ ...registro, [target.name]: target.value });
   };
 
   const handleContinuarClick = () => {
     const { name, email, password } = registro;
     if (!name || !email || !password) {
-      setErrorMessage("Por favor, completá todos los campos.");
+      setErrorMessage("Por favor, completa todos los campos.");
       return;
     }
     if (!aceptarTerminos) {
@@ -33,7 +39,7 @@ const LoginSignup = () => {
       setErrorMessage("Por favor, ingresa un correo electrónico válido.");
       return;
     }
-    dispatch(setUser(registro));
+    dispatch(setUser({...registro, isLogged:true}));
     navigate("/");
     setErrorMessage("");
   };
@@ -50,7 +56,7 @@ const LoginSignup = () => {
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">
-        <h1>Registrate</h1>
+        <h1>Regístrate</h1>
         <div className="loginsignup-fields">
           <input
             type="text"
@@ -81,7 +87,7 @@ const LoginSignup = () => {
         )}
         <button onClick={handleContinuarClick}>Continuar</button>
         <p className="loginsignup-login">
-          Ya tienes una cuenta?{" "}
+          ¿Ya tienes una cuenta?{" "}
           <span onClick={() => navigate("/loginUser")}>Inicia Sesión</span>
         </p>
         <div className="loginsignup-agree">

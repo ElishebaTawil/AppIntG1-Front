@@ -6,7 +6,7 @@ import { setUser } from "../ReduxToolkit/userSlice";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
-  const [registro, setRegistro] = useState({ email: "", password: "", isLogged: false });
+  const [registro, setRegistro] = useState({role:"admin",name:"", email: "", password: "", isLogged: false });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -15,15 +15,14 @@ const LoginUser = () => {
   };
 
   const handleContinuarClick = () => {
-    const { email, password } = registro;
-    const updatedRegistro = { ...registro, name: "admin" }; // hardcodeo el nombre
+    const { name, email, password, role } = registro;
 
-    if (!email || !password) {
+    if (!name || !email || !password) {
       setErrorMessage("Por favor, completá todos los campos.");
       return;
     }
 
-    dispatch(setUser(updatedRegistro)); // actualizar el estado del usuario en Redux
+    dispatch(setUser(registro)); // actualizar el estado del usuario en Redux
     navigate("/");
     setErrorMessage("");
   };
@@ -37,6 +36,13 @@ const LoginUser = () => {
       <div className="loginsignup-container">
         <h1>Inicia Sesión</h1>
         <div className="loginsignup-fields">
+        <input
+            type="text"
+            name="name"
+            onChange={onChangeValues}
+            placeholder="Tu Nombre"
+            value={registro.name}
+          />
           <input
             type="email"
             name="email"
