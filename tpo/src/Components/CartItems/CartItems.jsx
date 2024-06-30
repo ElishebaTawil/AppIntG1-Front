@@ -1,30 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./CartItems.css";
 import remove_icon from "../Assets/remove_icon.png";
 import { Link } from "react-router-dom";
-import { ShopContext } from "../../Context/ShopContext";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart, selectCartItems, selectTotalCartItems, selectDiscount, applyPromoCode, selectSubtotal, selectTotalCartAmount } from "../../ReduxToolkit/cartSlice";
 
 const CartItems = () => {
-  const { cartItems, removeFromCart, discountApplied, setDiscountApplied } = useContext(ShopContext);
+  const cartItems = useSelector(selectCartItems);
+  const totalCartItems = useSelector(selectTotalCartItems);
+  const discountApplied = useSelector(selectDiscount);
+  const subtotal = useSelector(selectSubtotal);
+  const totalAmount = useSelector(selectTotalCartAmount);
+  const dispatch = useDispatch();
   const [promoCode, setPromoCode] = useState("");
 
-  const applyPromoCode = () => {
+  const handleRemoveFromCart = (itemId) => {
+    dispatch(removeFromCart(itemId));
+  };
+
+  const handleApplyPromoCode = () => {
     if (promoCode === "1234") {
-      setDiscountApplied(true);
+      dispatch(applyPromoCode(promoCode));
     } else {
       alert("El código promocional no es válido");
     }
-  };
-
-  const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    cartItems.forEach((item) => {
-      totalAmount += item.new_price * item.cantidad;
-    });
-    if (discountApplied) {
-      return totalAmount * 0.9;
-    }
-    return totalAmount;
   };
 
   return (
@@ -39,32 +38,28 @@ const CartItems = () => {
       </div>
       <hr />
       <div>
-        {cartItems.map((item) => {
-          return (
-            <div key={item.id}>
-              <div className="cartitems-format cartitems-format-main">
-                <img
-                  src={item.image}
-                  alt=""
-                  className="carticon-product-icon"
-                />
-                <p>{item.name}</p>
-                <p>${item.new_price}</p>
-                <button className="cartitems-quantity">{item.cantidad}</button>
-                <p>${item.new_price * item.cantidad}</p>
-                <img
-                  className="cartitems-remove-icon"
-                  src={remove_icon}
-                  onClick={() => {
-                    removeFromCart(item.id);
-                  }}
-                  alt=""
-                />
-              </div>
-              <hr />
+        {cartItems.map((item) => (
+          <div key={item.id}>
+            <div className="cartitems-format cartitems-format-main">
+              <img
+                src={item.image}
+                alt=""
+                className="carticon-product-icon"
+              />
+              <p>{item.name}</p>
+              <p>${item.new_price}</p>
+              <button className="cartitems-quantity">{item.cantidad}</button>
+              <p>${item.new_price * item.cantidad}</p>
+              <img
+                className="cartitems-remove-icon"
+                src={remove_icon}
+                onClick={() => handleRemoveFromCart(item.id)}
+                alt=""
+              />
             </div>
-          );
-        })}
+            <hr />
+          </div>
+        ))}
         <div className="cartitems-promocode">
           <p>Si tienes un código de descuento, agrégalo aquí</p>
           <div className="cartitems-promobox">
@@ -74,7 +69,7 @@ const CartItems = () => {
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
             />
-            <button onClick={applyPromoCode}>Aceptar</button>
+            <button onClick={handleApplyPromoCode}>Aceptar</button>
           </div>
         </div>
         <div className="cartitems-down">
@@ -83,17 +78,17 @@ const CartItems = () => {
             <div>
               <div className="cartitems-total-item">
                 <p>Subtotal</p>
-                <p>${getTotalCartAmount()}</p>
+                <p>${subtotal}</p>
               </div>
               <hr />
               <div className="cartitems-total-item">
-                <p>Impuestos</p>
-                <p>Gratis</p>
+                <p>Descuento</p>
+                <p>${discountApplied ? subtotal * 0.1 : 0}</p>
               </div>
               <hr />
               <div className="cartitems-total-item">
                 <h3>Total</h3>
-                <h3>${getTotalCartAmount()}</h3>
+                <h3>${totalAmount}</h3>
               </div>
             </div>
             <Link to="/payments">

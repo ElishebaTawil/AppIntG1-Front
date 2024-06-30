@@ -1,14 +1,14 @@
-import React, { useState, useContext} from "react";
+import React, { useState} from "react";
 import "./Navbar.css";
 import logo from "../Assets/logo2.png";
 import cart_icon from "../Assets/bolsa_compras.jpg";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ShopContext } from "../../Context/ShopContext";
 import lupa from "../Assets/lupa.png";
 import { IconButton } from "@mui/material";
 import { setSearch, selectSearch } from "../../ReduxToolkit/partySlice";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, clearUser  } from "../../ReduxToolkit/userSlice";
+import { removeFromCart, removeAllFromCart, selectTotalCartItems } from "../../ReduxToolkit/cartSlice";
 
 const Nabvar = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const Nabvar = () => {
   const [localSearch, setLocalSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
-  const { removeAllFromCart, shoppingCart, getTotalCartItems } = useContext(ShopContext);
   const location = useLocation();
+  const totalCartItems = useSelector(selectTotalCartItems);
 
   const handleChangeSearch = (event) => {
     const value = event.target.value;
@@ -41,7 +41,7 @@ const Nabvar = () => {
 
   const handleContinuarClick = () => {
     dispatch(clearUser());
-    removeAllFromCart();
+    dispatch(removeAllFromCart());
     navigate("/");
   };
 
@@ -103,7 +103,7 @@ const Nabvar = () => {
 
       <Link className="nav-login-cart" to="/cart">
         <img src={cart_icon} alt="" className="logocart" />
-        <div className="nav-cart-count">{getTotalCartItems()}</div>
+        <div className="nav-cart-count">{totalCartItems}</div>
       </Link>
     </div>
   );
