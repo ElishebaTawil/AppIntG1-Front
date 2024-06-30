@@ -38,7 +38,7 @@ let all_parties = [
         hora:'19:50',
         lugar: 'Estadio River Plate',
         ubicacion:'Av Figueroa Alcorta y Udaondo',
-        stock: 100
+        stock: 1
     },
     {
         id: 2,

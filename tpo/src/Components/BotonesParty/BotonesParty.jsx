@@ -1,14 +1,14 @@
 import "./BotonesParty.css";
-import React, { useState, useContext } from "react";
-import { ShopContext } from "../../Context/ShopContext";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { deleteParty } from "../../ReduxToolkit/partySlice";
 import { useSelector,useDispatch } from "react-redux";
+import { addToCart, selectTotalCartItems } from "../../ReduxToolkit/cartSlice";
 
 const BotonesParty = (props) => {
   const { party} = props;
   const user = useSelector((state) => state.user);
-  const { addToCart } = useContext(ShopContext);
+  const totalCartItems = useSelector(selectTotalCartItems);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,8 +26,7 @@ const BotonesParty = (props) => {
 
   const handleAgregarAlCarrito = () => {
     if (user.isLogged) {
-      console.log(user.isLogged);
-      addToCart(party, cantidadSeleccionada);
+      dispatch(addToCart({ ...party, cantidad: cantidadSeleccionada }));
     } else {
       // Guarda la ruta actual antes de redirigir al usuario a la página de inicio de sesión
       setPreviousPath(window.location.pathname);
@@ -43,12 +42,6 @@ const BotonesParty = (props) => {
   };
   const handlemodificarFiesta = () => {
     navigate("/modificarFiesta", { state: { party } });
-    // const partyId = location.pathname.split("/").pop();
-    // console.log("ID de la party a eliminar: ", partyId);
-    // dispatch(deleteParty(partyId));
-    // navigate("/modificarFiesta?party=${party}");
-    
-
   };
 
   const handleEliminarFiesta = () => {

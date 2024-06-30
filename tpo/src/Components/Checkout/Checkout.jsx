@@ -1,29 +1,23 @@
-import React, { useContext, useState } from "react";
-import { ShopContext } from "../../Context/ShopContext";
+import React, {  useState } from "react";
 import "./Checkout.css";
 import paypal from "../Assets/card_img.png";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectTotalCartAmount,
+  selectDiscount,
+  removeFromCart,
+  removeAllFromCart,
+  selectCartItems
+} from "../../ReduxToolkit/cartSlice";
+import { selectAllParties, descountStockParty } from '../../ReduxToolkit/partySlice';
 
 const Checkout = () => {
-  const {
-    cartItems,
-    allParties,
-    removeFromCart,
-    descountStockParty,
-    removeAllFromCart,
-    discountApplied,
-  } = useContext(ShopContext);
+  const cartItems = useSelector(selectCartItems);
+  const discountApplied = useSelector(selectDiscount);
+  const totalAmount = useSelector(selectTotalCartAmount);
+  const dispatch = useDispatch();
+  const allParties = useSelector(selectAllParties);
 
-  const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    cartItems.forEach((item) => {
-      const party = allParties.find((party) => party.id === item.id);
-      totalAmount += party ? party.new_price * item.cantidad : 0;
-    });
-    if (discountApplied) {
-      return totalAmount * 0.9;
-    }
-    return totalAmount;
-  };
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -68,10 +62,10 @@ const Checkout = () => {
   };
 
   const handleRemoveFromCart = (partyId) => {
-    removeFromCart(partyId);
+    dispatch(removeFromCart(partyId));
   };
 
-  const handleDescountStock = () => {
+  const handleDescountStock = () => {   //TODO
     for (const partyId in cartItems) {
       const party = allParties.find((party) => party.id === parseInt(partyId));
       if (party && cartItems[partyId] > 0) {
@@ -97,7 +91,7 @@ const Checkout = () => {
   };
 
   const handleRemoveAllCart = () => {
-    removeAllFromCart();
+    dispatch(removeAllFromCart());
   };
 
   const isValidCVV = (cvv) => {
@@ -242,9 +236,9 @@ const Checkout = () => {
         )}
       </div>
       <div className="checkout-total">
-        <p>Subtotal: ${getTotalCartAmount()}</p>
+        <p>Subtotal: ${totalAmount}</p>
         <p>Shipping: Free</p>
-        <p>Total: ${getTotalCartAmount()}</p>
+        <p>Total: ${totalAmount}</p>
         <button onClick={() => handleDescountStock()}>Purchase</button>
       </div>
 
