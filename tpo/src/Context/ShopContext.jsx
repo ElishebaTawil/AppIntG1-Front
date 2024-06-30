@@ -14,7 +14,7 @@ const ShopContextProvider = (props) => {
   const [discountApplied, setDiscountApplied] = useState(false);
 
   const addToCart = (evento, cantidad) => {
-    if (user.isLogged) {
+    
       const item = cartItems.find((item) => item.id === evento.id);
 
       if (item) {
@@ -27,7 +27,7 @@ const ShopContextProvider = (props) => {
       } else {
         setCartItems((cartItems) => [...cartItems, { ...evento, cantidad }]);
       }
-    }
+    
   };
 
 

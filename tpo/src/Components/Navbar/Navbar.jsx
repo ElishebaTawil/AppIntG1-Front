@@ -8,17 +8,17 @@ import lupa from "../Assets/lupa.png";
 import { IconButton } from "@mui/material";
 import { setSearch, selectSearch } from "../../ReduxToolkit/partySlice";
 import { useSelector, useDispatch } from "react-redux";
+import { setUser, clearUser  } from "../../ReduxToolkit/userSlice";
 
 const Nabvar = () => {
   const dispatch = useDispatch();
   const search = useSelector(selectSearch) || '';
-  const [menu, setMenu] = useState("recintos");
-  const { getTotalCartItems } = useContext(ShopContext);
+  const [menu, setMenu] = useState("recintos");  
+  const user = useSelector(state => state.user);
   const [localSearch, setLocalSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
-  const { shoppingCart } = useContext(ShopContext);
-  const { user, removeAllFromCart } = useContext(ShopContext);
+  const { removeAllFromCart, shoppingCart, getTotalCartItems } = useContext(ShopContext);
   const location = useLocation();
 
   const handleChangeSearch = (event) => {
@@ -40,10 +40,7 @@ const Nabvar = () => {
   };
 
   const handleContinuarClick = () => {
-    user.name = "";
-    user.mail = "";
-    user.password = "";
-    user.isLogged = false;
+    dispatch(clearUser());
     removeAllFromCart();
     navigate("/");
   };
@@ -64,7 +61,7 @@ const Nabvar = () => {
           <Link to="/">HOME</Link>
         </li>
 
-        {user.name === "admin" && (
+        {user.role === "admin" && (
           <li onClick={() => setMenu("AgregarFiesta")}>
             <Link to="/agregarFiesta">AGREGAR FIESTA</Link>
           </li>
