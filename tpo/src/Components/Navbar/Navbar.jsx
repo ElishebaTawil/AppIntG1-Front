@@ -61,7 +61,7 @@ const Nabvar = () => {
           <Link to="/">HOME</Link>
         </li>
 
-        {user.role === "admin" && (
+        {user.role === "ADMIN" && (
           <li onClick={() => setMenu("AgregarFiesta")}>
             <Link to="/agregarFiesta">AGREGAR FIESTA</Link>
           </li>
