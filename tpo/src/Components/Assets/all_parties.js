@@ -32,8 +32,6 @@ let all_parties = [
         name: "Bali",
         image: bali,
         new_price: 100,
-        old_price: 200,
-        category: "recintos",
         fecha:'2024-05-14',
         hora:'19:50',
         lugar: 'Estadio River Plate',

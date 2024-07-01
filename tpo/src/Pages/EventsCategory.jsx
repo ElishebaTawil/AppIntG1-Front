@@ -53,7 +53,7 @@ const EventsCategory = (props) => {
       </div>
       <div className="shopCategory-Parties">
         {filteredAndSortedParties.map((item, index) => {
-          if (item.category === props.category) {
+          // if (item.category === props.category) {
             return (
               <Item
                 key={index}
@@ -61,17 +61,15 @@ const EventsCategory = (props) => {
                 name={item.name}
                 image={item.image}
                 // Render price information conditionally
-                newPrice={
-                  props.category === "artistas" ? null : `${item.new_price}`
-                }
-                oldPrice={
-                  props.category === "artistas" ? null : `${item.old_price}`
-                }
+                newPrice={item.new_price}
+                // oldPrice={
+                //   props.category === "artistas" ? null : `${item.old_price}`
+                // }
               />
             );
-          } else {
-            return null;
-          }
+          // } else {
+          //   return null;
+          // }
         })}
       </div>
     </div>

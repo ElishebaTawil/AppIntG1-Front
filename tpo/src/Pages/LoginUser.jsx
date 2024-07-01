@@ -6,7 +6,7 @@ import { setUser } from "../ReduxToolkit/userSlice";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
-  const [registro, setRegistro] = useState({role:"admin",name:"", email: "", password: "", isLogged: false });
+  const [registro, setRegistro] = useState({role:"ADMIN",name:"", email: "", password: "", isLogged: false });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 

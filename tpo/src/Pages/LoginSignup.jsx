@@ -10,7 +10,7 @@ const LoginSignup = () => {
     name: "",
     email: "",
     password: "",
-    role: "user", // Asignamos automáticamente el rol como "admin"
+    role: "USER", // Asignamos automáticamente el rol como "USER"
     isLogged: false,
   });
   const [errorMessage, setErrorMessage] = useState("");
