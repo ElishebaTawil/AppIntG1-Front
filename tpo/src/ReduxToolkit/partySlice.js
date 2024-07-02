@@ -1,49 +1,67 @@
-import { createSlice } from '@reduxjs/toolkit';
-import all_parties from '../Components/Assets/all_parties';
+import { createSlice } from "@reduxjs/toolkit";
+import all_parties from "../Components/Assets/all_parties";
 
 const initialState = {
-  items: all_parties, 
-  search: '',
+  items: all_parties,
+  search: "",
 };
 
 const partySlice = createSlice({
-  name: 'party',
+  name: "party",
   initialState,
   reducers: {
-    setParties: (state, action) => {
+    setParties: async (state, action) => {
       state.items = action.payload;
     },
-    addParty: (state, action) => {
+    addParty: async (state, action) => {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      await fetch("http://localhost:8080/api/fiestas/agregar", {
+        method: "POST",
+        body: JSON.stringify(action.payload),
+        headers: myHeaders,
+      }).catch((error) => console.error(error));
+
       state.items.push(action.payload);
     },
+
     updateParty: (state, action) => {
-      const index = state.items.findIndex(party => party.id === action.payload.id);
+      const index = state.items.findIndex(
+        (party) => party.id === action.payload.id
+      );
       if (index !== -1) {
         state.items[index] = action.payload;
       }
     },
     deleteParty: (state, action) => {
-      state.items = state.items.filter(party => party.id !== action.payload);
+      state.items = state.items.filter((party) => party.id !== action.payload);
     },
     descountStockParty: (state, action) => {
       const { id, quantity } = action.payload;
-      const party = state.items.find(party => party.id === id);
+      const party = state.items.find((party) => party.id === id);
       if (party) {
         party.stock -= quantity;
       }
     },
     setSearch: (state, action) => {
-        state.search = action.payload;
-      },
+      state.search = action.payload;
+    },
   },
 });
 
-export const { setParties, addParty, updateParty, deleteParty, descountStockParty, setSearch } = partySlice.actions;
-
+export const {
+  setParties,
+  addParty,
+  updateParty,
+  deleteParty,
+  descountStockParty,
+  setSearch,
+} = partySlice.actions;
 
 // Selectores
-export const selectAllParties = state => state.party.items;
-export const selectPartyById = (state, partyId) => state.party.items.find(party => party.id === partyId);
-export const selectSearch = state => state.party.search;
+export const selectAllParties = (state) => state.party.items;
+export const selectPartyById = (state, partyId) =>
+  state.party.items.find((party) => party.id === partyId);
+export const selectSearch = (state) => state.party.search;
 
 export default partySlice.reducer;

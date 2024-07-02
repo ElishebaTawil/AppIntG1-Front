@@ -8,19 +8,20 @@ const AgregarFiesta = () => {
   const dispatch = useDispatch();
   const allParties = useSelector((state) => state.party.items);
   const navigate = useNavigate();
-  
+
   const [registro, setRegistro] = useState({
     name: "",
     image: "",
-    new_price: "",
+    price: "",
     old_price: 0,
     category: "recintos",
     fecha: "",
     hora: "",
     lugar: "",
     ubicacion: "",
-    stock: 1,
+    cantEntradas: 0,
     descripcion: "",
+    available: true,
   });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -30,17 +31,26 @@ const AgregarFiesta = () => {
   };
 
   const handleContinuarClick = () => {
-    const { name, fecha, hora, lugar, new_price, stock, image } = registro;
-    if (!name || !fecha || !hora || !lugar || !new_price || !stock || !image) {
+    const { name, fecha, hora, lugar, price, cantEntradas, image } = registro;
+    if (
+      !name ||
+      !fecha ||
+      !hora ||
+      !lugar ||
+      !price ||
+      !cantEntradas ||
+      !image
+    ) {
       setErrorMessage("Por favor, completá los campos obligatorios.");
       return;
     }
-    if (new_price <= 0 || stock <= 0) {
+    if (price <= 0 || cantEntradas <= 0) {
       setErrorMessage("Por favor, revisa los datos ingresados.");
       return;
     }
-    
-    const nuevoId = allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
+
+    const nuevoId =
+      allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
     const party = { id: nuevoId, ...registro };
 
     dispatch(addParty(party));
@@ -94,21 +104,21 @@ const AgregarFiesta = () => {
           />
           <input
             type="number"
-            name="stock"
+            name="cantEntradas"
             min="1"
             onChange={onChangeValues}
             placeholder="Cantidad de Entradas del Evento (*)"
-            value={registro.stock}
+            value={registro.cantEntradas}
           />
           <div style={{ display: "flex", alignItems: "center" }}>
             <span style={{ fontSize: "1.5rem", marginRight: "10px" }}>$</span>
             <input
               type="number"
-              name="new_price"
+              name="price"
               min="1"
               onChange={onChangeValues}
               placeholder="Precio de la Entrada del Evento (*)"
-              value={registro.new_price}
+              value={registro.price}
             />
           </div>
 
