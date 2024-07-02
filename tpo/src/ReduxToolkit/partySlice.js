@@ -90,7 +90,6 @@ const partySlice = createSlice({
         state.items = state.items.filter(item => item.id !== action.payload);
       })
       .addCase(descountStockPartyData.fulfilled, (state, action) => {
-        // Assuming the API call returns the updated party with reduced stock
         const updatedParty = action.payload;
         const index = state.items.findIndex(party => party.id === updatedParty.id);
         if (index !== -1) {
