@@ -15,12 +15,11 @@ import Terminos_y_condiciones from './Pages/Terminos_y_condiciones';
 import Contacto from './Pages/Contacto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+
 function App() {
-  
   return (
-  
-      <div>
-        <BrowserRouter>
+    <div>
+      <BrowserRouter>
         <Nabvar />
         <Routes>
           <Route path='/' element={<EventsCategory />} />
@@ -36,10 +35,11 @@ function App() {
           <Route path="/comprar" element={<BotonesParty />} />
           <Route path="/Terminos_y_condiciones" element={<Terminos_y_condiciones />} />
           <Route path="/Contacto" element={<Contacto />} />
+          
         </Routes>
         <Footer />
-        </BrowserRouter>
-      </div>
+      </BrowserRouter>
+    </div>
   );
 }
 

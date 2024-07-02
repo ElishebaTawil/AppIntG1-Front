@@ -1,43 +1,49 @@
-import React, { useMemo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import "./CSS/EventsCategory.css";
-import Item from "../Components/Items/Item";
-import { selectAllParties, selectSearch, setSearch } from "../ReduxToolkit/partySlice";
+import React, { useEffect, useState, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFiestas, setSearch, selectAllParties } from '../ReduxToolkit/partySlice';
+import Item from '../Components/Items/Item';
+import './CSS/EventsCategory.css';
 
 const EventsCategory = (props) => {
   const dispatch = useDispatch();
   const allParties = useSelector(selectAllParties);
-  const search = useSelector(selectSearch) || '';
+  const search = useSelector((state) => state.party.search) || '';
   const [sortBy, setSortBy] = useState(null);
+
+  useEffect(() => {
+    console.log("Dispatching getFiestas action");
+    dispatch(getFiestas());
+  }, [dispatch]);
 
   const handleChangeSortBy = (option) => {
     setSortBy(option);
   };
+
   const handleSearchChange = (event) => {
-    dispatch(setSearch(event.target.value)); // Actualizar el estado de búsqueda
+    dispatch(setSearch(event.target.value));
   };
 
-  // Lógica para filtrar y ordenar los elementos según la opción seleccionada
   const filteredAndSortedParties = useMemo(() => {
-    let values = allParties.filter((item) => {
-      return item.name.toLowerCase().includes(search.toLowerCase());
-    });
+    let values = allParties.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
     if (sortBy === "price") {
-      values.sort((a, b) => a.new_price - b.new_price); // Ordenar por precio
+      values.sort((a, b) => a.new_price - b.new_price);
     } else if (sortBy === "date") {
-      values.sort((a, b) => new Date(a.fecha) - new Date(b.fecha)); // Ordenar por fecha
+      values.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
     }
 
     return values;
   }, [allParties, search, sortBy]);
 
+  useEffect(() => {
+    console.log("All Parties:", allParties);
+    console.log("Filtered and Sorted Parties:", filteredAndSortedParties);
+  }, [allParties, filteredAndSortedParties]);
+
   return (
     <div className="shop-category">
       <img className="shopcategory-banner" src={props.banner} alt="" />
       <div className="shopcategory-indexSort">
-        <p>{/* <span>Mostrando 1-12</span> de 20 resultados */}</p>
-        {/* Botón desplegable para ordenar */}
         <div className="shopCategory-sort">
           Sort by{" "}
           <select
@@ -52,25 +58,15 @@ const EventsCategory = (props) => {
         </div>
       </div>
       <div className="shopCategory-Parties">
-        {filteredAndSortedParties.map((item, index) => {
-          // if (item.category === props.category) {
-            return (
-              <Item
-                key={index}
-                id={item.id}
-                name={item.name}
-                image={item.image}
-                // Render price information conditionally
-                newPrice={item.new_price}
-                // oldPrice={
-                //   props.category === "artistas" ? null : `${item.old_price}`
-                // }
-              />
-            );
-          // } else {
-          //   return null;
-          // }
-        })}
+        {filteredAndSortedParties.map((item, index) => (
+          <Item
+            key={index}
+            id={item.id}
+            name={item.name}
+            image={item.image}
+            newPrice={item.new_price}
+          />
+        ))}
       </div>
     </div>
   );

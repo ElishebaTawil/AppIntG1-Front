@@ -1,26 +1,22 @@
 import "./BotonesParty.css";
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { deleteParty } from "../../ReduxToolkit/partySlice";
-import { useSelector,useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { deleteFiestaData } from '../../ReduxToolkit/partySlice';
+import { useSelector, useDispatch } from "react-redux";
 import { addToCart, selectTotalCartItems } from "../../ReduxToolkit/cartSlice";
 
-const BotonesParty = (props) => {
-  const { party} = props;
+const BotonesParty = ({ party }) => {
   const user = useSelector((state) => state.user);
   const totalCartItems = useSelector(selectTotalCartItems);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const navigate = useNavigate();
-  const location = useLocation();
-  const [previousPath, setPreviousPath] = useState(null);
   const dispatch = useDispatch();
-  
 
   const handleCantidadChange = (event) => {
-    const cantidad = parseInt(event.target.value);
-    setCantidadSeleccionada(cantidad);
+    setCantidadSeleccionada(parseInt(event.target.value));
   };
-  const VerificarStock = (cantidadSeleccionada) => {
+
+  const VerificarStock = () => {
     return cantidadSeleccionada <= party.stock;
   };
 
@@ -28,27 +24,18 @@ const BotonesParty = (props) => {
     if (user.isLogged) {
       dispatch(addToCart({ ...party, cantidad: cantidadSeleccionada }));
     } else {
-      // Guarda la ruta actual antes de redirigir al usuario a la página de inicio de sesión
-      setPreviousPath(window.location.pathname);
       navigate("/loginSignUp");
     }
   };
-  const esAdmin = () => {
-    if (user.role === "ADMIN") {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  const handlemodificarFiesta = () => {
+
+  const esAdmin = user.role === "ADMIN";
+
+  const handleModificarFiesta = () => {
     navigate("/modificarFiesta", { state: { party } });
   };
 
   const handleEliminarFiesta = () => {
-    // const partyId = location.pathname.split("/").pop();
-    const partyId = party.id;
-    console.log("ID de la party a eliminar: ", partyId);
-    dispatch(deleteParty(partyId));
+    dispatch(deleteFiestaData(party.id));
     navigate("/");
   };
 
@@ -56,68 +43,46 @@ const BotonesParty = (props) => {
     <div>
       <div className="barraBotones">
         <div className="boton">
-          <select id="fecha" className="estiloBoton">
-            <option selected>{party.fecha}</option>
+          <select id="fecha" className="estiloBoton" disabled>
+            <option>{party.fecha}</option>
           </select>
         </div>
         <div className="boton">
-          <select id="hora" className="estiloBoton">
-            <option selected>{party.hora}</option>
+          <select id="hora" className="estiloBoton" disabled>
+            <option>{party.hora}</option>
           </select>
         </div>
         <div className="boton">
-          <select id="lugar" className="estiloBoton">
-            <option selected>{party.lugar}</option>
-            <option>{party.ubicacion}</option>
+          <select id="lugar" className="estiloBoton" disabled>
+            <option>{party.lugar}</option>
           </select>
         </div>
         <div className="boton">
-          <select id="precio" className="estiloBoton">
-            <option selected>{"$" + party.new_price}</option>
+          <select id="precio" className="estiloBoton" disabled>
+            <option>${party.new_price}</option>
           </select>
         </div>
         <div className="boton">
-          <select
-            id="cantidad"
-            className="estiloBoton"
-            value={cantidadSeleccionada}
-            onChange={handleCantidadChange}
-          >
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
+          <select id="cantidad" className="estiloBoton" value={cantidadSeleccionada} onChange={handleCantidadChange}>
+            {[...Array(party.stock).keys()].map(i => (
+              <option key={i + 1} value={i + 1}>{i + 1}</option>
+            ))}
           </select>
         </div>
       </div>
 
-      {esAdmin() ? (
+      {esAdmin ? (
         <div className="ComprarPartyButton">
-          <button
-            className="botonComprar aviable"
-            onClick={ handlemodificarFiesta}
-          >
-            MODIFICAR FIESTA
-          </button>
-          <button
-            className="botonComprar aviable"
-            onClick={handleEliminarFiesta}
-          >
-            ELIMINAR FIESTA
-          </button>
+          <button className="botonComprar aviable" onClick={handleModificarFiesta}>MODIFICAR FIESTA</button>
+          <button className="botonComprar aviable" onClick={handleEliminarFiesta}>ELIMINAR FIESTA</button>
         </div>
-      ) : VerificarStock(cantidadSeleccionada) ? (
+      ) : VerificarStock() ? (
         <div className="ComprarPartyButton">
-          <button
-            onClick={handleAgregarAlCarrito}
-            className="botonComprar aviable"
-          >
-            AGREGAR AL CARRITO
-          </button>
+          <button onClick={handleAgregarAlCarrito} className="botonComprar aviable">AGREGAR AL CARRITO</button>
         </div>
       ) : (
         <div className="ComprarPartyButton">
-          <button className="botonComprar disable"> AGREGAR AL CARRITO</button>
+          <button className="botonComprar disable">AGREGAR AL CARRITO</button>
         </div>
       )}
     </div>

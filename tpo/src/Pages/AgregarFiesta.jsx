@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addParty } from "../ReduxToolkit/partySlice";
+import { addFiesta } from '../ReduxToolkit/partySlice';
 import { useNavigate } from "react-router-dom";
 
 const AgregarFiesta = () => {
@@ -43,7 +43,7 @@ const AgregarFiesta = () => {
     const nuevoId = allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
     const party = { id: nuevoId, ...registro };
 
-    dispatch(addParty(party));
+    dispatch(addFiesta(party));
     navigate(`/partys/${nuevoId}`);
     setErrorMessage("");
   };

@@ -1,4 +1,6 @@
-import { configureStore} from '@reduxjs/toolkit';
+// src/ReduxToolkit/store.js
+
+import { configureStore } from '@reduxjs/toolkit';
 import partyReducer from './partySlice';
 import userReducer from './userSlice';
 import cartReducer from './cartSlice';
@@ -9,6 +11,10 @@ const store = configureStore({
     user: userReducer,
     cart: cartReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

@@ -1,4 +1,6 @@
-import React, {  useState } from "react";
+// src/components/Checkout.jsx
+
+import React, { useState } from "react";
 import "./Checkout.css";
 import paypal from "../Assets/card_img.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,7 +11,7 @@ import {
   removeAllFromCart,
   selectCartItems
 } from "../../ReduxToolkit/cartSlice";
-import { selectAllParties, descountStockParty } from '../../ReduxToolkit/partySlice';
+import { selectAllParties, descountStockPartyData } from '../../ReduxToolkit/partySlice';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
@@ -18,10 +20,9 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const allParties = useSelector(selectAllParties);
 
-
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(""); // New state for email error message
+  const [emailError, setEmailError] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -65,13 +66,14 @@ const Checkout = () => {
     dispatch(removeFromCart(partyId));
   };
 
-  const handleDescountStock = () => {   //TODO
+  const handleDescountStock = () => {
     for (const partyId in cartItems) {
       const party = allParties.find((party) => party.id === parseInt(partyId));
       if (party && cartItems[partyId] > 0) {
-        descountStockParty(party.id, cartItems[partyId]);
+        dispatch(descountStockPartyData({ id: party.id, quantity: cartItems[partyId] }));
       }
     }
+
     if (!isValidCVV(cvv) || !isValidCardNumber(cardNumber) || emailError) {
       alert("Invalid data, please enter them correctly");
       return;
@@ -176,7 +178,6 @@ const Checkout = () => {
       </div>
       <div className="payment-details">
         <h3 className="title">Payment</h3>
-
         <div className="inputBox">
           <span>cards accepted :</span>
           <img src={paypal} alt="paypal" />
@@ -239,9 +240,8 @@ const Checkout = () => {
         <p>Subtotal: ${totalAmount}</p>
         <p>Shipping: Free</p>
         <p>Total: ${totalAmount}</p>
-        <button onClick={() => handleDescountStock()}>Purchase</button>
+        <button onClick={handleDescountStock}>Purchase</button>
       </div>
-
       {showSuccessMessage && (
         <div className="success-message">
           <h2>Successful purchase!</h2>
