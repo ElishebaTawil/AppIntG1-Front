@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addParty } from "../ReduxToolkit/partySlice";
+import { addPartyAsync, selectAllParties } from "../ReduxToolkit/partySlice";
 import { useNavigate } from "react-router-dom";
 
 const AgregarFiesta = () => {
   const dispatch = useDispatch();
-  const allParties = useSelector((state) => state.party.items);
+  const allParties = useSelector(selectAllParties);
   const navigate = useNavigate();
 
   const [registro, setRegistro] = useState({
@@ -30,7 +30,7 @@ const AgregarFiesta = () => {
     setRegistro({ ...registro, [name]: value });
   };
 
-  const handleContinuarClick = () => {
+  const handleContinuarClick = async () => {
     const { name, fecha, hora, lugar, price, cantEntradas, image } = registro;
     if (
       !name ||
@@ -54,8 +54,8 @@ const AgregarFiesta = () => {
     const party = { id: nuevoId, ...registro };
     console.log(nuevoId);
 
-    dispatch(addParty(party));
-    //navigate(`/partys/${nuevoId}`);
+    await dispatch(addPartyAsync(party));
+    navigate(`/partys/${nuevoId}`);
     setErrorMessage("");
   };
 

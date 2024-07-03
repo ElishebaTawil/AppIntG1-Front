@@ -1,12 +1,49 @@
-import all_parties from "../Components/Assets/all_parties";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Acción asíncrona para fetch de las fiestas
-export const fetchParties = createAsyncThunk("party/fetchParties", async () => {
-  const response = await fetch("http://localhost:8080/api/fiestas");
-  const data = await response.json();
-  return data; // Devuelve los datos para que se actualicen en el estado
-});
+export const fetchParties = createAsyncThunk(
+  "party/fetchParties",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/fiestas");
+      if (!response.ok) {
+        throw new Error("Failed to fetch parties");
+      }
+      const data = await response.json();
+      return data; // Devuelve los datos para que se actualicen en el estado
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Acción asíncrona para agregar una fiesta
+export const addPartyAsync = createAsyncThunk(
+  "party/addParty",
+  async (newParty, { rejectWithValue }) => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      const response = await fetch(
+        "http://localhost:8080/api/fiestas/agregar",
+        {
+          method: "POST",
+          body: JSON.stringify(newParty),
+          headers: myHeaders,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add party");
+      }
+
+      const data = await response.json();
+      return data; // Devuelve los datos de la nueva fiesta para que se actualicen en el estado
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const initialState = {
   items: [],
@@ -19,21 +56,9 @@ const partySlice = createSlice({
   name: "party",
   initialState,
   reducers: {
-    setParties: async (state, action) => {
+    setParties: (state, action) => {
       state.items = action.payload;
     },
-    addParty: async (state, action) => {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      await fetch("http://localhost:8080/api/fiestas/agregar", {
-        method: "POST",
-        body: JSON.stringify(action.payload),
-        headers: myHeaders,
-      }).catch((error) => console.error(error));
-
-      state.items.push(action.payload);
-    },
-
     updateParty: (state, action) => {
       const index = state.items.findIndex(
         (party) => party.id === action.payload.id
@@ -65,8 +90,21 @@ const partySlice = createSlice({
       .addCase(fetchParties.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload;
+        console.log(action.payload);
       })
       .addCase(fetchParties.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        console.log(action.error.message);
+      })
+      .addCase(addPartyAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addPartyAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items.push(action.payload);
+      })
+      .addCase(addPartyAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
@@ -75,7 +113,6 @@ const partySlice = createSlice({
 
 export const {
   setParties,
-  addParty,
   updateParty,
   deleteParty,
   descountStockParty,

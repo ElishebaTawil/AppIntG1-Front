@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../ReduxToolkit/userSlice";
+import { setUser, registerUser } from "../ReduxToolkit/userSlice";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
@@ -10,8 +10,9 @@ const LoginSignup = () => {
     name: "",
     email: "",
     password: "",
-    role: "USER", // Asignamos automáticamente el rol como "USER"
+    role: "ADMIN",
     isLogged: false,
+    token: "", // Agregar campo para almacenar el token de acceso
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [aceptarTerminos, setAceptarTerminos] = useState(false);
@@ -39,7 +40,9 @@ const LoginSignup = () => {
       setErrorMessage("Por favor, ingresa un correo electrónico válido.");
       return;
     }
-    dispatch(setUser({...registro, isLogged:true}));
+    dispatch(setUser({ ...registro, isLogged: true }));
+    console.log("Deberia hacer el SetUser");
+    dispatch(registerUser({ ...registro }));
     navigate("/");
     setErrorMessage("");
   };
@@ -85,7 +88,9 @@ const LoginSignup = () => {
             {errorMessage}
           </p>
         )}
-        <button onClick={handleContinuarClick}>Continuar</button>
+        <button id="botonRegistrar" onClick={handleContinuarClick}>
+          Continuar
+        </button>
         <p className="loginsignup-login">
           ¿Ya tienes una cuenta?{" "}
           <span onClick={() => navigate("/loginUser")}>Inicia Sesión</span>
