@@ -1,9 +1,12 @@
-import "./BotonesParty.css";
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { deleteParty } from "../../ReduxToolkit/partySlice";
+import { useNavigate } from "react-router-dom";
+import {
+  deletePartyAsync,
+  selectAllParties,
+} from "../../ReduxToolkit/partySlice";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, selectTotalCartItems } from "../../ReduxToolkit/cartSlice";
+import "./BotonesParty.css";
 
 const BotonesParty = (props) => {
   const { party } = props;
@@ -11,14 +14,14 @@ const BotonesParty = (props) => {
   const totalCartItems = useSelector(selectTotalCartItems);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
   const navigate = useNavigate();
-  const location = useLocation();
-  const [previousPath, setPreviousPath] = useState(null);
   const dispatch = useDispatch();
+  const parties = useSelector(selectAllParties);
 
   const handleCantidadChange = (event) => {
     const cantidad = parseInt(event.target.value);
     setCantidadSeleccionada(cantidad);
   };
+
   const VerificarStock = (cantidadSeleccionada) => {
     return cantidadSeleccionada <= party.cantEntradas;
   };
@@ -27,28 +30,28 @@ const BotonesParty = (props) => {
     if (user.isLogged) {
       dispatch(addToCart({ ...party, cantidad: cantidadSeleccionada }));
     } else {
-      // Guarda la ruta actual antes de redirigir al usuario a la página de inicio de sesión
-      setPreviousPath(window.location.pathname);
       navigate("/loginSignUp");
     }
   };
+
   const esAdmin = () => {
-    if (user.role === "ADMIN") {
-      return true;
-    } else {
-      return false;
-    }
+    return user.role === "ADMIN";
   };
-  const handlemodificarFiesta = () => {
+
+  const handleModificarFiesta = () => {
     navigate("/modificarFiesta", { state: { party } });
   };
 
-  const handleEliminarFiesta = () => {
-    // const partyId = location.pathname.split("/").pop();
-    const partyId = party.id;
-    console.log("ID de la party a eliminar: ", partyId);
-    dispatch(deleteParty(partyId));
-    navigate("/");
+  const handleEliminarFiesta = async () => {
+    try {
+      await dispatch(deletePartyAsync(party.id));
+      // Actualizar el estado local después de la eliminación
+      const updatedParties = parties.filter((p) => p.id !== party.id);
+      // Actualizar el estado local si es necesario
+      // Esto depende de cómo esté estructurado tu estado y cómo manejas la actualización
+    } catch (error) {
+      console.error("Error al eliminar la fiesta:", error);
+    }
   };
 
   return (
@@ -94,7 +97,7 @@ const BotonesParty = (props) => {
         <div className="ComprarPartyButton">
           <button
             className="botonComprar aviable"
-            onClick={handlemodificarFiesta}
+            onClick={handleModificarFiesta}
           >
             MODIFICAR FIESTA
           </button>

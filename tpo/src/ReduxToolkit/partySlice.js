@@ -61,8 +61,6 @@ export const updateParty = (partyData) => async (dispatch) => {
     }
     const updatedParty = await response.json();
 
-    // Aquí podrías realizar alguna lógica adicional si es necesaria
-
     dispatch(partySlice.actions.updateParty(updatedParty));
     return updatedParty; // Devolver los datos actualizados si es necesario
   } catch (error) {
@@ -71,6 +69,26 @@ export const updateParty = (partyData) => async (dispatch) => {
     throw error; // Propagar el error para manejarlo en la llamada a updateParty
   }
 };
+
+export const deletePartyAsync = createAsyncThunk(
+  "party/deleteParty",
+  async (partyId, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/fiestas/${partyId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete party");
+      }
+      return partyId;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const initialState = {
   items: [],

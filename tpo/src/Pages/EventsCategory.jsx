@@ -32,7 +32,7 @@ const EventsCategory = (props) => {
     });
 
     if (sortBy === "price") {
-      values.sort((a, b) => a.new_price - b.new_price); // Ordenar por precio
+      values.sort((a, b) => a.price - b.price); // Ordenar por precio
     } else if (sortBy === "date") {
       values.sort((a, b) => new Date(a.fecha) - new Date(b.fecha)); // Ordenar por fecha
     }
@@ -81,7 +81,7 @@ const EventsCategory = (props) => {
             id={item.id}
             name={item.name}
             image={item.image}
-            newPrice={item.new_price}
+            newPrice={item.price}
           />
         ))}
       </div>

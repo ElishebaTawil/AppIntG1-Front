@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./Checkout.css";
 import paypal from "../Assets/card_img.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,9 +7,13 @@ import {
   selectDiscount,
   removeFromCart,
   removeAllFromCart,
-  selectCartItems
+  selectCartItems,
+  createOrderAsync,
 } from "../../ReduxToolkit/cartSlice";
-import { selectAllParties, descountStockParty } from '../../ReduxToolkit/partySlice';
+import {
+  selectAllParties,
+  descountStockParty,
+} from "../../ReduxToolkit/partySlice";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
@@ -17,7 +21,6 @@ const Checkout = () => {
   const totalAmount = useSelector(selectTotalCartAmount);
   const dispatch = useDispatch();
   const allParties = useSelector(selectAllParties);
-
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,13 +68,27 @@ const Checkout = () => {
     dispatch(removeFromCart(partyId));
   };
 
-  const handleDescountStock = () => {   //TODO
+  const handleDescountStock = () => {
+    console.log(totalAmount);
+    console.log(discountApplied);
+
+    const orderData = {
+      email: email,
+      fiestas: cartItems.map((item) => ({
+        name: allParties.find((party) => party.id === item.id).name,
+        cantidadEntradas: item.cantidad,
+      })),
+
+      descuento: totalAmount * discountApplied,
+    };
+
     for (const partyId in cartItems) {
       const party = allParties.find((party) => party.id === parseInt(partyId));
       if (party && cartItems[partyId] > 0) {
         descountStockParty(party.id, cartItems[partyId]);
       }
     }
+
     if (!isValidCVV(cvv) || !isValidCardNumber(cardNumber) || emailError) {
       alert("Invalid data, please enter them correctly");
       return;
@@ -88,6 +105,8 @@ const Checkout = () => {
       handleRemoveAllCart();
       setShowSuccessMessage(true);
     }
+
+    dispatch(createOrderAsync(orderData));
   };
 
   const handleRemoveAllCart = () => {
@@ -222,7 +241,7 @@ const Checkout = () => {
                 <div className="checkout-parties-item" key={party.id}>
                   <p>{party.name}</p>
                   <p>Quantity: {item.cantidad}</p>
-                  <p>Total: ${party.new_price * item.cantidad}</p>
+                  <p>Total: ${party.price * item.cantidad}</p>
                   <button onClick={() => handleRemoveFromCart(party.id)}>
                     Remove
                   </button>
@@ -244,8 +263,8 @@ const Checkout = () => {
 
       {showSuccessMessage && (
         <div className="success-message">
-          <h2>Successful purchase!</h2>
-          <p>You will receive the ticket information via email.</p>
+          <h2>COMPRA EXITOSA!</h2>
+          <p>Vas a estar recibiendo tu orden por mail.</p>
         </div>
       )}
     </div>

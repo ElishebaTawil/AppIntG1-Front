@@ -10,7 +10,7 @@ const LoginSignup = () => {
     name: "",
     email: "",
     password: "",
-    role: "ADMIN",
+    role: "USER",
     isLogged: false,
     token: "", // Agregar campo para almacenar el token de acceso
   });
