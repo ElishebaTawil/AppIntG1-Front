@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import logo from "../Assets/logo2.png";
 import cart_icon from "../Assets/bolsa_compras.jpg";
@@ -7,14 +7,18 @@ import lupa from "../Assets/lupa.png";
 import { IconButton } from "@mui/material";
 import { setSearch, selectSearch } from "../../ReduxToolkit/partySlice";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, clearUser  } from "../../ReduxToolkit/userSlice";
-import { removeFromCart, removeAllFromCart, selectTotalCartItems } from "../../ReduxToolkit/cartSlice";
+import { registerUser, clearUser } from "../../ReduxToolkit/userSlice";
+import {
+  removeFromCart,
+  removeAllFromCart,
+  selectTotalCartItems,
+} from "../../ReduxToolkit/cartSlice";
 
 const Nabvar = () => {
   const dispatch = useDispatch();
-  const search = useSelector(selectSearch) || '';
-  const [menu, setMenu] = useState("recintos");  
-  const user = useSelector(state => state.user);
+  const search = useSelector(selectSearch) || "";
+  const [menu, setMenu] = useState("recintos");
+  const user = useSelector((state) => state.user);
   const [localSearch, setLocalSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
@@ -70,7 +74,7 @@ const Nabvar = () => {
         {user.isLogged ? (
           <>
             <div className="loginName">
-              <p>HOLA, {user.name}!</p>
+              <p>BIENVENIDO!</p>
             </div>
             <div>
               <button className="logout-button" onClick={handleContinuarClick}>

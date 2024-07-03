@@ -3,7 +3,15 @@ import "./CartItems.css";
 import remove_icon from "../Assets/remove_icon.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, selectCartItems, selectTotalCartItems, selectDiscount, applyPromoCode, selectSubtotal, selectTotalCartAmount } from "../../ReduxToolkit/cartSlice";
+import {
+  removeFromCart,
+  selectCartItems,
+  selectTotalCartItems,
+  selectDiscount,
+  applyPromoCode,
+  selectSubtotal,
+  selectTotalCartAmount,
+} from "../../ReduxToolkit/cartSlice";
 
 const CartItems = () => {
   const cartItems = useSelector(selectCartItems);
@@ -41,15 +49,11 @@ const CartItems = () => {
         {cartItems.map((item) => (
           <div key={item.id}>
             <div className="cartitems-format cartitems-format-main">
-              <img
-                src={item.image}
-                alt=""
-                className="carticon-product-icon"
-              />
+              <img src={item.image} alt="" className="carticon-product-icon" />
               <p>{item.name}</p>
-              <p>${item.new_price}</p>
+              <p>${item.price}</p>
               <button className="cartitems-quantity">{item.cantidad}</button>
-              <p>${item.new_price * item.cantidad}</p>
+              <p>${item.price * item.cantidad}</p>
               <img
                 className="cartitems-remove-icon"
                 src={remove_icon}

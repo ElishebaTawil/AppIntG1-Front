@@ -23,9 +23,9 @@ const ProductDisplay = (props) => {
           <p>(122)</p>
         </div>
         <div className="productdisplay-right-prices">
-          {party.new_price > 1 && (
+          {party.price > 1 && (
             <div className="productdisplay-right-price-new">
-              $ {party.new_price}
+              $ {party.price}
             </div>
           )}
           {party.old_price > 1 && (
