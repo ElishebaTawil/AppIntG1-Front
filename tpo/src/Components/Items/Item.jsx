@@ -12,8 +12,7 @@ const Item = (props) => {
       <div className="item-prices">
         {props.newPrice > 0 && (
           <div className="item-price-new">
-            {/* {props.category !== "artistas" && "$"} */}
-            {props.newPrice}
+            {/* {props.category !== "artistas" && "$"} */}${props.newPrice}
           </div>
         )}
         {/* {props.oldPrice > 0 && (

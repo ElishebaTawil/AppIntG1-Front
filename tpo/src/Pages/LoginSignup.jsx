@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./CSS/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -6,17 +6,17 @@ import { setUser, registerUser } from "../ReduxToolkit/userSlice";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [registro, setRegistro] = useState({
     name: "",
     email: "",
     password: "",
     role: "USER",
     isLogged: false,
-    token: "", // Agregar campo para almacenar el token de acceso
+    accessToken: "", // Este campo no necesitas inicializarlo aquí
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [aceptarTerminos, setAceptarTerminos] = useState(false);
-  const navigate = useNavigate();
 
   const handleCheckboxChange = () => {
     setAceptarTerminos(!aceptarTerminos);
@@ -26,7 +26,7 @@ const LoginSignup = () => {
     setRegistro({ ...registro, [target.name]: target.value });
   };
 
-  const handleContinuarClick = () => {
+  const handleContinuarClick = async () => {
     const { name, email, password } = registro;
     if (!name || !email || !password) {
       setErrorMessage("Por favor, completa todos los campos.");
@@ -36,24 +36,16 @@ const LoginSignup = () => {
       setErrorMessage("Debes aceptar nuestros Términos y Condiciones.");
       return;
     }
-    if (!isValidEmail(email)) {
-      setErrorMessage("Por favor, ingresa un correo electrónico válido.");
-      return;
-    }
+    // Dispatch setUser para actualizar el estado local del usuario
     dispatch(setUser({ ...registro, isLogged: true }));
-    console.log("Deberia hacer el SetUser");
-    dispatch(registerUser({ ...registro }));
-    navigate("/");
-    setErrorMessage("");
-  };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    // Dispatch registerUser para enviar los datos al backend y registrar al usuario
+    try {
+      await dispatch(registerUser({ ...registro }));
+      navigate("/"); // Redirigir a la página principal después del registro exitoso
+    } catch (error) {
+      setErrorMessage("Error al registrar al usuario.");
+    }
   };
 
   return (

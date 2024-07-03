@@ -29,11 +29,11 @@ const LoginUser = () => {
       return;
     }
     dispatch(setUser(registro));
-    if (user.accessToken != null) {
-      navigate("/");
-    } else {
-      setErrorMessage("Mail o Contraseña incorrecta.");
-    }
+    //if (user.accessToken != null) {
+    navigate("/");
+    //} else {
+    //setErrorMessage("Mail o Contraseña incorrecta.");
+    //}
     setErrorMessage("");
   };
 

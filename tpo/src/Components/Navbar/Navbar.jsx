@@ -74,7 +74,7 @@ const Nabvar = () => {
         {user.isLogged ? (
           <>
             <div className="loginName">
-              <p>HOLA, {user.nombre}!</p>
+              <p>BIENVENIDO!</p>
             </div>
             <div>
               <button className="logout-button" onClick={handleContinuarClick}>

@@ -69,9 +69,6 @@ const Checkout = () => {
   };
 
   const handleDescountStock = () => {
-    console.log(totalAmount);
-    console.log(discountApplied);
-
     const orderData = {
       email: email,
       fiestas: cartItems.map((item) => ({
@@ -128,13 +125,13 @@ const Checkout = () => {
   return (
     <div className="checkout-container">
       <div className="billing-address">
-        <h3 className="title">Billing Address</h3>
+        <h3 className="title">Datos de Pago</h3>
         <div className="input-box">
-          <span>Full Name:</span>
+          <span>Nombre Completo:</span>
           <input
             type="text"
             name="full-name"
-            placeholder="John Doe"
+            placeholder="Carlitos Tevez"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
@@ -144,49 +141,49 @@ const Checkout = () => {
           <input
             type="email"
             name="email"
-            placeholder="example@example.com"
+            placeholder="ejemplo@ejemplo.com"
             value={email}
             onChange={handleEmailChange}
           />
           {emailError && <p className="error-message">{emailError}</p>}
         </div>
         <div className="input-box">
-          <span>Address:</span>
+          <span>Dirección:</span>
           <input
             type="text"
             name="address"
-            placeholder="Room - Street - Locality"
+            placeholder="Av. Libertador 1330"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className="input-box">
-          <span>City:</span>
+          <span>Ciudad:</span>
           <input
             type="text"
             name="city"
-            placeholder="Mumbai"
+            placeholder="Buenos Aires"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
         </div>
         <div className="flex">
           <div className="input-box">
-            <span>State:</span>
+            <span>Barrio:</span>
             <input
               type="text"
               name="state"
-              placeholder="India"
+              placeholder="Caballito"
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
           </div>
           <div className="input-box">
-            <span>Zip Code:</span>
+            <span>Código Postal:</span>
             <input
               type="text"
               name="zip-code"
-              placeholder="123456"
+              placeholder="1424"
               value={code}
               onChange={(e) => setCode(e.target.value)}
             />
@@ -194,14 +191,14 @@ const Checkout = () => {
         </div>
       </div>
       <div className="payment-details">
-        <h3 className="title">Payment</h3>
+        <h3 className="title">Pago</h3>
 
         <div className="inputBox">
-          <span>cards accepted :</span>
+          <span>Tarjetas que aceptamos:</span>
           <img src={paypal} alt="paypal" />
         </div>
         <div className="input-box">
-          <span>Credit Card Number:</span>
+          <span>Número de Tarjeta:</span>
           <input
             type="text"
             name="card-number"
@@ -211,7 +208,7 @@ const Checkout = () => {
           />
         </div>
         <div className="input-box">
-          <span>Expiration Date:</span>
+          <span>Fecha de Vencimiento:</span>
           <input
             type="text"
             name="expiration-date"
@@ -232,7 +229,7 @@ const Checkout = () => {
         </div>
       </div>
       <div className="checkout-parties">
-        <h3>Summary:</h3>
+        <h3>Resumen:</h3>
         {cartItems.length > 0 ? (
           cartItems.map((item) => {
             const party = allParties.find((party) => party.id === item.id);
@@ -240,10 +237,10 @@ const Checkout = () => {
               return (
                 <div className="checkout-parties-item" key={party.id}>
                   <p>{party.name}</p>
-                  <p>Quantity: {item.cantidad}</p>
+                  <p>Cantidad: {item.cantidad}</p>
                   <p>Total: ${party.price * item.cantidad}</p>
                   <button onClick={() => handleRemoveFromCart(party.id)}>
-                    Remove
+                    Quitar
                   </button>
                 </div>
               );
@@ -251,14 +248,14 @@ const Checkout = () => {
             return null;
           })
         ) : (
-          <p>No items in the cart</p>
+          <p>Ya no hay items en tu carrito</p>
         )}
       </div>
       <div className="checkout-total">
         <p>Subtotal: ${totalAmount}</p>
-        <p>Shipping: Free</p>
+        <p>Evío: Gratis</p>
         <p>Total: ${totalAmount}</p>
-        <button onClick={() => handleDescountStock()}>Purchase</button>
+        <button onClick={() => handleDescountStock()}>CONFIRMAR COMPRA</button>
       </div>
 
       {showSuccessMessage && (
