@@ -10,45 +10,72 @@ export const fetchParties = createAsyncThunk(
         throw new Error("Failed to fetch parties");
       }
       const data = await response.json();
-      return data; // Devuelve los datos para que se actualicen en el estado
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// Acción asíncrona para agregar una fiesta
+// Nueva acción asincrónica para agregar una fiesta
 export const addPartyAsync = createAsyncThunk(
   "party/addParty",
-  async (newParty, { rejectWithValue }) => {
+  async (partyData, { rejectWithValue }) => {
     try {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
       const response = await fetch(
         "http://localhost:8080/api/fiestas/agregar",
         {
           method: "POST",
-          body: JSON.stringify(newParty),
-          headers: myHeaders,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(partyData),
         }
       );
-
       if (!response.ok) {
         throw new Error("Failed to add party");
       }
-
       const data = await response.json();
-      return data; // Devuelve los datos de la nueva fiesta para que se actualicen en el estado
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
 
+// Acción asíncrona para actualizar una fiesta
+export const updateParty = (partyData) => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/fiestas/${partyData.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(partyData),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to update party");
+    }
+    const updatedParty = await response.json();
+
+    // Aquí podrías realizar alguna lógica adicional si es necesaria
+
+    dispatch(partySlice.actions.updateParty(updatedParty));
+    return updatedParty; // Devolver los datos actualizados si es necesario
+  } catch (error) {
+    console.error("Error updating party:", error.message);
+    // Handle error if needed
+    throw error; // Propagar el error para manejarlo en la llamada a updateParty
+  }
+};
+
 const initialState = {
   items: [],
   search: "",
-  status: "idle", // Estado para manejar la solicitud asíncrona
+  status: "idle",
   error: null,
 };
 
@@ -59,6 +86,9 @@ const partySlice = createSlice({
     setParties: (state, action) => {
       state.items = action.payload;
     },
+    deleteParty: (state, action) => {
+      state.items = state.items.filter((party) => party.id !== action.payload);
+    },
     updateParty: (state, action) => {
       const index = state.items.findIndex(
         (party) => party.id === action.payload.id
@@ -66,9 +96,6 @@ const partySlice = createSlice({
       if (index !== -1) {
         state.items[index] = action.payload;
       }
-    },
-    deleteParty: (state, action) => {
-      state.items = state.items.filter((party) => party.id !== action.payload);
     },
     descountStockParty: (state, action) => {
       const { id, quantity } = action.payload;
@@ -81,7 +108,6 @@ const partySlice = createSlice({
       state.search = action.payload;
     },
   },
-
   extraReducers: (builder) => {
     builder
       .addCase(fetchParties.pending, (state) => {
@@ -90,36 +116,20 @@ const partySlice = createSlice({
       .addCase(fetchParties.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload;
-        console.log(action.payload);
       })
       .addCase(fetchParties.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-        console.log(action.error.message);
-      })
-      .addCase(addPartyAsync.pending, (state) => {
-        state.status = "loading";
       })
       .addCase(addPartyAsync.fulfilled, (state, action) => {
-        state.status = "succeeded";
         state.items.push(action.payload);
-      })
-      .addCase(addPartyAsync.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
       });
   },
 });
 
-export const {
-  setParties,
-  updateParty,
-  deleteParty,
-  descountStockParty,
-  setSearch,
-} = partySlice.actions;
+export const { setParties, deleteParty, descountStockParty, setSearch } =
+  partySlice.actions;
 
-// Selectores
 export const selectAllParties = (state) => state.party.items;
 export const selectPartyById = (state, partyId) =>
   state.party.items.find((party) => party.id === partyId);
