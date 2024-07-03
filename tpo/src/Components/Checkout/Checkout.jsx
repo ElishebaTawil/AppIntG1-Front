@@ -14,6 +14,7 @@ import {
   selectAllParties,
   descountStockParty,
 } from "../../ReduxToolkit/partySlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
@@ -21,6 +22,7 @@ const Checkout = () => {
   const totalAmount = useSelector(selectTotalCartAmount);
   const dispatch = useDispatch();
   const allParties = useSelector(selectAllParties);
+  const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");

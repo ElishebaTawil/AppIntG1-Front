@@ -82,6 +82,7 @@ const EventsCategory = (props) => {
             name={item.name}
             image={item.image}
             newPrice={item.price}
+            cantEntradas={item.cantEntradas}
           />
         ))}
       </div>

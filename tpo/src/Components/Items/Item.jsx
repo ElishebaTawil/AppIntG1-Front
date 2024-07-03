@@ -10,17 +10,11 @@ const Item = (props) => {
       </Link>
       <p>{props.name}</p>
       <div className="item-prices">
-        {props.newPrice > 0 && (
-          <div className="item-price-new">
-            {/* {props.category !== "artistas" && "$"} */}${props.newPrice}
-          </div>
+        {props.cantEntradas > 0 ? (
+          <div className="item-price-new">${props.newPrice}</div>
+        ) : (
+          <div className="item-price-new">SOLD OUT!</div>
         )}
-        {/* {props.oldPrice > 0 && (
-          <div className="item-price-old">
-            {props.category !== "artistas" && "$"}
-            {props.oldPrice}
-          </div>
-        )} */}
       </div>
     </div>
   );
