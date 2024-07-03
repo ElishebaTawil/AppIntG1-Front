@@ -52,9 +52,10 @@ const AgregarFiesta = () => {
     const nuevoId =
       allParties.length > 0 ? allParties[allParties.length - 1].id + 1 : 1;
     const party = { id: nuevoId, ...registro };
+    console.log(nuevoId);
 
     dispatch(addParty(party));
-    navigate(`/partys/${nuevoId}`);
+    //navigate(`/partys/${nuevoId}`);
     setErrorMessage("");
   };
 

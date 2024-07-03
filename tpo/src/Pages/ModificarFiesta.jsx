@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/LoginSignup.css";
-import {useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateParty } from "../ReduxToolkit/partySlice";
 
@@ -10,7 +10,7 @@ const ModificarFiesta = () => {
   const dispatch = useDispatch();
   const [party, setParty] = useState(location.state?.party || {});
   const [errorMessage, setErrorMessage] = useState("");
-  
+
   useEffect(() => {
     if (location.state?.party) {
       setParty(location.state.party);
@@ -24,12 +24,20 @@ const ModificarFiesta = () => {
   };
 
   const handleModificarClick = () => {
-    const { name, fecha, hora, lugar, new_price, stock, image } = party;
-    if (!name || !fecha || !hora || !lugar || !new_price || !stock || !image) {
+    const { name, fecha, hora, lugar, price, cantEntradas, image } = party;
+    if (
+      !name ||
+      !fecha ||
+      !hora ||
+      !lugar ||
+      !price ||
+      !cantEntradas ||
+      !image
+    ) {
       setErrorMessage("Por favor, completá los campos obligatorios.");
       return;
     }
-    if (new_price <= 0 || stock <= 0) {
+    if (price <= 0 || cantEntradas <= 0) {
       setErrorMessage("Por favor, revisa los datos ingresados.");
       return;
     }
@@ -83,21 +91,21 @@ const ModificarFiesta = () => {
           />
           <input
             type="number"
-            name="stock"
+            name="cantEntradas"
             min="1"
             onChange={onChangeValues}
             placeholder="Cantidad de Entradas del Evento (*)"
-            value={party.stock || ""}
+            value={party.cantEntradas || ""}
           />
           <div style={{ display: "flex", alignItems: "center" }}>
             <span style={{ fontSize: "1.5rem", marginRight: "10px" }}>$</span>
             <input
               type="number"
-              name="new_price"
+              name="price"
               min="1"
               onChange={onChangeValues}
               placeholder="Precio de la Entrada del Evento (*)"
-              value={party.new_price || ""}
+              value={party.price || ""}
             />
           </div>
           <input

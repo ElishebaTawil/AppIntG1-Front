@@ -20,7 +20,7 @@ const Partys = () => {
   }, []);
 
   if (!party) {
-    return <div>Loading...</div>; // Manejar el caso donde el partido no se encuentra
+    return <div>Loading...</div>; // Manejar el caso donde la fiesta no se encuentra
   }
 
   return (

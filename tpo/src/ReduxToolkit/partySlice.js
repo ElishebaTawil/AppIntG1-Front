@@ -1,9 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
 import all_parties from "../Components/Assets/all_parties";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+// Acción asíncrona para fetch de las fiestas
+export const fetchParties = createAsyncThunk("party/fetchParties", async () => {
+  const response = await fetch("http://localhost:8080/api/fiestas");
+  const data = await response.json();
+  return data; // Devuelve los datos para que se actualicen en el estado
+});
 
 const initialState = {
-  items: all_parties,
+  items: [],
   search: "",
+  status: "idle", // Estado para manejar la solicitud asíncrona
+  error: null,
 };
 
 const partySlice = createSlice({
@@ -47,6 +56,21 @@ const partySlice = createSlice({
       state.search = action.payload;
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchParties.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchParties.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(fetchParties.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const {
@@ -63,5 +87,7 @@ export const selectAllParties = (state) => state.party.items;
 export const selectPartyById = (state, partyId) =>
   state.party.items.find((party) => party.id === partyId);
 export const selectSearch = (state) => state.party.search;
+export const selectPartyStatus = (state) => state.party.status;
+export const selectPartyError = (state) => state.party.error;
 
 export default partySlice.reducer;

@@ -2,11 +2,11 @@ import "./BotonesParty.css";
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { deleteParty } from "../../ReduxToolkit/partySlice";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addToCart, selectTotalCartItems } from "../../ReduxToolkit/cartSlice";
 
 const BotonesParty = (props) => {
-  const { party} = props;
+  const { party } = props;
   const user = useSelector((state) => state.user);
   const totalCartItems = useSelector(selectTotalCartItems);
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
@@ -14,14 +14,13 @@ const BotonesParty = (props) => {
   const location = useLocation();
   const [previousPath, setPreviousPath] = useState(null);
   const dispatch = useDispatch();
-  
 
   const handleCantidadChange = (event) => {
     const cantidad = parseInt(event.target.value);
     setCantidadSeleccionada(cantidad);
   };
   const VerificarStock = (cantidadSeleccionada) => {
-    return cantidadSeleccionada <= party.stock;
+    return cantidadSeleccionada <= party.cantEntradas;
   };
 
   const handleAgregarAlCarrito = () => {
@@ -73,7 +72,7 @@ const BotonesParty = (props) => {
         </div>
         <div className="boton">
           <select id="precio" className="estiloBoton">
-            <option selected>{"$" + party.new_price}</option>
+            <option selected>{"$" + party.price}</option>
           </select>
         </div>
         <div className="boton">
@@ -95,7 +94,7 @@ const BotonesParty = (props) => {
         <div className="ComprarPartyButton">
           <button
             className="botonComprar aviable"
-            onClick={ handlemodificarFiesta}
+            onClick={handlemodificarFiesta}
           >
             MODIFICAR FIESTA
           </button>
